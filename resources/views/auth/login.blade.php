@@ -1,4 +1,5 @@
 <x-guest-layout>
+
     <!-- Logo -->
     <div class="flex justify-center mt-6 mb-8">
         <img src="{{ asset('assets/img/logomanrisklogin.png') }}" alt="Logo"  class="h-16 w-auto">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OpdController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RiskregisterController;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,12 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth','verified','role:admin')->group(function () {
     Route::get('user', [UserController::class, 'index'])->name('user.index');
     Route::get('riskregister', [RiskregisterController::class, 'index'])->name('riskregister.index');
+
+    Route::get('opd', [OpdController::class, 'tampil'])->name('opd.tampil');
+    Route::delete('opd/hapus/{id}', [OpdController::class, 'hapus'])->name('opd.hapus');
+    Route::post('opd/tambah', [OpdController::class, 'tambah'])->name('opd.tambah');
+    Route::put('opd/update/{id}', [OpdController::class, 'update'])->name('opd.update');
+
 });
 
 Route::middleware('auth','verified','role:admin|opd')->group(function () {

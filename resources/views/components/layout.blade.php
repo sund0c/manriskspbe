@@ -5,10 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MANRISK KEAMANAN SPBE Pemprov Bali</title>
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css')}}">
+
+  <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('assets/css/adminlte.min.css')}}">
   <!-- Favicon -->
@@ -19,6 +27,30 @@
    // here you can add also a image
 }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).on('click','#hapus',function(e){
+                e.preventDefault();
+                var link = $(this).attr("href");
+                Swal.fire({
+                    title: "Hapus ?",
+                    text: "Data yang terhapus tidak bisa dikembalikan lagi",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya, Hapus"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#delete-form').submit();
+                    }
+                    });
+            })
+        });
+    </script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
 
 </head>
 <body class="hold-transition sidebar-mini">
@@ -90,8 +122,7 @@
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Blank Page</li>
+                {{ $breadcrumb ?? 'breadcrumb' }}
               </ol>
             </div>
           </div>
@@ -122,9 +153,60 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="{{ asset('assets/plugins/jquery/jquery.min.js')}}"></script>
+{{-- <script src="{{ asset('assets/plugins/jquery/jquery.min.js')}}"></script> --}}
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+
+
+<!-- Script SweetAlert -->
+@if(session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            title: "Berhasil!",
+            text: "{{ session('success') }}",
+            icon: "success",
+            confirmButtonText: "OK"
+        });
+    });
+</script>
+@endif
+@if(session('error'))
+<script>
+    Swal.fire({
+        title: "Gagal!",
+        text: "{{!! session('error') !!}}",
+        icon: "error",
+        confirmButtonText: "OK"
+    });
+</script>
+@endif
+@if(session('validasi'))
+<script>
+     document.addEventListener('DOMContentLoaded', function() {
+     Swal.fire({
+         title: "Validasi Gagal!",
+         html: `{!! session('validasi') !!}`,
+         icon: "error",
+         confirmButtonText: "OK"
+     });
+});
+</script>
+@endif
+
+
+
 <!-- Bootstrap 4 -->
 <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
+<script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{ asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+
+
+
 <!-- AdminLTE App -->
 <script src="{{ asset('assets/js/adminlte.min.js')}}"></script>
 </body>

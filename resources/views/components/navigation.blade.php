@@ -10,6 +10,7 @@
             </a>
             </li>
 
+            @if (auth()->user()->hasRole('admin'))
       <li class="nav-item">
         <a href="#" class="nav-link">
             <i class="nav-icon fas fa-briefcase"></i>
@@ -27,8 +28,16 @@
             </a>
           </li>
         </ul>
+        <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('opd.tampil') }}" class="nav-link">
+                <i class="far fa-building nav-icon"></i>
+                <p>OPD</p>
+              </a>
+            </li>
+          </ul>
       </li>
-
+      @endif
       <li class="nav-item">
         <a href="{{ route('riskregister.index') }}" class="nav-link">
             <i class="far fa-list nav-icon"></i><p>Risk Register</p>
