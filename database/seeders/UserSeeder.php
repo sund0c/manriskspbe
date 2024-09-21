@@ -15,22 +15,26 @@ class UserSeeder extends Seeder
     {
         $admin = User::create([
             'name' => 'sundika',
-            'email' => 'putu.sundika@baliprov.go.id',
-            'password' => bcrypt('sundika')
+            'email' => 'sundika@baliprov.go.id',
+            'password' => bcrypt('sundika'),
+            'opd' => 1
         ]);
         $admin->assignRole('admin');
 
         $persandian = User::create([
-            'name' => 'staf persandian',
-            'email' => 'nonik.rahayu@baliprov.go.id',
-            'password' => bcrypt('nonik')
+            'name' => 'nonik',
+            'email' => 'nonik@baliprov.go.id',
+            'password' => bcrypt('nonik'),
+            'opd' => 1
+
         ]);
         $persandian->assignRole('persandian');
 
         $opd = User::create([
             'name' => 'nopa',
             'email' => 'nopa@baliprov.go.id',
-            'password' => bcrypt('nopa')
+            'password' => bcrypt('nopa'),
+            'opd' => 3
         ]);
         $opd->assignRole('opd');
     }

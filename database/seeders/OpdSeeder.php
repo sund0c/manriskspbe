@@ -14,10 +14,6 @@ class OpdSeeder extends Seeder
     public function run(): void
     {
         Opd::create([
-            'nama' => 'UPT Pengembangan Kompetensi SDM',
-            'singkatan' => 'UPT.PKSDM'
-        ]);
-        Opd::create([
             'nama' => 'Dinas Komunikasi dan Informatika',
             'singkatan' => 'DISKOMINFOS'
         ]);
@@ -26,8 +22,7 @@ class OpdSeeder extends Seeder
             'singkatan' => 'BKPSDM'
         ]);
         Opd::create([
-            'nama' => 'Inspektorat',
-            'singkatan' => 'INSPEKTORAT'
-        ]);
-    }
+            'nama' => 'UPT Pengembangan Kompetensi SDM',
+            'singkatan' => 'UPT.PKSDM'
+        ]);    }
 }

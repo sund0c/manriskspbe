@@ -24,13 +24,20 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth','verified','role:admin')->group(function () {
-    Route::get('user', [UserController::class, 'index'])->name('user.index');
-    Route::get('riskregister', [RiskregisterController::class, 'index'])->name('riskregister.index');
-
+    Route::get('user', [UserController::class, 'tampil'])->name('user.tampil');
+    Route::delete('user/hapus/{id}', [userController::class, 'hapus'])->name('user.hapus');
+    Route::post('user/tambah', [userController::class, 'tambah'])->name('user.tambah');
+    Route::put('user/update/{id}', [userController::class, 'update'])->name('user.update');
     Route::get('opd', [OpdController::class, 'tampil'])->name('opd.tampil');
     Route::delete('opd/hapus/{id}', [OpdController::class, 'hapus'])->name('opd.hapus');
     Route::post('opd/tambah', [OpdController::class, 'tambah'])->name('opd.tambah');
     Route::put('opd/update/{id}', [OpdController::class, 'update'])->name('opd.update');
+
+
+
+
+    Route::get('riskregister', [RiskregisterController::class, 'index'])->name('riskregister.index');
+
 
 });
 

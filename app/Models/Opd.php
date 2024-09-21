@@ -13,4 +13,10 @@ class Opd extends Model
         'singkatan',
         'nama',
     ];
+
+    // Relasi ke tabel users
+    public function users()
+    {
+        return $this->hasMany(User::class, 'opd', 'id');
+    }
 }

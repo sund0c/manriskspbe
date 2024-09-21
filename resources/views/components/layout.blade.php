@@ -26,13 +26,34 @@
    background: rgb(255, 255, 255);
    // here you can add also a image
 }
+    /* Gaya kustom untuk link aktif */
+    .nav-sidebar .nav-link.active {
+        background-color: #ffffff!important; /* Warna latar belakang aktif */
+        color: #343a40!important; /* Warna teks aktif */
+    }
+
+    /* Gaya untuk ikon dalam link aktif */
+    .nav-sidebar .nav-link.active .nav-icon {
+        color: #343a40!important; /* Warna ikon aktif */
+    }
+
+    .nav-treeview {
+    display: none;
+    }
+
+    .menu-open .nav-treeview {
+        display: block;
+    }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
         $(function(){
-            $(document).on('click','#hapus',function(e){
-                e.preventDefault();
-                var link = $(this).attr("href");
+            // Mengikat event pada tombol hapus dengan class "hapus"
+            $(document).on('click', '.hapus', function(e){
+                e.preventDefault();  // Mencegah aksi default (submit) dari tombol
+                var id = $(this).data('id');  // Mendapatkan ID data yang akan dihapus
+                var form = $('#delete-form-' + id);  // Mendapatkan form yang sesuai dengan ID
+
                 Swal.fire({
                     title: "Hapus ?",
                     text: "Data yang terhapus tidak bisa dikembalikan lagi",
@@ -41,14 +62,15 @@
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
                     confirmButtonText: "Ya, Hapus"
-                    }).then((result) => {
+                }).then((result) => {
                     if (result.isConfirmed) {
-                        $('#delete-form').submit();
+                        form.submit();  // Submit form setelah konfirmasi
                     }
-                    });
-            })
+                });
+            });
         });
     </script>
+
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
 
@@ -209,6 +231,10 @@
 
 <!-- AdminLTE App -->
 <script src="{{ asset('assets/js/adminlte.min.js')}}"></script>
+
+
+
+
 </body>
 </html>
 

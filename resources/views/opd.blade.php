@@ -1,7 +1,9 @@
 <x-layout>
     <x-slot name="breadcrumb">
-        <li class="breadcrumb-item"></li>
-        {{-- <li class="breadcrumb-item active">Blank Page</li> --}}
+        <li class="breadcrumb-item">
+            <a href="{{ route('dashboard') }}">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Opds</li>
     </x-slot>
     <x-slot name="title">Perangkat Daerah</x-slot>
     <x-slot name="card_title"><button class="btn btn-primary" data-toggle="modal" data-target="#modalForm"><i class="fas fa-plus"></i> Tambah</button></x-slot>
@@ -23,10 +25,10 @@
                 <td>{{ $data->nama }}</td>
                 <td align="center">
                     <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modalFormEdit-{{ $data->id }}"><i class="fas fa-edit"></i></a>
-                    <form class="d-inline" action="{{ route('opd.hapus', $data->id) }}" method="POST">
+                    <form class="d-inline" action="{{ route('opd.hapus', $data->id) }}" method="POST" id="delete-form-{{ $data->id }}">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-danger hapus" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></button>
                     </form>
                 </td>
             </tr>
