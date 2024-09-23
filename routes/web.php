@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\KriteriaannexController;
+use App\Http\Controllers\ItemannexController;
+use App\Http\Controllers\AnnexController;
 use App\Http\Controllers\OpdController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RiskregisterController;
@@ -32,6 +35,18 @@ Route::middleware('auth','verified','role:admin')->group(function () {
     Route::delete('opd/hapus/{id}', [OpdController::class, 'hapus'])->name('opd.hapus');
     Route::post('opd/tambah', [OpdController::class, 'tambah'])->name('opd.tambah');
     Route::put('opd/update/{id}', [OpdController::class, 'update'])->name('opd.update');
+    Route::get('annex', [AnnexController::class, 'tampil'])->name('annex.tampil');
+    Route::put('annex/update/{id}', [AnnexController::class, 'update'])->name('annex.update');
+    Route::delete('itemannex/hapus/{id}/{domain}', [ItemannexController::class, 'hapus'])->name('itemannex.hapus');
+    Route::get('itemannex/{id}', [ItemannexController::class, 'tampil'])->name('itemannex.tampil');
+    Route::post('itemannex/tambah', [ItemannexController::class, 'tambah'])->name('itemannex.tambah');
+    Route::put('itemannex/update/{id}/{domain}', [ItemannexController::class, 'update'])->name('itemannex.update');
+
+    Route::get('kriteriaannex/{id}', [KriteriaannexController::class, 'tampil'])->name('kriteriaannex.tampil');
+    Route::delete('kriteriaannex/hapus/{id}/{item}', [KriteriaannexController::class, 'hapus'])->name('kriteriaannex.hapus');
+    Route::post('kriteriaannex/tambah', [KriteriaannexController::class, 'tambah'])->name('kriteriaannex.tambah');
+    Route::put('kriteriaannex/update/{id}/{item}', [KriteriaannexController::class, 'update'])->name('kriteriaannex.update');
+
 
 
 

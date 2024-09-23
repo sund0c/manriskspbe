@@ -23,8 +23,14 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('opd.tampil') }}" class="nav-link {{ \Route::is('opd.*') ? 'active':'' }}">
-                            <i class="far fa-users nav-icon"></i>
+                            <i class="far fa-building nav-icon"></i>
                             <p>Opd</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('annex.tampil') }}" class="nav-link {{ \Route::is('annex.*') ? 'active':'' }}">
+                            <i class="far fa-list nav-icon"></i>
+                            <p>Annex A Controls</p>
                         </a>
                     </li>
                 </ul>
@@ -33,7 +39,7 @@
 
         <li class="nav-item">
             <a href="{{ route('riskregister.index') }}" class="nav-link {{ \Route::is('riskregister.*') ? 'active':'' }}">
-                <i class="far fa-list nav-icon"></i><p>Risk Register</p>
+                <i class="far fa-book nav-icon"></i><p>Risk Register</p>
             </a>
         </li>
     </ul>
