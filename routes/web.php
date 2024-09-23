@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\KlasifikasiController;
+use App\Http\Controllers\ItemklasifikasiController;
+use App\Http\Controllers\KategoriseController;
 use App\Http\Controllers\KriteriaannexController;
 use App\Http\Controllers\ItemannexController;
 use App\Http\Controllers\AnnexController;
@@ -41,15 +44,20 @@ Route::middleware('auth','verified','role:admin')->group(function () {
     Route::get('itemannex/{id}', [ItemannexController::class, 'tampil'])->name('itemannex.tampil');
     Route::post('itemannex/tambah', [ItemannexController::class, 'tambah'])->name('itemannex.tambah');
     Route::put('itemannex/update/{id}/{domain}', [ItemannexController::class, 'update'])->name('itemannex.update');
-
     Route::get('kriteriaannex/{id}', [KriteriaannexController::class, 'tampil'])->name('kriteriaannex.tampil');
     Route::delete('kriteriaannex/hapus/{id}/{item}', [KriteriaannexController::class, 'hapus'])->name('kriteriaannex.hapus');
     Route::post('kriteriaannex/tambah', [KriteriaannexController::class, 'tambah'])->name('kriteriaannex.tambah');
     Route::put('kriteriaannex/update/{id}/{item}', [KriteriaannexController::class, 'update'])->name('kriteriaannex.update');
-
-
-
-
+    Route::get('kategorise', [KategoriseController::class, 'tampil'])->name('kategorise.tampil');
+    Route::post('kategorise/tambah', [KategoriseController::class, 'tambah'])->name('kategorise.tambah');
+    Route::put('kategorise/update/{id}', [KategoriseController::class, 'update'])->name('kategorise.update');
+    Route::delete('kategorise/hapus/{id}', [KategoriseController::class, 'hapus'])->name('kategorise.hapus');
+    Route::get('klasifikasi', [KlasifikasiController::class, 'tampil'])->name('klasifikasi.tampil');
+    Route::put('klasifikasi/update/{id}', [KlasifikasiController::class, 'update'])->name('klasifikasi.update');
+    Route::delete('itemklasifikasi/hapus/{id}/{domain}', [ItemklasifikasiController::class, 'hapus'])->name('itemklasifikasi.hapus');
+    Route::get('itemklasifikasi/{id}', [ItemklasifikasiController::class, 'tampil'])->name('itemklasifikasi.tampil');
+    Route::post('itemklasifikasi/tambah', [ItemklasifikasiController::class, 'tambah'])->name('itemklasifikasi.tambah');
+    Route::put('itemklasifikasi/update/{id}/{domain}', [ItemklasifikasiController::class, 'update'])->name('itemklasifikasi.update');
 
     Route::get('riskregister', [RiskregisterController::class, 'index'])->name('riskregister.index');
 

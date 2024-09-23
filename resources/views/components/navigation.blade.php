@@ -28,6 +28,18 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('kategorise.tampil') }}" class="nav-link {{ \Route::is('kategorise.*') ? 'active':'' }}">
+                            <i class="far fa-exclamation nav-icon"></i>
+                            <p>Kategori SE</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('klasifikasi.tampil') }}" class="nav-link {{ \Route::is('klasifikasi.*') ? 'active':'' }}">
+                            <i class="fas fa-user-shield nav-icon"></i>
+                            <p>Klasifikasi</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('annex.tampil') }}" class="nav-link {{ \Route::is('annex.*') ? 'active':'' }}">
                             <i class="far fa-list nav-icon"></i>
                             <p>Annex A Controls</p>
