@@ -50,8 +50,8 @@
         @endif
 
         <li class="nav-item">
-            <a href="{{ route('riskregister.index') }}" class="nav-link {{ \Route::is('riskregister.*') ? 'active':'' }}">
-                <i class="far fa-book nav-icon"></i><p>Risk Register</p>
+            <a href="{{ route('aset.tampil') }}" class="nav-link {{ \Route::is('aset.*') ? 'active':'' }}">
+                <i class="fas fa-laptop-code nav-icon"></i><p>Aset SPBE</p>
             </a>
         </li>
     </ul>

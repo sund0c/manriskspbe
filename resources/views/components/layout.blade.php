@@ -44,7 +44,17 @@
     .menu-open .nav-treeview {
         display: block;
     }
-    </style>
+
+    .fixed-size-button {
+        width: 40px;  /* Lebar tombol */
+        height: 30px; /* Tinggi tombol */
+        display: flex; /* Memastikan ikon di tengah */
+        align-items: center; /* Vertikal tengah */
+        justify-content: center; /* Horizontal tengah */
+        padding: 0; /* Menghapus padding default */
+    }
+</style>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
         $(function(){

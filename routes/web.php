@@ -9,7 +9,7 @@ use App\Http\Controllers\ItemannexController;
 use App\Http\Controllers\AnnexController;
 use App\Http\Controllers\OpdController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\RiskregisterController;
+use App\Http\Controllers\AsetController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -59,13 +59,17 @@ Route::middleware('auth','verified','role:admin')->group(function () {
     Route::post('itemklasifikasi/tambah', [ItemklasifikasiController::class, 'tambah'])->name('itemklasifikasi.tambah');
     Route::put('itemklasifikasi/update/{id}/{domain}', [ItemklasifikasiController::class, 'update'])->name('itemklasifikasi.update');
 
-    Route::get('riskregister', [RiskregisterController::class, 'index'])->name('riskregister.index');
+
 
 
 });
 
 Route::middleware('auth','verified','role:admin|opd')->group(function () {
-    Route::get('riskregister', [RiskregisterController::class, 'index'])->name('riskregister.index');
+    Route::get('aset', [AsetController::class, 'tampil'])->name('aset.tampil');
+    Route::delete('aset/hapus/{id}', [AsetController::class, 'hapus'])->name('aset.hapus');
+    Route::post('aset/tambah', [AsetController::class, 'tambah'])->name('aset.tambah');
+    Route::put('aset/update/{id}', [AsetController::class, 'update'])->name('aset.update');
+
 });
 
 
