@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('kategorises', function (Blueprint $table) {
             $table->id();
-            $table->string('tanya')->unique();
+            $table->integer('urut');
+            $table->text('tanya')->unique();
             $table->string('j1');
             $table->string('j2');
             $table->string('j3');

@@ -12,6 +12,7 @@ class ItemklasifikasiController extends Controller
     public function tampil($id){
         $itemklasifikasis = Itemklasifikasi::where('domain', $id) // Filter berdasarkan domain
                            ->with('klasifikasiRelation') // Eager load annexRelation
+                           ->orderBy('urut', 'ASC')
                            ->get();
         //$annexes = Klasifikasi::all();
         $idklasifikasi = Klasifikasi::where('id', $id)->get();

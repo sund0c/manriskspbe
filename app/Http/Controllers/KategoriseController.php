@@ -9,7 +9,8 @@ use Illuminate\Validation\ValidationException;
 class KategoriseController extends Controller
 {
     public function tampil(){
-        $kategorise = Kategorise::get();
+        // $kategorise = Kategorise::get();
+        $kategorise = Kategorise::orderBy('urut', 'ASC')->get();
         return view('kategorise',compact('kategorise'));
     }
 

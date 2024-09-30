@@ -5,32 +5,36 @@
         <li class="breadcrumb-item">Item</li>
     </x-slot>
     <x-slot name="title">Domain: {{ $idklasifikasi->first()->nama }}</x-slot>
-    <x-slot name="card_title"><button class="btn btn-primary" data-toggle="modal" data-target="#modalForm"><i class="fas fa-plus"></i> Tambah</button></x-slot>
+    <x-slot name="card_title">
+        {{-- <button class="btn btn-primary" data-toggle="modal" data-target="#modalForm"><i class="fas fa-plus"></i> Tambah</button> --}}
+    </x-slot>
     <div class="card-body">
         <table id="dt" class="table table-bordered table-hover">
             <thead>
             <tr>
                 <th>Kriteria</th>
-                <th width="200px">Indikator #1</th>
-                <th width="200px">Indikator #2</th>
-                <th width="200px">Indikator #3</th>
+                <th width="150px">Indikator #1</th>
+                <th width="150px">Indikator #2</th>
+                <th width="150px">Indikator #3</th>
+                <th width="150px">Indikator #4</th>
                 <th width="100px">Aksi</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($itemklasifikasis as $no=>$data)
             <tr>
-                <td>{{ $data->tanya }}</td>
+                <td>{{ $data->urut }}. {{ $data->tanya }}</td>
                 <td>{{ $data->j1 }}</td>
                 <td>{{ $data->j2 }}</td>
                 <td>{{ $data->j3 }}</td>
+                <td>{{ $data->j4 }}</td>
                 <td align="center">
                     <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modalFormEdit-{{ $data->id }}"><i class="fas fa-edit"></i></a>
-                    <form class="d-inline" action="{{ route('itemklasifikasi.hapus',[$data->id, $data->domain]) }}" method="POST" id="delete-form-{{ $data->id }}">
+                    {{-- <form class="d-inline" action="{{ route('itemklasifikasi.hapus',[$data->id, $data->domain]) }}" method="POST" id="delete-form-{{ $data->id }}">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger hapus" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></button>
-                    </form>
+                    </form> --}}
                 </td>
             </tr>
             @endforeach
@@ -49,7 +53,7 @@
             </button>
             </div>
             <div class="modal-body">
-            <form id="modalFormContent" action="{{ route('itemklasifikasi.tambah') }}" method="POST">
+            {{-- <form id="modalFormContent" action="{{ route('itemklasifikasi.tambah') }}" method="POST">
                 @csrf
                     <input type="hidden" id="domain" name="domain" value="{{ $idklasifikasi->first()->id }}">
                 <div class="form-group">
@@ -76,7 +80,7 @@
             <button type="reset" class="btn btn-secondary" data-dismiss="modal">Batal</button>
             <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
-        </form>
+        </form> --}}
         </div>
         </div>
     </div>
@@ -134,7 +138,7 @@
             "paging": true,
             "lengthChange": true,
             "searching": true,
-            "ordering": true,
+            "ordering": false,
             "info": true,
             "autoWidth": false,
             "responsive": true,

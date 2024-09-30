@@ -13,6 +13,8 @@ class Itemklasifikasi extends Model
         'j1',
         'j2',
         'j3',
+        'j4',
+        'urut',
         'domain',
     ];
 

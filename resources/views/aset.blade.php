@@ -15,7 +15,7 @@
             <thead>
             <tr>
                 <th width="30px">No</th>
-                <th width="150px" align="center">Status Aset</th>
+                <th width="120px" align="center">Status Aset</th>
                 <th width="150px">Jenis</th>
                 <th>Nama</th>
                 <th width="170px">OPD</th>
@@ -26,8 +26,9 @@
             @foreach ($aset as $no=>$data)
             <tr>
                 <td align="right">{{ $no+1 }}</td>
-                <td align="center">
-                    @php
+                <td align="right">
+                    @if ($data->jenis == 'APLIKASI')
+                        @php
                         switch ($data->kategorise) {
                             case 'STRATEGIS':
                                 $buttonClass = 'btn-danger'; // Merah
@@ -43,7 +44,8 @@
                                 break;
                         }
                     @endphp
-                    <a href="#" class="btn btn-sm <?php echo $buttonClass; ?> fixed-size-button" title="Kategori SE">K</a>
+                    <a href="{{ route('asetkategori.tampil',$data->id) }}" class="btn btn-sm <?php echo $buttonClass; ?> fixed-size-button" title="Kategori SE">K</a>
+                    @endif
                     @php
                         switch ($data->klasifikasi) {
                             case 'RAHASIA':

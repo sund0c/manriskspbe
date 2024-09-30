@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AsetkategoriController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KlasifikasiController;
 use App\Http\Controllers\ItemklasifikasiController;
@@ -49,14 +50,14 @@ Route::middleware('auth','verified','role:admin')->group(function () {
     Route::post('kriteriaannex/tambah', [KriteriaannexController::class, 'tambah'])->name('kriteriaannex.tambah');
     Route::put('kriteriaannex/update/{id}/{item}', [KriteriaannexController::class, 'update'])->name('kriteriaannex.update');
     Route::get('kategorise', [KategoriseController::class, 'tampil'])->name('kategorise.tampil');
-    Route::post('kategorise/tambah', [KategoriseController::class, 'tambah'])->name('kategorise.tambah');
+    //Route::post('kategorise/tambah', [KategoriseController::class, 'tambah'])->name('kategorise.tambah');
     Route::put('kategorise/update/{id}', [KategoriseController::class, 'update'])->name('kategorise.update');
-    Route::delete('kategorise/hapus/{id}', [KategoriseController::class, 'hapus'])->name('kategorise.hapus');
+    //Route::delete('kategorise/hapus/{id}', [KategoriseController::class, 'hapus'])->name('kategorise.hapus');
     Route::get('klasifikasi', [KlasifikasiController::class, 'tampil'])->name('klasifikasi.tampil');
     Route::put('klasifikasi/update/{id}', [KlasifikasiController::class, 'update'])->name('klasifikasi.update');
-    Route::delete('itemklasifikasi/hapus/{id}/{domain}', [ItemklasifikasiController::class, 'hapus'])->name('itemklasifikasi.hapus');
+    //Route::delete('itemklasifikasi/hapus/{id}/{domain}', [ItemklasifikasiController::class, 'hapus'])->name('itemklasifikasi.hapus');
     Route::get('itemklasifikasi/{id}', [ItemklasifikasiController::class, 'tampil'])->name('itemklasifikasi.tampil');
-    Route::post('itemklasifikasi/tambah', [ItemklasifikasiController::class, 'tambah'])->name('itemklasifikasi.tambah');
+    //Route::post('itemklasifikasi/tambah', [ItemklasifikasiController::class, 'tambah'])->name('itemklasifikasi.tambah');
     Route::put('itemklasifikasi/update/{id}/{domain}', [ItemklasifikasiController::class, 'update'])->name('itemklasifikasi.update');
 
 
@@ -69,6 +70,16 @@ Route::middleware('auth','verified','role:admin|opd')->group(function () {
     Route::delete('aset/hapus/{id}', [AsetController::class, 'hapus'])->name('aset.hapus');
     Route::post('aset/tambah', [AsetController::class, 'tambah'])->name('aset.tambah');
     Route::put('aset/update/{id}', [AsetController::class, 'update'])->name('aset.update');
+
+    Route::get('asetkategori/{id}', [AsetkategoriController::class, 'tampil'])->name('asetkategori.tampil');
+    // Route::delete('asetkategori/hapus/{id}/{domain}', [AsetkategoriController::class, 'hapus'])->name('asetkategori.hapus');
+    // Route::post('asetkategori/tambah', [AsetkategoriController::class, 'tambah'])->name('asetkategori.tambah');
+    Route::put('asetkategori/update/{id}/{domain}', [AsetkategoriController::class, 'update'])->name('asetkategori.update');
+    Route::get('asetkategori/pdf/{id}', [AsetkategoriController::class, 'pdf'])->name('asetkategori.pdf');
+
+
+
+
 
 });
 

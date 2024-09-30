@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('itemklasifikasis', function (Blueprint $table) {
             $table->id();
+            $table->integer('urut');
             $table->string('tanya')->unique();
             $table->string('j1');
             $table->string('j2');
             $table->string('j3');
+            $table->string('j4');
             $table->unsignedBigInteger('domain')->nullable();
             $table->foreign('domain')->references('id')->on('klasifikasis')->onDelete('restrict');
             $table->timestamps();
