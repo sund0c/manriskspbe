@@ -1,4 +1,17 @@
 <x-layout>
+    <style>
+        .confidentiality-table th, .confidentiality-table td {
+            width: 700px;
+        }
+        .confidentiality-table th:nth-child(2), .confidentiality-table td:nth-child(2) {
+            width: 500px; /* Define width for the second column */
+        }
+
+        /* .confidentiality-table th:nth-child(4), .confidentiality-table td:nth-child(4) {
+            width: 100px; /* Define width for the fourth column */
+        } */
+    </style>
+
     <x-slot name="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
         <li class="breadcrumb-item active"><a href="{{ route('aset.tampil') }}">Aset</a></li>
@@ -27,17 +40,19 @@
     <x-slot name="card_title">
         @if ($asetkategoris->isEmpty())
         {{-- <button class="btn btn-primary" data-toggle="modal" data-target="#modalForm"><i class="far fa-exclamation"></i> CEK KATEGORI</button> --}}
-        @else <a href="{{ route('asetkategori.pdf', $asetkategoris->first()->aset) }}" class="btn btn-primary"><i class="far fa-file-pdf"></i> PDF</a>
+        @else
+            <a href="{{ route('asetkategori.edit',$asetkategoris->first()->aset) }}" class="btn btn-warning"><i class="fas fa-edit"></i>UPDATE</a>
+            <a href="{{ route('asetkategori.pdf', $asetkategoris->first()->aset) }}" class="btn btn-primary"><i class="far fa-file-pdf"></i> PDF</a>
         @endif
     </x-slot>
     <div class="card-body">
-        <table id="dt" class="table table-bordered table-hover">
+        <table id="dt" class="table table-bordered table-hover confidentiality-table">
             <thead>
             <tr>
                 <th>Kriteria</th>
                 <th width="200px">Jawaban</th>
                 <th width="200px">Keterangan</th>
-                <th width="100px">Aksi</th>
+                {{-- <th width="100px">Aksi</th> --}}
             </tr>
         </thead>
         <tbody>
@@ -60,67 +75,14 @@
                 @endswitch
                 </td>
                 <td>{{ $data->keterangan }}</td>
-                <td align="center">
+                {{-- <td align="center">
                     <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modalFormEdit-{{ $data->id }}"><i class="fas fa-edit"></i></a>
-                </td>
+                </td> --}}
             </tr>
             @endforeach
         </tbody>
         </table>
     </div>
-
-
-    <!-- Modal Edit-->
-
-    @foreach ($asetkategoris as $dataItemklasifikasi)
-    <div class="modal fade" id="modalFormEdit-{{ $dataItemklasifikasi->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Edit Data</h5>
-
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-            <form id="modalFormContentEdit" action="{{ route('asetkategori.update',[$dataItemklasifikasi->id, $data->aset]) }}" method="POST">
-                @csrf
-                <input type="hidden" id="aset" name="aset" value="{{ $idaset->first()->id }}">
-                @method('PUT')
-                <div class="form-group">
-                    <strong>Kriteria :</strong> <br>
-                    {{ $dataItemklasifikasi->kategoriseRelation->tanya }}
-                </div>
-                <div class="form-group">
-                    <label for="jawab">Jawab</label>
-                    <select name="jawab" id="jawab" class="form-control">
-                        @if ($dataItemklasifikasi && $dataItemklasifikasi->kategoriseRelation)
-                            <option value="5" {{ $dataItemklasifikasi->jawab == 5 ? 'selected' : '' }}>{{ $dataItemklasifikasi->kategoriseRelation->j1 }}</option>
-                            <option value="3" {{ $dataItemklasifikasi->jawab == 3 ? 'selected' : '' }}>{{ $dataItemklasifikasi->kategoriseRelation->j2 }}</option>
-                            <option value="1" {{ $dataItemklasifikasi->jawab == 1 ? 'selected' : '' }}>{{ $dataItemklasifikasi->kategoriseRelation->j3 }}</option>
-                        @else
-                            <option value="">Data tidak tersedia</option>
-                        @endif
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="nama">Keterangan*</label>
-                    <textarea class="form-control" id="keterangan" name="keterangan" autocomplete="false">{{ $dataItemklasifikasi->keterangan }}</textarea>
-                </div>
-                <div class="form-group">
-                    <small id="namaHelp" class="form-text text-muted">*) harus diisi</small>
-                </div>
-            </div>
-            <div class="modal-footer">
-            <button type="reset" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-            <button type="submit" class="btn btn-primary">Update</button>
-            </div>
-        </form>
-        </div>
-        </div>
-    </div>
-    @endforeach
 
     <script>
         $(function () {

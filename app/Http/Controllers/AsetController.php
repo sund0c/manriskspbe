@@ -45,18 +45,18 @@ class AsetController extends Controller
                 ]
                 );
             $aset = new Aset();
-            $aset->jenis = strip_tags($request->jenis);
+            $aset->jenis = $request->jenis;
             // Memeriksa apakah jenisnya bukan APLIKASI atau INFRASTRUKTUR
             if ($aset->jenis !== 'APLIKASI' && $aset->jenis !== 'INFRASTRUKTUR') {
                 $aset->url = ''; // Mengosongkan URL
                 $aset->ip = '';  // Mengosongkan IP
             } else {
                 // Jika jenisnya APLIKASI atau INFRASTRUKTUR, atur URL dan IP sesuai input atau default '-'
-                $aset->url = strtolower(strip_tags($request->url)) ?: '-';
-                $aset->ip = strip_tags($request->ip) ?: '-';
+                $aset->url = strtolower($request->url) ?: '-';
+                $aset->ip = $request->ip ?: '-';
             }
-            $aset->user = strip_tags($request->user);
-            $aset->nama = strip_tags($request->nama);
+            $aset->user = $request->user;
+            $aset->nama = $request->nama;
             $aset->save();
             return redirect()->route('aset.tampil')->with('success', 'Data baru berhasil disimpan!');
         } catch (ValidationException $e) {
@@ -98,18 +98,18 @@ class AsetController extends Controller
                     ]
                 );
             $aset = Aset::findOrFail($id);
-            $aset->jenis = strip_tags($request->jenis);
+            $aset->jenis = $request->jenis;
             // Memeriksa apakah jenisnya bukan APLIKASI atau INFRASTRUKTUR
             if ($aset->jenis !== 'APLIKASI' && $aset->jenis !== 'INFRASTRUKTUR') {
                 $aset->url = ''; // Mengosongkan URL
                 $aset->ip = '';  // Mengosongkan IP
             } else {
                 // Jika jenisnya APLIKASI atau INFRASTRUKTUR, atur URL dan IP sesuai input atau default '-'
-                $aset->url = strtolower(strip_tags($request->url)) ?: '-';
-                $aset->ip = strip_tags($request->ip) ?: '-';
+                $aset->url = strtolower($request->url) ?: '-';
+                $aset->ip = $request->ip ?: '-';
             }
-            $aset->user = strip_tags($request->user);
-            $aset->nama = strip_tags($request->nama);
+            $aset->user = $request->user;
+            $aset->nama = $request->nama;
             $aset->update();
             return redirect()->route('aset.tampil')->with('success', 'Data berhasil diperbarui!');
         } catch (ValidationException $e) {

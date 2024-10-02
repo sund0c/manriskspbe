@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth','verified','role:admin')->group(function () {
+Route::middleware('auth','html.purifier','verified','role:admin')->group(function () {
     Route::get('user', [UserController::class, 'tampil'])->name('user.tampil');
     Route::delete('user/hapus/{id}', [userController::class, 'hapus'])->name('user.hapus');
     Route::post('user/tambah', [userController::class, 'tambah'])->name('user.tambah');
@@ -66,14 +66,16 @@ Route::middleware('auth','verified','role:admin')->group(function () {
 
 });
 
-Route::middleware('auth','verified','role:admin|opd')->group(function () {
+Route::middleware('auth','html.purifier','verified','role:admin|opd')->group(function () {
+
     Route::get('aset', [AsetController::class, 'tampil'])->name('aset.tampil');
     Route::delete('aset/hapus/{id}', [AsetController::class, 'hapus'])->name('aset.hapus');
     Route::post('aset/tambah', [AsetController::class, 'tambah'])->name('aset.tambah');
     Route::put('aset/update/{id}', [AsetController::class, 'update'])->name('aset.update');
 
     Route::get('asetkategori/{id}', [AsetkategoriController::class, 'tampil'])->name('asetkategori.tampil');
-    Route::put('asetkategori/update/{id}/{domain}', [AsetkategoriController::class, 'update'])->name('asetkategori.update');
+    Route::get('asetkategori/edit/{id}', [AsetkategoriController::class, 'edit'])->name('asetkategori.edit');
+    Route::put('asetkategori/update', [AsetkategoriController::class, 'update'])->name('asetkategori.update');
     Route::get('asetkategori/pdf/{id}', [AsetkategoriController::class, 'pdf'])->name('asetkategori.pdf');
     Route::get('asetklasifikasi/{id}', [AsetklasifikasiController::class, 'tampil'])->name('asetklasifikasi.tampil');
     Route::put('asetklasifikasi/update/{id}/{domain}', [AsetklasifikasiController::class, 'update'])->name('asetklasifikasi.update');

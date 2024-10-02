@@ -18,6 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+            'html.purifier' => \App\Http\Middleware\HtmlPurifierMiddleware::class,
+
         ]);
     })
     // ->withExceptions(function (Exceptions $exceptions) {

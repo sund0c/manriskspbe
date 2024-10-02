@@ -22,10 +22,11 @@ th, td {
     <h5 style="margin-top: 5px;margin-bottom: 5px;">Jenis: {{ $idaset->first()->jenis }}<BR>
     Pemilik: {{ $idaset->first()->userRelation->opdRelation->singkatan }}<BR>
     Kategori: {{ $idaset->first()->kategorise }}</h5>
-    <p style="margin-top: 5px;font-size: 0.8em">Cetak Tgl. <?php echo date('d F Y H:i'); ?></p>
+    <p style="margin-top: 5px;font-size: 0.8em">Cetak Tgl. @formattedDateTime</p>
 
 
-    <table>
+
+    <table style="font-size: 0.8em">
             <thead>
             <tr>
                 <th>Kriteria</th>
