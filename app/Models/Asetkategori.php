@@ -12,6 +12,7 @@ class Asetkategori extends Model
         'tanya',
         'jawab',
         'aset',
+        'keterangan',
     ];
 
     public function asetRelation()

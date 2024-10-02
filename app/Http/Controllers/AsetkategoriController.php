@@ -14,6 +14,8 @@ class AsetkategoriController extends Controller
 {
     public function tampil($id){
         $idaset = Aset::where('id', $id)->get();
+        if (!is_null($idaset->first()) && $idaset->first()->jenis=='APLIKASI') {
+
         $asetkategoris = Asetkategori::where('aset', $id)
                            ->with('asetRelation')
                            ->get();
@@ -35,6 +37,9 @@ class AsetkategoriController extends Controller
         $kategorise = Kategorise::all();
         $idaset = Aset::where('id', $id)->get();
         return view('asetkategori', compact('asetkategoris','kategorise','idaset'));
+        } else {
+            return back();
+        }
     }
 
     public function pdf($id){

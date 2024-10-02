@@ -46,16 +46,14 @@
                     @endphp
                     <a href="{{ route('asetkategori.tampil',$data->id) }}" class="btn btn-sm <?php echo $buttonClass; ?> fixed-size-button" title="Kategori SE">K</a>
                     @endif
-                    @php
+                    @if ($data->jenis == 'APLIKASI')
+                        @php
                         switch ($data->klasifikasi) {
                             case 'RAHASIA':
                                 $buttonClass = 'btn-danger'; // Merah
                                 break;
-                            case 'TERBATAS':
+                            case 'TERBATAS/INTERNAL':
                                 $buttonClass = 'btn-warning'; // Kuning
-                                break;
-                            case 'INTERNAL':
-                                $buttonClass = 'btn-info'; // Biru
                                 break;
                             case 'PUBLIK':
                                 $buttonClass = 'btn-success'; // Hijau
@@ -64,8 +62,9 @@
                                 $buttonClass = 'btn-secondary'; // Kelas default jika kategori tidak dikenali
                                 break;
                         }
-                    @endphp
-                    <a href="#" class="btn btn-sm <?php echo $buttonClass; ?> fixed-size-button" title="Klasifikasi">L</a>
+                        @endphp
+                    <a href="{{ route('asetklasifikasi.tampil',$data->id) }}" class="btn btn-sm <?php echo $buttonClass; ?> fixed-size-button" title="Klasifikasi">L</a>
+                    @endif
                     @php
                         switch ($data->risiko) {
                             case 'CRITICAL':

@@ -1,89 +1,182 @@
 <x-layout>
+    <style>
+        .confidentiality-table th, .confidentiality-table td {
+            width: 800px;
+        }
+        .confidentiality-table th:nth-child(2), .confidentiality-table td:nth-child(2) {
+            width: 400px; /* Define width for the second column */
+        }
+
+        .confidentiality-table th:nth-child(4), .confidentiality-table td:nth-child(4) {
+            width: 100px; /* Define width for the fourth column */
+        }
+    </style>
+
     <x-slot name="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-        <li class="breadcrumb-item active"><a href="{{ route('klasifikasi.tampil') }}">Domain</a></li>
-        <li class="breadcrumb-item">Item</li>
+        <li class="breadcrumb-item active"><a href="{{ route('aset.tampil') }}">Aset</a></li>
+        <li class="breadcrumb-item">Klasifikasi Aset</li>
     </x-slot>
-    <x-slot name="title">Domain: {{ $idklasifikasi->first()->nama }}</x-slot>
-    <x-slot name="card_title"><button class="btn btn-primary" data-toggle="modal" data-target="#modalForm"><i class="fas fa-plus"></i> Tambah</button></x-slot>
+    @php
+    switch ($idaset->first()->klasifikasi) {
+        case 'RAHASIA':
+            $buttonClass = 'btn-danger'; // Merah
+            break;
+        case 'TERBATAS/INTERNAL':
+            $buttonClass = 'btn-warning'; // Kuning
+            break;
+        case 'PUBLIK':
+            $buttonClass = 'btn-success'; // Hijau
+            break;
+    }
+    @endphp
+    <x-slot name="title">{{ $idaset->first()->nama }}
+        <p style="font-size: 0.5em;">Jenis Aset: {{ $idaset->first()->jenis }} |
+            Pemilik Aset: {{ $idaset->first()->userRelation->opdRelation->singkatan }}
+            @if($idaset->first()->jenis=='APLIKASI')| <button class="btn btn-sm <?php echo $buttonClass; ?>">Klasifikasi SE: {{ $idaset->first()->klasifikasi }}</button>
+            @endif
+        </p>
+    </x-slot>
+    <x-slot name="card_title">
+        @if (!$asetklasifikasis->isEmpty())
+        <a href="{{ route('asetklasifikasi.pdf', $asetklasifikasis->first()->aset) }}" class="btn btn-primary"><i class="far fa-file-pdf"></i> PDF</a>
+        @endif
+    </x-slot>
     <div class="card-body">
-        <table id="dt" class="table table-bordered table-hover">
+        <table id="dt" class="table table-bordered table-hover confidentiality-table">
             <thead>
             <tr>
-                <th>Kriteria</th>
-                <th width="200px">Indikator #1</th>
-                <th width="200px">Indikator #2</th>
-                <th width="200px">Indikator #3</th>
-                <th width="100px">Aksi</th>
+                <th>Kriteria Aspek CONFIDENTIALITY</th>
+                <th>Jawaban</th>
+                <th>Keterangan</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($itemklasifikasis as $no=>$data)
+            @foreach ($asetklasifikasis as $no=>$data)
+            @if ($data->klasifikasiRelation->domain == 1)
             <tr>
-                <td>{{ $data->tanya }}</td>
-                <td>{{ $data->j1 }}</td>
-                <td>{{ $data->j2 }}</td>
-                <td>{{ $data->j3 }}</td>
+                <td>{{ $data->klasifikasiRelation->urut}}. {{ $data->klasifikasiRelation->tanya}}</td>
+                <td>
+                    @switch($data->jawab)
+                    @case(1)
+                        {{ $data->klasifikasiRelation->j1 }}
+                        @break
+                    @case(2)
+                        {{ $data->klasifikasiRelation->j2 }}
+                        @break
+                    @case(3)
+                        {{ $data->klasifikasiRelation->j3 }}
+                        @break
+                    @case(4)
+                        {{ $data->klasifikasiRelation->j4 }}
+                    @break
+                    @default
+                        <p>Data tidak tersedia</p>
+                @endswitch
+                </td>
+                <td>{{ $data->keterangan }}</td>
                 <td align="center">
                     <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modalFormEdit-{{ $data->id }}"><i class="fas fa-edit"></i></a>
-                    <form class="d-inline" action="{{ route('itemklasifikasi.hapus',[$data->id, $data->domain]) }}" method="POST" id="delete-form-{{ $data->id }}">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger hapus" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></button>
-                    </form>
                 </td>
             </tr>
+            @endif
+            @endforeach
+        </tbody>
+        </table>
+    </div>
+    <div class="card-body">
+        <table id="dt" class="table table-bordered table-hover confidentiality-table">
+            <thead>
+            <tr>
+                <th>Kriteria Aspek INTEGRITY</th>
+                <th>Jawaban</th>
+                <th>Keterangan</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($asetklasifikasis as $no=>$data)
+            @if ($data->klasifikasiRelation->domain == 2)
+            <tr>
+                <td>{{ $data->klasifikasiRelation->urut}}. {{ $data->klasifikasiRelation->tanya}}</td>
+                <td>
+                    @switch($data->jawab)
+                    @case(1)
+                        {{ $data->klasifikasiRelation->j1 }}
+                        @break
+                    @case(2)
+                        {{ $data->klasifikasiRelation->j2 }}
+                        @break
+                    @case(3)
+                        {{ $data->klasifikasiRelation->j3 }}
+                        @break
+                    @case(4)
+                        {{ $data->klasifikasiRelation->j4 }}
+                    @break
+                @endswitch
+                </td>
+                <td>{{ $data->keterangan }}</td>
+                <td align="center">
+                    <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modalFormEdit-{{ $data->id }}"><i class="fas fa-edit"></i></a>
+                </td>
+            </tr>
+            @endif
             @endforeach
         </tbody>
         </table>
     </div>
 
-    <!-- Modal Tambah-->
-    <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Tambah Data</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-            <form id="modalFormContent" action="{{ route('itemklasifikasi.tambah') }}" method="POST">
-                @csrf
-                    <input type="hidden" id="domain" name="domain" value="{{ $idklasifikasi->first()->id }}">
-                <div class="form-group">
-                    <label for="nama">Kriteria*</label>
-                    <textarea class="form-control" id="kriteria" name="kriteria" autocomplete="false"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="nama">Indikator #1*</label>
-                    <textarea class="form-control" id="j1" name="j1" autocomplete="false"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="nama">Indikator #2*</label>
-                    <textarea class="form-control" id="j2" name="j2" autocomplete="false"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="nama">Indikator #3*</label>
-                    <textarea class="form-control" id="j3" name="j3" autocomplete="false"></textarea>
-                </div>
-                  <div class="form-group">
-                    <small id="namaHelp" class="form-text text-muted">*) harus diisi. Jika indikator hanya 2, isikan 0 pada indikator #2</small>
-                  </div>
-            </div>
-            <div class="modal-footer">
-            <button type="reset" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-            <button type="submit" class="btn btn-primary">Simpan</button>
-            </div>
-        </form>
-        </div>
-        </div>
+    <div class="card-body">
+        <table id="dt" class="table table-bordered table-hover confidentiality-table">
+            <thead>
+            <tr>
+                <th>Kriteria Aspek AVALAIBILITY</th>
+                <th>Jawaban</th>
+                <th>Keterangan</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($asetklasifikasis as $no=>$data)
+            @if ($data->klasifikasiRelation->domain == 3)
+            <tr>
+                <td>{{ $data->klasifikasiRelation->urut}}. {{ $data->klasifikasiRelation->tanya}}</td>
+                <td>
+                    @switch($data->jawab)
+                    @case(1)
+                        {{ $data->klasifikasiRelation->j1 }}
+                        @break
+                    @case(2)
+                        {{ $data->klasifikasiRelation->j2 }}
+                        @break
+                    @case(3)
+                        {{ $data->klasifikasiRelation->j3 }}
+                        @break
+                    @case(4)
+                        {{ $data->klasifikasiRelation->j4 }}
+                    @break
+                    @default
+                        <p>Data tidak tersedia</p>
+                @endswitch
+                </td>
+                <td>{{ $data->keterangan }}</td>
+                <td align="center">
+                    <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modalFormEdit-{{ $data->id }}"><i class="fas fa-edit"></i></a>
+                </td>
+            </tr>
+            @endif
+            @endforeach
+        </tbody>
+        </table>
     </div>
+
+
+
 
     <!-- Modal Edit-->
 
-    @foreach ($itemklasifikasis as $dataItemklasifikasi)
+    @foreach ($asetklasifikasis as $dataItemklasifikasi)
     <div class="modal fade" id="modalFormEdit-{{ $dataItemklasifikasi->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -95,28 +188,34 @@
             </button>
             </div>
             <div class="modal-body">
-            <form id="modalFormContentEdit" action="{{ route('itemklasifikasi.update',[$dataItemklasifikasi->id, $data->domain]) }}" method="POST">
+            <form id="modalFormContentEdit" action="{{ route('asetklasifikasi.update',[$dataItemklasifikasi->id, $data->aset]) }}" method="POST">
                 @csrf
-                <input type="hidden" id="domain" name="domain" value="{{ $idklasifikasi->first()->id }}">
+                <input type="hidden" id="aset" name="aset" value="{{ $idaset->first()->id }}">
                 @method('PUT')
                 <div class="form-group">
-                    <label for="nama">Kriteria*</label>
-                    <textarea class="form-control" id="kriteria" name="kriteria" autocomplete="false">{{ $dataItemklasifikasi->tanya }}</textarea>
+                    <strong>Kriteria :</strong> <br>
+                    {{ $dataItemklasifikasi->klasifikasiRelation->tanya }}
                 </div>
                 <div class="form-group">
-                    <label for="nama">Indikator #1*</label>
-                    <textarea class="form-control" id="j1" name="j1" autocomplete="false">{{ $dataItemklasifikasi->j1 }}</textarea>
+                    <label for="jawab">Jawab</label>
+                    <select name="jawab" id="jawab" class="form-control">
+                        @if ($dataItemklasifikasi && $dataItemklasifikasi->klasifikasiRelation)
+                            <option value="1" {{ $dataItemklasifikasi->jawab == 1 ? 'selected' : '' }}>{{ $dataItemklasifikasi->klasifikasiRelation->j1 }}</option>
+                            <option value="2" {{ $dataItemklasifikasi->jawab == 2 ? 'selected' : '' }}>{{ $dataItemklasifikasi->klasifikasiRelation->j1 }}</option>
+                            <option value="3" {{ $dataItemklasifikasi->jawab == 3 ? 'selected' : '' }}>{{ $dataItemklasifikasi->klasifikasiRelation->j3 }}</option>
+                            <option value="4" {{ $dataItemklasifikasi->jawab == 4 ? 'selected' : '' }}>{{ $dataItemklasifikasi->klasifikasiRelation->j4 }}</option>
+                        @else
+                            <option value="">Data tidak tersedia</option>
+                        @endif
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="nama">Indikator #2*</label>
-                    <textarea class="form-control" id="j2" name="j2" autocomplete="false">{{ $dataItemklasifikasi->j2 }}</textarea>
+                    <label for="nama">Keterangan*</label>
+                    <textarea class="form-control" id="keterangan" name="keterangan" autocomplete="false">{{ $dataItemklasifikasi->keterangan }}</textarea>
                 </div>
                 <div class="form-group">
-                    <label for="nama">Indikator #3*</label>
-                    <textarea class="form-control" id="j3" name="j3" autocomplete="false">{{ $dataItemklasifikasi->j3 }}</textarea>
-                </div>                  <div class="form-group">
                     <small id="namaHelp" class="form-text text-muted">*) harus diisi</small>
-                  </div>
+                </div>
             </div>
             <div class="modal-footer">
             <button type="reset" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -134,7 +233,7 @@
             "paging": true,
             "lengthChange": true,
             "searching": true,
-            "ordering": true,
+            "ordering": false,
             "info": true,
             "autoWidth": false,
             "responsive": true,

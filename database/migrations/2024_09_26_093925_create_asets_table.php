@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('url')->nullable();
             $table->string('ip')->nullable();
             $table->string('keterangan')->nullable();
-            $table->enum('klasifikasi', ['RAHASIA', 'TERBATAS', 'INTERNAL', 'PUBLIK'])->default('RAHASIA');
+            $table->enum('klasifikasi', ['RAHASIA', 'TERBATAS', 'TERBATAS/INTERNAL'])->default('RAHASIA');
             $table->enum('kategorise', ['STRATEGIS', 'TINGGI', 'RENDAH'])->default('STRATEGIS');
             $table->enum('risiko', ['CRITICAL', 'HIGH', 'MEDIUM','LOW'])->default('CRITICAL');
             $table->enum('jenis', ['APLIKASI', 'INFRASTRUKTUR', 'SDM', 'DATA/INFORMASI'])->default('APLIKASI');

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AsetkategoriController;
+use App\Http\Controllers\AsetklasifikasiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KlasifikasiController;
 use App\Http\Controllers\ItemklasifikasiController;
@@ -72,10 +73,11 @@ Route::middleware('auth','verified','role:admin|opd')->group(function () {
     Route::put('aset/update/{id}', [AsetController::class, 'update'])->name('aset.update');
 
     Route::get('asetkategori/{id}', [AsetkategoriController::class, 'tampil'])->name('asetkategori.tampil');
-    // Route::delete('asetkategori/hapus/{id}/{domain}', [AsetkategoriController::class, 'hapus'])->name('asetkategori.hapus');
-    // Route::post('asetkategori/tambah', [AsetkategoriController::class, 'tambah'])->name('asetkategori.tambah');
     Route::put('asetkategori/update/{id}/{domain}', [AsetkategoriController::class, 'update'])->name('asetkategori.update');
     Route::get('asetkategori/pdf/{id}', [AsetkategoriController::class, 'pdf'])->name('asetkategori.pdf');
+    Route::get('asetklasifikasi/{id}', [AsetklasifikasiController::class, 'tampil'])->name('asetklasifikasi.tampil');
+    Route::put('asetklasifikasi/update/{id}/{domain}', [AsetklasifikasiController::class, 'update'])->name('asetklasifikasi.update');
+    Route::get('asetklasifikasi/pdf/{id}', [AsetklasifikasiController::class, 'pdf'])->name('asetklasifikasi.pdf');
 
 
 
