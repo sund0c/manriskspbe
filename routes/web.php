@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LayananspbeController;
 use App\Http\Controllers\AsetkategoriController;
 use App\Http\Controllers\AsetklasifikasiController;
 use App\Http\Controllers\ProfileController;
@@ -40,6 +41,10 @@ Route::middleware('auth','html.purifier','verified','role:admin')->group(functio
     Route::delete('opd/hapus/{id}', [OpdController::class, 'hapus'])->name('opd.hapus');
     Route::post('opd/tambah', [OpdController::class, 'tambah'])->name('opd.tambah');
     Route::put('opd/update/{id}', [OpdController::class, 'update'])->name('opd.update');
+    Route::get('layananspbe', [LayananspbeController::class, 'tampil'])->name('layananspbe.tampil');
+    Route::delete('layananspbe/hapus/{id}', [LayananspbeController::class, 'hapus'])->name('layananspbe.hapus');
+    Route::post('layananspbe/tambah', [LayananspbeController::class, 'tambah'])->name('layananspbe.tambah');
+    Route::put('layananspbe/update/{id}', [LayananspbeController::class, 'update'])->name('layananspbe.update');
     Route::get('annex', [AnnexController::class, 'tampil'])->name('annex.tampil');
     Route::put('annex/update/{id}', [AnnexController::class, 'update'])->name('annex.update');
     Route::delete('itemannex/hapus/{id}/{domain}', [ItemannexController::class, 'hapus'])->name('itemannex.hapus');
@@ -77,8 +82,11 @@ Route::middleware('auth','html.purifier','verified','role:admin|opd')->group(fun
     Route::get('asetkategori/edit/{id}', [AsetkategoriController::class, 'edit'])->name('asetkategori.edit');
     Route::put('asetkategori/update', [AsetkategoriController::class, 'update'])->name('asetkategori.update');
     Route::get('asetkategori/pdf/{id}', [AsetkategoriController::class, 'pdf'])->name('asetkategori.pdf');
+
     Route::get('asetklasifikasi/{id}', [AsetklasifikasiController::class, 'tampil'])->name('asetklasifikasi.tampil');
-    Route::put('asetklasifikasi/update/{id}/{domain}', [AsetklasifikasiController::class, 'update'])->name('asetklasifikasi.update');
+    Route::get('asetklasifikasi/edit/{id}', [AsetklasifikasiController::class, 'edit'])->name('asetklasifikasi.edit');
+    Route::put('asetklasifikasi/update', [AsetklasifikasiController::class, 'update'])->name('asetklasifikasi.update');
+    // Route::put('asetklasifikasi/update/{id}/{domain}', [AsetklasifikasiController::class, 'update'])->name('asetklasifikasi.update');
     Route::get('asetklasifikasi/pdf/{id}', [AsetklasifikasiController::class, 'pdf'])->name('asetklasifikasi.pdf');
 
 

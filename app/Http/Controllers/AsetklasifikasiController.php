@@ -17,9 +17,18 @@ class AsetklasifikasiController extends Controller
         $idaset = Aset::where('id', $id)->get();
         if (!is_null($idaset->first()) && $idaset->first()->jenis=='APLIKASI') {
 
+        // $asetklasifikasis = Asetklasifikasi::where('aset', $id)
+        //                    ->with('asetRelation')
+        //                    ->get();
+
         $asetklasifikasis = Asetklasifikasi::where('aset', $id)
-                           ->with('asetRelation')
-                           ->get();
+        ->with('klasifikasiRelation')
+        ->join('itemklasifikasis', 'asetklasifikasis.tanya', '=', 'itemklasifikasis.id') // Join ke tabel kategorises
+        ->orderBy('itemklasifikasis.urut', 'ASC') // Urutkan berdasarkan field urut
+        ->select('asetklasifikasis.*') // Pilih kolom dari asetkategori
+        ->get();
+
+
         if ($asetklasifikasis->isEmpty() && $idaset->first()->jenis=='APLIKASI') {
             $itemklasifikasi = Itemklasifikasi::all();
             //dd($itemklasifikasi);
@@ -32,50 +41,85 @@ class AsetklasifikasiController extends Controller
                     'keterangan' => '-',
                 ]);
             }
+        // $asetklasifikasis = Asetklasifikasi::where('aset', $id)
+        //                 ->with('asetRelation')
+        //                 ->get();
+
         $asetklasifikasis = Asetklasifikasi::where('aset', $id)
-                        ->with('asetRelation')
-                        ->get();
+        ->with('klasifikasiRelation')
+        ->join('itemklasifikasis', 'asetklasifikasis.tanya', '=', 'itemklasifikasis.id') // Join ke tabel kategorises
+        ->orderBy('itemklasifikasis.urut', 'ASC') // Urutkan berdasarkan field urut
+        ->select('asetklasifikasis.*') // Pilih kolom dari asetkategori
+        ->get();
         }
 
         $klasifikasi = Klasifikasi::all();
         $idaset = Aset::where('id', $id)->get();
         return view('asetklasifikasi', compact('asetklasifikasis','klasifikasi','idaset'));
         } else {
+            abort(404);
+        }
+    }
+
+    public function edit($id){
+        $idaset = Aset::where('id', $id)->get();
+        if (!is_null($idaset->first()) && $idaset->first()->jenis=='APLIKASI') {
+
+        $asetklasifikasis = Asetklasifikasi::where('aset', $id)
+                           ->with('asetRelation')
+                           ->get();
+        $klasifikasi = Klasifikasi::all();
+        $idaset = Aset::where('id', $id)->get();
+        return view('asetklasifikasiedit', compact('asetklasifikasis','klasifikasi','idaset'));
+        } else {
             return back();
         }
     }
 
     public function pdf($id){
+        // $asetklasifikasis = Asetklasifikasi::where('aset', $id)
+        //                    ->with('asetRelation')
+        //                    ->get();
         $asetklasifikasis = Asetklasifikasi::where('aset', $id)
-                           ->with('asetRelation')
-                           ->get();
+        ->with('klasifikasiRelation')
+        ->join('itemklasifikasis', 'asetklasifikasis.tanya', '=', 'itemklasifikasis.id') // Join ke tabel kategorises
+        ->orderBy('itemklasifikasis.urut', 'ASC') // Urutkan berdasarkan field urut
+        ->select('asetklasifikasis.*') // Pilih kolom dari asetkategori
+        ->get();
 
         $idaset = Aset::where('id', $id)->get();
 
         $pdf = Pdf::loadView('pdf.asetklasifikasi', ['asetklasifikasis' => $asetklasifikasis,'idaset' => $idaset])
                  ->setPaper('a4', 'landscape');
-        return $pdf->download('klasifikasi.pdf');
+
+        $namaFile = preg_replace('/[^A-Za-z0-9]/', '', strtolower($idaset->first()->nama));
+        $namaFile = substr($namaFile, 0, 10); // Mengambil 10 karakter pertama dari nama yang sudah dibersihkan
+        $tanggalSekarang = now()->format('dmyhms'); // Format tanggal: dd-mm-yyyy
+        $namaFilePDF = $namaFile .'_'. $tanggalSekarang . '_klasifikasi.pdf';
+        return $pdf->download($namaFilePDF);
 
     }
 
-        public function update(Request $request,$id){
+        public function update(Request $request){
             try {
                 $validatedData = $request->validate(
                     [
-                    'aset' => ['required'],'jawab' => ['required'],
+                    'aset' => ['required'],'jawab.*' => ['required'],'keterangan.*' => ['required'],'id.*' => ['required'],
                     ],
                     [
-                    'aset.required' => 'Aset: tidak boleh kosong',
-                    'jawab.required' => 'Jawaban: tidak boleh kosong',
+                    'id.required' => 'tidak boleh kosong',
+                    'aset.required' => 'tidak boleh kosong',
+                    'jawab.*.required' => 'tidak boleh kosong',
+                    'keterangan.*.required' => 'tidak boleh kosong',
                     ]
                     );
-                $item = Asetklasifikasi::findOrFail($id);
-                $item->jawab = strip_tags($request->jawab);
-                //$item->tanya = strip_tags($request->tanya);
-                $item->keterangan = strip_tags($request->keterangan);
-                $item->aset = strip_tags($request->aset);
-                $item->update();
-
+                    foreach ($request->id as $key => $id) {
+                        // Mencari item berdasarkan ID
+                        $item = Asetklasifikasi::findOrFail($id);
+                        $item->jawab = $request->jawab[$key];
+                        $item->keterangan = $request->keterangan[$key];
+                        $item->save();
+                    }
                 // Count the records where 'jawab' is 4
                 $countR = Asetklasifikasi::where('aset', $item->aset)
                 ->where('jawab', 4)
@@ -87,14 +131,14 @@ class AsetklasifikasiController extends Controller
                 ->count();
 
                 if ($countR >0) {
-                    $kategori = 'RAHASIA';
+                    $klasifikasi = 'RAHASIA';
                 } elseif ($countR <=0 && $countY >0) {
-                    $kategori = 'TINGGI';
+                    $klasifikasi = 'TERBATAS/INTERNAL';
                 } else {
-                    $kategori = 'TERBATAS/INTERNAL';
+                    $klasifikasi = 'PUBLIK';
                 }
                 $aset = Aset::findOrFail($item->aset);
-                $aset->klasifikasi = strip_tags($kategori);
+                $aset->klasifikasi = strip_tags($klasifikasi);
                 $aset->update();
                 return redirect()->route('asetklasifikasi.tampil',$request->aset)->with('success', 'Data berhasil diperbarui!');
             } catch (ValidationException $e) {
@@ -108,11 +152,11 @@ class AsetklasifikasiController extends Controller
                     $errorMessages .= "<br>";
                 }
                 $errorMessages .= "</p>";
-                return redirect()->route('asetkategori.tampil',$request->domain)->with('validasi',$errorMessages);
+                return redirect()->route('asetklasifikasi.tampil',$request->aset)->with('validasi',$errorMessages);
             } catch (\Illuminate\Database\QueryException $e) {
-                    return redirect()->route('asetkategori.tampil',$request->domain)->with('error', 'Gagal memperbarui data: ' . $e->getMessage());
+                    return redirect()->route('asetklasifikasi.tampil',$request->aset)->with('error', 'Gagal memperbarui data: ' . $e->getMessage());
             } catch (\Exception $e) {
-                return redirect()->route('asetkategori.tampil',$request->domain)->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+                return redirect()->route('asetklasifikasi.tampil',$request->aset)->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
             }
         }
 }

@@ -49,11 +49,11 @@ class KriteriaannexController extends Controller
                 ]
                 );
             $item = Kriteriaannex::create([
-            'tanya' => strip_tags($request->kriteria),
-            'penjelasan' => strip_tags($request->penjelasan),
-            'tujuan' => strip_tags($request->tujuan),
-            'item' => strip_tags($request->item),
-            'urut' => strip_tags($request->urut),
+            'tanya' => $request->kriteria,
+            'penjelasan' => $request->penjelasan,
+            'tujuan' => $request->tujuan,
+            'item' => $request->item,
+            'urut' => $request->urut,
         ]);
         //dd($request);
             $item->save();
@@ -97,11 +97,11 @@ class KriteriaannexController extends Controller
                 ]
                 );
                 $item = Kriteriaannex::findOrFail($id);
-                $item->tanya = strip_tags($request->kriteria);
-                $item->penjelasan = strip_tags($request->penjelasan);
-                $item->tujuan = strip_tags($request->tujuan);
-                $item->item = strip_tags($request->item);
-                $item->urut = strip_tags($request->urut);
+                $item->tanya = $request->kriteria;
+                $item->penjelasan = $request->penjelasan;
+                $item->tujuan = $request->tujuan;
+                $item->item = $request->item;
+                $item->urut = $request->urut;
                 $item->update();
             return redirect()->route('kriteriaannex.tampil',$request->item)->with('success', 'Data berhasil diperbarui!');
         } catch (ValidationException $e) {

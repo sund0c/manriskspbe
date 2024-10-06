@@ -40,10 +40,10 @@ class KategoriseController extends Controller
                 ]
                 );
             $kategorise = new Kategorise();
-            $kategorise->tanya = strip_tags($request->kriteria);
-            $kategorise->j1 = strip_tags($request->j1);
-            $kategorise->j2 = strip_tags($request->j2);
-            $kategorise->j3 = strip_tags($request->j3);
+            $kategorise->tanya = $request->kriteria;
+            $kategorise->j1 = $request->j1;
+            $kategorise->j2 = $request->j2;
+            $kategorise->j3 = $request->j3;
             $kategorise->save();
             return redirect()->route('kategorise.tampil')->with('success', 'Data baru berhasil disimpan!');
         } catch (ValidationException $e) {
@@ -80,10 +80,10 @@ class KategoriseController extends Controller
                 ]
                 );
             $kategorise = Kategorise::findOrFail($id);
-            $kategorise->tanya = strip_tags($request->kriteria);
-            $kategorise->j1 = strip_tags($request->j1);
-            $kategorise->j2 = strip_tags($request->j2);
-            $kategorise->j3 = strip_tags($request->j3);
+            $kategorise->tanya = $request->kriteria;
+            $kategorise->j1 = $request->j1;
+            $kategorise->j2 = $request->j2;
+            $kategorise->j3 = $request->j3;
             $kategorise->update();
             return redirect()->route('kategorise.tampil')->with('success', 'Data berhasil diperbarui!');
         } catch (ValidationException $e) {

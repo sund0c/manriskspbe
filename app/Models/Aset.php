@@ -16,11 +16,16 @@ class Aset extends Model
         'keterangan',
         'jenis',
         'user',
+        'layanan',
     ];
 
     public function userRelation()
     {
         return $this->belongsTo(User::class, 'user', 'id');
+    }
+    public function layananRelation()
+    {
+        return $this->belongsTo(Layananspbe::class, 'layanan', 'id');
     }
 
 }

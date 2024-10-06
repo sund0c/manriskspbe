@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Aset;
+use App\Models\Layananspbe;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -9,9 +10,10 @@ use Illuminate\Validation\ValidationException;
 class AsetController extends Controller
 {
     public function tampil(){
-        $aset = Aset::get();
+        $aset = Aset::with(['layananRelation'])->get();
+        $layananspbe = Layananspbe::orderBy('jenis', 'ASC')->orderBy('nama', 'ASC')->get();
         $users = User::with(['roles', 'opdRelation'])->get();
-        return view('aset',compact('aset','users'));
+        return view('aset',compact('aset','users','layananspbe'));
     }
 
     public function hapus($id){
@@ -56,6 +58,8 @@ class AsetController extends Controller
                 $aset->ip = $request->ip ?: '-';
             }
             $aset->user = $request->user;
+            $aset->keterangan = $request->penjelasan;
+            $aset->layanan = $request->layanan;
             $aset->nama = $request->nama;
             $aset->save();
             return redirect()->route('aset.tampil')->with('success', 'Data baru berhasil disimpan!');
@@ -83,19 +87,19 @@ class AsetController extends Controller
         try {
             $validatedData = $request->validate(
                 [
-                    'nama' => ['required'],
-                    'jenis' => ['required'],
-                    'user' => ['required'],
-                    'ip' => ['nullable', 'ip'],
-                    'url' => ['nullable', 'regex:/^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}(\/[^\s]*)?$/'],
-                    ],
-                    [
-                    'nama.required' => 'Nama: tidak boleh kosong',
-                    'jenis.required' => 'tidak boleh kosong',
-                    'user.required' => 'tidak boleh kosong',
-                    'ip.ip' => 'IP: tidak valid',
-                    'url.regex' => 'URL: tidak valid',
-                    ]
+                'nama' => ['required'],
+                'jenis' => ['required'],
+                'user' => ['required'],
+                'ip' => ['nullable', 'ip'],
+                'url' => ['nullable', 'regex:/^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}(\/[^\s]*)?$/'],
+            ],
+                [
+                'nama.required' => 'Nama: tidak boleh kosong',
+                'jenis.required' => 'tidak boleh kosong',
+                'user.required' => 'tidak boleh kosong',
+                'ip.ip' => 'IP: tidak valid',
+                'url.regex' => 'URL: tidak valid',
+                ]
                 );
             $aset = Aset::findOrFail($id);
             $aset->jenis = $request->jenis;
@@ -108,6 +112,8 @@ class AsetController extends Controller
                 $aset->url = strtolower($request->url) ?: '-';
                 $aset->ip = $request->ip ?: '-';
             }
+            $aset->keterangan = $request->penjelasan;
+            $aset->layanan = $request->layanan;
             $aset->user = $request->user;
             $aset->nama = $request->nama;
             $aset->update();

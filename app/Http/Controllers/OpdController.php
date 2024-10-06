@@ -43,8 +43,8 @@ class OpdController extends Controller
                 ]
                 );
             $opd = new Opd();
-            $opd->singkatan = strtoupper(strip_tags($request->singkatan));
-            $opd->nama = strip_tags($request->nama);
+            $opd->singkatan = strtoupper($request->singkatan);
+            $opd->nama = $request->nama;
             $opd->save();
             return redirect()->route('opd.tampil')->with('success', 'Data baru berhasil disimpan!');
         } catch (ValidationException $e) {
@@ -83,8 +83,8 @@ class OpdController extends Controller
                 ]
                 );
             $opd = Opd::findOrFail($id);
-            $opd->singkatan = strtoupper(strip_tags($request->singkatan));
-            $opd->nama = strip_tags($request->nama);
+            $opd->singkatan = strtoupper($request->singkatan);
+            $opd->nama = $request->nama;
             $opd->update();
             return redirect()->route('opd.tampil')->with('success', 'Data berhasil diperbarui!');
         } catch (ValidationException $e) {

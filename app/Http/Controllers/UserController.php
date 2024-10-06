@@ -57,10 +57,10 @@ class UserController extends Controller
                     );
 
                 $user = User::create([
-                'name' => strip_tags($request->nama),
-                'email' => strip_tags($request->email),
+                'name' => $request->nama,
+                'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'opd' => strip_tags($request->opd_id),
+                'opd' => $request->opd_id,
             ]);
                 $user->assignRole($request->role);
 
@@ -102,8 +102,8 @@ class UserController extends Controller
                     ]
                     );
                 $user = User::findOrFail($id);
-                $user->nama = strip_tags($request->nama);
-                $user->email = strip_tags($request->email);
+                $user->nama = $request->nama;
+                $user->email = $request->email;
                 $user->update();
                 return redirect()->route('user.tampil')->with('success', 'Data berhasil diperbarui!');
             } catch (ValidationException $e) {

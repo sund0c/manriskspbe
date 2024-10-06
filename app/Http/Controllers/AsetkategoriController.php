@@ -13,17 +13,17 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class AsetkategoriController extends Controller
 {
     public function tampil($id){
-        $idaset = Aset::where('id', $id)->get();
+        $idaset = Aset::where('id', $id)->with('layananRelation')->get();
         if (!is_null($idaset->first()) && $idaset->first()->jenis=='APLIKASI') {
 
         // $asetkategoris = Asetkategori::where('aset', $id)
         //                    ->with('asetRelation')
         //                    ->get();
         $asetkategoris = Asetkategori::where('aset', $id)
-                ->with('kategoriseRelation') // Memuat relasi ke Kategorise
-                ->join('kategorises', 'asetkategoris.tanya', '=', 'kategorises.id') // Join ke tabel kategorises
-                ->orderBy('kategorises.urut', 'ASC') // Urutkan berdasarkan field urut
-                ->select('asetkategoris.*') // Pilih kolom dari asetkategori
+                ->with('kategoriseRelation')
+                ->join('kategorises', 'asetkategoris.tanya', '=', 'kategorises.id')
+                ->orderBy('kategorises.urut', 'ASC')
+                ->select('asetkategoris.*')
                 ->get();
         if ($asetkategoris->isEmpty() && $idaset->first()->jenis=='APLIKASI') {
             $kategorise = Kategorise::all();
@@ -44,7 +44,7 @@ class AsetkategoriController extends Controller
         }
 
         $kategorise = Kategorise::all();
-        $idaset = Aset::where('id', $id)->get();
+        $idaset = Aset::where('id', $id)->with('layananRelation')->get();
         return view('asetkategori', compact('asetkategoris','kategorise','idaset'));
         } else {
             abort(404);
@@ -74,7 +74,7 @@ class AsetkategoriController extends Controller
         ->select('asetkategoris.*') // Pilih kolom dari asetkategori
         ->get();
 
-        $idaset = Aset::where('id', $id)->get();
+        $idaset = Aset::where('id', $id)->with('layananRelation')->get();
         $sumJawab = Asetkategori::where('aset', $id)->sum('jawab');
 
         $pdf = Pdf::loadView('pdf.asetkategori', ['asetkategoris' => $asetkategoris,'idaset' => $idaset,'sumJawab' => $sumJawab])

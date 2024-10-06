@@ -19,7 +19,9 @@ th, td {
 
         <h3 style="margin-bottom: 5px;">Kategori Sistem Elektronik</h3>
         <h1 style="margin-top: 5px;margin-bottom: 5px;">{{ $idaset->first()->nama }}</h1>
-    <h5 style="margin-top: 5px;margin-bottom: 5px;">Jenis: {{ $idaset->first()->jenis }}<BR>
+
+    <h5 style="margin-top: 5px;margin-bottom: 5px;">{{ $idaset->first()->keterangan }}<BR>Layanan SPBE: {{ $idaset->first()->layananRelation->nama }} ({{ $idaset->first()->layananRelation->jenis }})<BR>
+        Jenis: {{ $idaset->first()->jenis }}<BR>
     Pemilik: {{ $idaset->first()->userRelation->opdRelation->singkatan }}<BR>
     Kategori: {{ $idaset->first()->kategorise }}</h5>
     <p style="margin-top: 5px;font-size: 0.8em">Cetak Tgl. @formattedDateTime</p>
@@ -31,7 +33,7 @@ th, td {
             <tr>
                 <th>Kriteria</th>
                 <th width="200px">Jawaban</th>
-                <th width="200px">Keterangan</th>
+                <th width="300px">Keterangan</th>
             </tr>
         </thead>
         <tbody>
@@ -60,7 +62,7 @@ th, td {
         <tfoot>
             <tr>
                 <td><strong>SKOR</strong></td>
-                <td align="center"><strong>{{ $sumJawab }}</strong></td>
+                <td align="center"><strong>{{ $sumJawab }} -> {{ $idaset->first()->kategorise }}</strong></td>
                 <td align="center"></td>
             </tr>
         </tfoot>

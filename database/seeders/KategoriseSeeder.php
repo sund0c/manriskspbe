@@ -15,14 +15,14 @@ class KategoriseSeeder extends Seeder
     {
         Kategorise::create([
             'urut' => '1',
-            'tanya' => 'Nilai investasi dalam RUPIAH saat aplikasi dibangun. Jika dibangun secara mandiri (tidak ada biaya) maka hitung gaji/honor yang diterima oleh pembuat selama membuat aplikasi. Nilai termasuk juga biaya listrik saat membangun, koneksi internet saat membangun. Nilai di luar INFRASTRUKTUR (server/cloud/badwidth internet server).',
+            'tanya' => 'Nilai investasi saat aplikasi dibangun. Jika dibangun secara mandiri (tidak ada mengeluarkan APBD untuk membayar jasa pembuatan) maka hitung gaji/honor yang diterima oleh pembuat selama membuat aplikasi. Nilai termasuk juga biaya listrik saat membangun, koneksi internet saat membangun.',
             'j1' => 'Lebih dari Rp. 30 Miliar',
             'j2' => 'Lebih dari Rp. 3 Miliar s/d Rp. 30 Miliar',
             'j3' => 'Kurang dari Rp. 3 Miliar'
         ]);
         Kategorise::create([
             'urut' => '2',
-            'tanya' => 'Total anggaran DALAM RUPIAH operasional tahunan untuk pengelolaan aplikasi. Honor/gaji admin/vendor, listrik, internet dan hal lainnya untuk melakukan pengelolaan. Nilai di luar pengelolaan INFRASTRUKTUR (server/cloud/badwidth internet server).',
+            'tanya' => 'Total anggaran operasional tahunan untuk pengelolaan aplikasi. Honor/gaji admin/vendor, listrik, internet dan hal lainnya untuk melakukan pengelolaan.',
             'j1' => 'Lebih dari Rp. 10 Miliar',
             'j2' => 'Lebih dari Rp. 1 Miliar s/d Rp. 10 Miliar',
             'j3' => 'Kurang dari Rp. 1 Miliar'
@@ -36,9 +36,9 @@ class KategoriseSeeder extends Seeder
         ]);
         Kategorise::create([
             'urut' => '4',
-            'tanya' => 'Menggunakan teknik kriptografi khusus untuk kemanana informasi dalam aplikasi',
+            'tanya' => 'Menggunakan teknik kriptografi khusus untuk keamanan informasi dalam aplikasi. HASH dianggap sebagai enkripsi.',
             'j1' => 'Teknik kriptografi khusus yang disertifikasi oleh Negara',
-            'j2' => 'Teknik kriptografi sesuai standrad industri, tersedia secara publik atau dikembangkan sendiri',
+            'j2' => 'Teknik kriptografi sesuai standard industri, tersedia secara publik atau dikembangkan sendiri',
             'j3' => 'Tidak ada penggunaan teknik kriptografi'
         ]);
         Kategorise::create([
@@ -50,21 +50,21 @@ class KategoriseSeeder extends Seeder
         ]);
         Kategorise::create([
             'urut' => '6',
-            'tanya' => 'Data pribadi yang dikelola dalam aplikasi',
+            'tanya' => 'Data pribadi yang dikelola dalam aplikasi. Sesuai dengan UU PDP.',
             'j1' => 'Data pribadi yang memiliki hubungan dengan data pribadi lainnya',
-            'j2' => 'Data pribadi yang bersifat individeu dan/atau data pribadi yang terkait degnan kepemilikan badan usaha',
+            'j2' => 'Data pribadi yang bersifat individu dan/atau data pribadi yang terkait dengan kepemilikan badan usaha',
             'j3' => 'Tidak ada data pribadi'
         ]);
         Kategorise::create([
             'urut' => '7',
-            'tanya' => 'Tingkat klasifikasi/kekritisan data yang ada dalam aplikasi, relatif terhadap ancaman upaya penyeragan atau penerobosan keamanan informasi',
+            'tanya' => 'Tingkat klasifikasi/kekritisan data yang ada dalam aplikasi, relatif terhadap ancaman upaya penyerangan atau penerobosan keamanan informasi. Contoh data riwayat kesehatan, penilaian kinerja bersifat sensitif sehingga menjadi Sangat Rahasia. Sedangkan data pribadi yang kurang sensitif seperti riwayat kerja, riwayat pendidikan, bisa dianggap sebagai Rahasia.',
             'j1' => 'Sangat Rahasia',
             'j2' => 'Rahasia dan/atau Terbatas',
             'j3' => 'Biasa'
         ]);
         Kategorise::create([
             'urut' => '8',
-            'tanya' => 'Tingkat kekritisan proses yang ada dalam aplikasi, relatif terhadap ancaman upaya penyerangan atau penerobosan keamanan informasi',
+            'tanya' => 'Tingkat kekritisan proses yang ada dalam aplikasi, relatif terhadap ancaman upaya penyerangan atau penerobosan keamanan informasi. ',
             'j1' => 'Proses yang berisiko mengganggu hajat hidup orang banyak dan memberi dampak langsung pada layanan publik',
             'j2' => 'Proses yang beresiko mengganggu hajat hidup orang banyak dan memberi dampak tidak langsung',
             'j3' => 'Proses yang berdampak pada bisnis perusahaan'

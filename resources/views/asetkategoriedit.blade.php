@@ -1,7 +1,7 @@
 <x-layout>
     <style>
     hr {
-        border: 1px dashed black;
+        border: 0.3px solid;
     }
 </style>
     <x-slot name="breadcrumb">

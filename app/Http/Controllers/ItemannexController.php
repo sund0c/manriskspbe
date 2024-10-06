@@ -42,8 +42,8 @@ class ItemannexController extends Controller
                 ]
                 );
             $item = Itemannex::create([
-            'nama' => strip_tags($request->nama),
-            'domain' => strip_tags($request->domain),
+            'nama' => $request->nama,
+            'domain' => $request->domain,
         ]);
             $item->save();
             return redirect()->route('itemannex.tampil',$request->domain)->with('success', 'Data baru berhasil disimpan!');
@@ -81,8 +81,8 @@ class ItemannexController extends Controller
                     );
 
                 $item = Itemannex::findOrFail($id);
-                $item->nama = strip_tags($request->nama);
-                $item->domain = strip_tags($request->domain);
+                $item->nama = $request->nama;
+                $item->domain = $request->domain;
                 $item->update();
                 return redirect()->route('itemannex.tampil',$request->domain)->with('success', 'Data berhasil diperbarui!');
             } catch (ValidationException $e) {

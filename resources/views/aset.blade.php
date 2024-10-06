@@ -16,7 +16,8 @@
             <tr>
                 <th width="30px">No</th>
                 <th width="120px" align="center">Status Aset</th>
-                <th width="150px">Jenis</th>
+                <th width="100px">Jenis</th>
+                <th width="200px">Layanan SPBE</th>
                 <th>Nama</th>
                 <th width="170px">OPD</th>
                 <th width="100px">Aksi</th>
@@ -87,6 +88,7 @@
                     <a href="#" class="btn btn-sm <?php echo $buttonClass; ?> fixed-size-button" title="Kontrol Risiko">R</a>
                 </td>
                 <td>{{ $data->jenis }}</td>
+                <td>{{ $data->layananRelation->jenis }}:<BR>{{ $data->layananRelation->nama }}</td>
                 <td>
                     @if ($data->jenis == 'APLIKASI' || $data->jenis == 'INFRASTRUKTUR')
                         {{ $data->nama }}<br>
@@ -112,7 +114,7 @@
 
     <!-- Modal Tambah-->
     <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">Tambah Data</h5>
@@ -123,34 +125,54 @@
             <div class="modal-body">
             <form id="modalFormContent" action="{{ route('aset.tambah') }}" method="POST">
                 @csrf
-                <div class="form-group">
-                    <label for="user">User PIC*</label>
-                    <select name="user" id="user" class="form-control">
-                        @foreach($users as $u)
-                            <option value="{{ $u->id }}">{{ $u->name }} - {{ $u->opdRelation->singkatan }}</option>
-                        @endforeach
-                    </select>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="user">User PIC*</label>
+                        <select name="user" id="user" class="form-control">
+                            @foreach($users as $u)
+                                <option value="{{ $u->id }}">{{ $u->name }} - {{ $u->opdRelation->singkatan }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="singkatan">Nama Aset*</label>
+                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama" autocomplete="false" value="{{ old('nama') }}">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="singkatan">Nama*</label>
-                    <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama" autocomplete="false" value="{{ old('nama') }}">
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <label for="url">URL (tanpa https://, tanpa www)</label>
+                        <input type="text" class="form-control" id="url" name="url" placeholder="URL/Subdomain" autocomplete="false" value="{{ old('url') }}">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="ip">IP Address</label>
+                        <input type="text" class="form-control" id="ip" name="ip" placeholder="IP" autocomplete="false" value="{{ old('ip') }}">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="url">URL (tanpa https://, tanpa www)</label>
-                    <input type="text" class="form-control" id="url" name="url" placeholder="URL/Subdomain" autocomplete="false" value="{{ old('url') }}">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="jenis">Jenis Aset</label>
+                        <select name="jenis" id="jenis" class="form-control">
+                            <option value="APLIKASI" selected>APLIKASI</option>
+                            <option value="INFRASTRUKTUR">INFRASTRUKTUR</option>
+                            <option value="SDM">SDM</option>
+                            <option value="DATA/INFORMASI">DATA/INFORMASI</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="jenis">Kategori Layanan SPBE</label>
+                        <select name="layanan" id="layanan" class="form-control">
+                            @foreach ($layananspbe as $layanan)
+                                        <option value="{{ $layanan->id}}">{{ $layanan->jenis}}:{{ $layanan->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="ip">IP</label>
-                    <input type="text" class="form-control" id="ip" name="ip" placeholder="IP" autocomplete="false" value="{{ old('ip') }}">
-                </div>
-                <div class="form-group">
-                    <label for="jenis">Jenis Aset</label>
-                    <select name="jenis" id="jenis" class="form-control">
-                        <option value="APLIKASI" selected>APLIKASI</option>
-                        <option value="INFRASTRUKTUR">INFRASTRUKTUR</option>
-                        <option value="SDM">SDM</option>
-                        <option value="DATA/INFORMASI">DATA/INFORMASI</option>
-                    </select>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="url">Keterangan/Fungsi/Manfaat/Kegunaan</label>
+                        <textarea class="form-control" id="penjelasan" name="penjelasan"></textarea>
+                    </div>
                 </div>
                   <div class="form-group">
                     <small id="namaHelp" class="form-text text-muted">*) harus diisi. Kolom URL dan IP hanya perlu diisi untuk aset APLIKASI & INFRASTRUKTUR</small>
@@ -169,7 +191,7 @@
 
     @foreach ($aset as $dataAset)
     <div class="modal fade" id="modalFormEdit-{{ $dataAset->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">Edit Data</h5>
@@ -182,36 +204,56 @@
             <form id="modalFormContentEdit" action="{{ route('aset.update',$dataAset->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <div class="form-group">
-                    <label for="user">User PIC*</label>
-                    <select name="user" id="user" class="form-control">
-                        @foreach($users as $u)
-                            <option value="{{ $u->id }}" {{ $u->id == $dataAset->user ? 'selected' : '' }}>
-                                {{ $u->name }} - {{ $u->opdRelation->singkatan }}
-                            </option>
-                        @endforeach
-                    </select>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="user">User PIC*</label>
+                        <select name="user" id="user" class="form-control">
+                            @foreach($users as $u)
+                                <option value="{{ $u->id }}" {{ $u->id == $dataAset->user ? 'selected' : '' }}>
+                                    {{ $u->name }} - {{ $u->opdRelation->singkatan }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="singkatan">Nama*</label>
+                        <input type="text" value="{{ old('nama',$dataAset->nama) }}" class="form-control" id="nama" name="nama" placeholder="Nama" autocomplete="false" value="{{ old('nama') }}">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="singkatan">Nama*</label>
-                    <input type="text" value="{{ old('nama',$dataAset->nama) }}" class="form-control" id="nama" name="nama" placeholder="Nama" autocomplete="false" value="{{ old('nama') }}">
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <label for="url">URL (tanpa https://, tanpa www)</label>
+                        <input type="text" value="{{ old('url',$dataAset->url) }}" class="form-control" id="url" name="url" placeholder="URL/Subdomain" autocomplete="false" value="{{ old('url') }}">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="ip">IP</label>
+                        <input type="text" value="{{ old('ip',$dataAset->ip) }}" class="form-control" id="ip" name="ip" placeholder="IP" autocomplete="false" value="{{ old('ip') }}">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="url">URL (tanpa https://, tanpa www)</label>
-                    <input type="text" value="{{ old('url',$dataAset->url) }}" class="form-control" id="url" name="url" placeholder="URL/Subdomain" autocomplete="false" value="{{ old('url') }}">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="jenis">Jenis Aset</label>
+                        <select name="jenis" id="jenis" class="form-control">
+                            <option value="APLIKASI" {{ $dataAset->jenis == 'APLIKASI' ? 'selected' : '' }}>APLIKASI</option>
+                            <option value="INFRASTRUKTUR" {{ $dataAset->jenis == 'INFRASTRUKTUR' ? 'selected' : '' }}>INFRASTRUKTUR</option>
+                            <option value="SDM" {{ $dataAset->jenis == 'SDM' ? 'selected' : '' }}>SDM</option>
+                            <option value="DATA/INFORMASI" {{ $dataAset->jenis == 'DATA/INFORMASI' ? 'selected' : '' }}>DATA/INFORMASI</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="jenis">Kategori Layanan SPBE</label>
+                        <select name="layanan" id="layanan" class="form-control">
+                            @foreach ($layananspbe as $layanan)
+                                <option value="{{ $layanan->id}}" {{ $layanan->id == $dataAset->layanan ? 'selected' : '' }}>{{ $layanan->jenis}}:{{ $layanan->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="ip">IP</label>
-                    <input type="text" value="{{ old('ip',$dataAset->ip) }}" class="form-control" id="ip" name="ip" placeholder="IP" autocomplete="false" value="{{ old('ip') }}">
-                </div>
-                <div class="form-group">
-                    <label for="jenis">Jenis Aset</label>
-                    <select name="jenis" id="jenis" class="form-control">
-                        <option value="APLIKASI" {{ $dataAset->jenis == 'APLIKASI' ? 'selected' : '' }}>APLIKASI</option>
-                        <option value="INFRASTRUKTUR" {{ $dataAset->jenis == 'INFRASTRUKTUR' ? 'selected' : '' }}>INFRASTRUKTUR</option>
-                        <option value="SDM" {{ $dataAset->jenis == 'SDM' ? 'selected' : '' }}>SDM</option>
-                        <option value="DATA/INFORMASI" {{ $dataAset->jenis == 'DATA/INFORMASI' ? 'selected' : '' }}>DATA/INFORMASI</option>
-                    </select>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="url">Keterangan/Fungsi/Manfaat/Kegunaan</label>
+                        <textarea class="form-control" id="penjelasan" name="penjelasan">{{ $dataAset->keterangan }}</textarea>
+                    </div>
                 </div>
                   <div class="form-group">
                     <small id="namaHelp" class="form-text text-muted">*) harus diisi. Kolom URL dan IP hanya perlu diisi untuk aset APLIKASI & INFRASTRUKTUR</small>

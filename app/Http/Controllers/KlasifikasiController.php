@@ -23,7 +23,7 @@ class KlasifikasiController extends Controller
                     'nama.required' => 'tidak boleh kosong',
                     ]);
             $klasifikasi = Klasifikasi::findOrFail($id);
-            $klasifikasi->nama = strip_tags($request->nama);
+            $klasifikasi->nama = $request->nama;
             $klasifikasi->update();
             return redirect()->route('klasifikasi.tampil')->with('success', 'Data berhasil diperbarui!');
         } catch (ValidationException $e) {

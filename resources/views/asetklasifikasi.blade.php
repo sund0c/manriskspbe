@@ -1,15 +1,18 @@
 <x-layout>
     <style>
         .confidentiality-table th, .confidentiality-table td {
-            width: 800px;
+            width: 700px;
         }
         .confidentiality-table th:nth-child(2), .confidentiality-table td:nth-child(2) {
-            width: 400px; /* Define width for the second column */
+            width: 500px; /* Define width for the second column */
         }
 
         .confidentiality-table th:nth-child(4), .confidentiality-table td:nth-child(4) {
             width: 100px; /* Define width for the fourth column */
         }
+    hr {
+        border: 0.3px solid;
+    }
     </style>
 
     <x-slot name="breadcrumb">
@@ -39,6 +42,7 @@
     </x-slot>
     <x-slot name="card_title">
         @if (!$asetklasifikasis->isEmpty())
+        <a href="{{ route('asetklasifikasi.edit',$asetklasifikasis->first()->aset) }}" class="btn btn-warning"><i class="fas fa-edit"></i>UPDATE</a>
         <a href="{{ route('asetklasifikasi.pdf', $asetklasifikasis->first()->aset) }}" class="btn btn-primary"><i class="far fa-file-pdf"></i> PDF</a>
         @endif
     </x-slot>
@@ -49,7 +53,6 @@
                 <th>Kriteria Aspek CONFIDENTIALITY</th>
                 <th>Jawaban</th>
                 <th>Keterangan</th>
-                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -76,15 +79,16 @@
                 @endswitch
                 </td>
                 <td>{{ $data->keterangan }}</td>
-                <td align="center">
+                {{-- <td align="center">
                     <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modalFormEdit-{{ $data->id }}"><i class="fas fa-edit"></i></a>
-                </td>
+                </td> --}}
             </tr>
             @endif
             @endforeach
         </tbody>
         </table>
     </div>
+    <hr>
     <div class="card-body">
         <table id="dt" class="table table-bordered table-hover confidentiality-table">
             <thead>
@@ -92,7 +96,6 @@
                 <th>Kriteria Aspek INTEGRITY</th>
                 <th>Jawaban</th>
                 <th>Keterangan</th>
-                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -117,16 +120,16 @@
                 @endswitch
                 </td>
                 <td>{{ $data->keterangan }}</td>
-                <td align="center">
+                {{-- <td align="center">
                     <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modalFormEdit-{{ $data->id }}"><i class="fas fa-edit"></i></a>
-                </td>
+                </td> --}}
             </tr>
             @endif
             @endforeach
         </tbody>
         </table>
     </div>
-
+    <hr>
     <div class="card-body">
         <table id="dt" class="table table-bordered table-hover confidentiality-table">
             <thead>
@@ -134,7 +137,6 @@
                 <th>Kriteria Aspek AVALAIBILITY</th>
                 <th>Jawaban</th>
                 <th>Keterangan</th>
-                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -161,11 +163,12 @@
                 @endswitch
                 </td>
                 <td>{{ $data->keterangan }}</td>
-                <td align="center">
+                {{-- <td align="center">
                     <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modalFormEdit-{{ $data->id }}"><i class="fas fa-edit"></i></a>
-                </td>
+                </td> --}}
             </tr>
             @endif
+
             @endforeach
         </tbody>
         </table>
@@ -230,11 +233,11 @@
     <script>
         $(function () {
           $('#dt').DataTable({
-            "paging": true,
+            "paging": false,
             "lengthChange": true,
-            "searching": true,
+            "searching": false,
             "ordering": false,
-            "info": true,
+            "info": false,
             "autoWidth": false,
             "responsive": true,
           });

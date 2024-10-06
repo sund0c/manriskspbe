@@ -10,6 +10,14 @@
         /* .confidentiality-table th:nth-child(4), .confidentiality-table td:nth-child(4) {
             width: 100px; /* Define width for the fourth column */
         } */
+    hr {
+        border: 0.3px solid;
+    }
+    .kecil {
+        font-size: 0.8px;
+        padding-left: 20px;
+
+    }
     </style>
 
     <x-slot name="breadcrumb">
@@ -31,11 +39,16 @@
     }
     @endphp
     <x-slot name="title">{{ $idaset->first()->nama }}
-        <p style="font-size: 0.5em;">Jenis Aset: {{ $idaset->first()->jenis }} |
-            Pemilik Aset: {{ $idaset->first()->userRelation->opdRelation->singkatan }}
-            @if($idaset->first()->jenis=='APLIKASI')| <button class="btn btn-sm <?php echo $buttonClass; ?>">Kategori SE: {{ $idaset->first()->kategorise }}</button>
-            @endif
-        </p>
+        @if($idaset->first()->jenis=='APLIKASI')
+            <button class="btn btn-sm <?php echo $buttonClass; ?>">Kategori: {{ $idaset->first()->kategorise }}</button>
+        @endif
+        <ul style="list-style-type: none; padding: 0; margin: 0; font-size: 0.5em;">
+
+            <li>Jenis Aset: {{ $idaset->first()->jenis }}</li>
+            <li>LAYANAN SPBE: {{ $idaset->first()->layananRelation->nama }} ({{ $idaset->first()->layananRelation->jenis }})</li>
+            <li>Pemilik Aset: {{ $idaset->first()->userRelation->opdRelation->singkatan }}</li>
+        </ul>
+
     </x-slot>
     <x-slot name="card_title">
         @if ($asetkategoris->isEmpty())
@@ -87,11 +100,11 @@
     <script>
         $(function () {
           $('#dt').DataTable({
-            "paging": true,
+            "paging": false,
             "lengthChange": true,
-            "searching": true,
+            "searching": false,
             "ordering": false,
-            "info": true,
+            "info": false,
             "autoWidth": false,
             "responsive": true,
           });

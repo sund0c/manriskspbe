@@ -36,7 +36,7 @@ class AnnexController extends Controller
     //             ]
     //             );
     //         $annex = new Annex();
-    //         $annex->nama = strip_tags($request->nama);
+    //         $annex->nama = $request->nama;
     //         $annex->save();
     //         return redirect()->route('annex.tampil')->with('success', 'Data baru berhasil disimpan!');
     //     } catch (ValidationException $e) {
@@ -69,7 +69,7 @@ class AnnexController extends Controller
                     'nama.required' => 'tidak boleh kosong',
                     ]);
             $annex = Annex::findOrFail($id);
-            $annex->nama = strip_tags($request->nama);
+            $annex->nama = $request->nama;
             $annex->update();
             return redirect()->route('annex.tampil')->with('success', 'Data berhasil diperbarui!');
         } catch (ValidationException $e) {

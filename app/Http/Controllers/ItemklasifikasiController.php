@@ -46,11 +46,11 @@ class ItemklasifikasiController extends Controller
                 ]
                 );
             $item = ItemKlasifikasi::create([
-            'tanya' => strip_tags($request->kriteria),
-            'j1' => strip_tags($request->j1),
-            'j2' => strip_tags($request->j2),
-            'j3' => strip_tags($request->j3),
-            'domain' => strip_tags($request->domain),
+            'tanya' => $request->kriteria,
+            'j1' => $request->j1,
+            'j2' => $request->j2,
+            'j3' => $request->j3,
+            'domain' => $request->domain,
         ]);
             $item->save();
             return redirect()->route('itemklasifikasi.tampil',$request->domain)->with('success', 'Data baru berhasil disimpan!');
@@ -90,11 +90,11 @@ class ItemklasifikasiController extends Controller
                     );
 
                 $item = ItemKlasifikasi::findOrFail($id);
-                $item->tanya = strip_tags($request->kriteria);
-                $item->j1 = strip_tags($request->j1);
-                $item->j2 = strip_tags($request->j2);
-                $item->j3 = strip_tags($request->j3);
-                $item->domain = strip_tags($request->domain);
+                $item->tanya = $request->kriteria;
+                $item->j1 = $request->j1;
+                $item->j2 = $request->j2;
+                $item->j3 = $request->j3;
+                $item->domain = $request->domain;
                 $item->update();
                 return redirect()->route('itemklasifikasi.tampil',$request->domain)->with('success', 'Data berhasil diperbarui!');
             } catch (ValidationException $e) {

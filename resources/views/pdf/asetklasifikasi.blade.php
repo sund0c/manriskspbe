@@ -22,10 +22,11 @@ th, td {
     <h5 style="margin-top: 5px;margin-bottom: 5px;">Jenis: {{ $idaset->first()->jenis }}<BR>
     Pemilik: {{ $idaset->first()->userRelation->opdRelation->singkatan }}<BR>
     Klasifikasi: {{ $idaset->first()->klasifikasi }}</h5>
-    <p style="margin-top: 5px;font-size: 0.8em">Cetak Tgl. <?php echo date('d F Y H:i'); ?></p>
+    <p style="margin-top: 5px;font-size: 0.8em">Cetak Tgl. @formattedDateTime</p>
 
 
-    <table>
+
+    <table style="font-size: 0.8em">
             <thead>
             <tr>
                 <th>Aspek : CONFIDENTIALITY</th>
@@ -80,8 +81,10 @@ th, td {
             </tr>
         </tfoot>
         </table>
-        <BR>
-            <table>
+
+            <div style="page-break-after: always;"></div>
+
+            <table style="font-size: 0.8em">
                 <thead>
                 <tr>
                     <th>Aspek : INTEGRITY</th>
@@ -94,7 +97,7 @@ th, td {
                     $r=0;$y=0;
                 @endphp
                 @foreach ($asetklasifikasis as $no=>$data)
-                @if ($data->klasifikasiRelation->domain == 1)
+                @if ($data->klasifikasiRelation->domain == 2)
                 <tr>
                     <td>{{ $data->klasifikasiRelation->urut}}. {{ $data->klasifikasiRelation->tanya}}</td>
                     <td align="center">
@@ -138,8 +141,9 @@ th, td {
                 </tr>
             </tfoot>
             </table>
-            <BR>
-                <table>
+
+        <div style="page-break-after: always;"></div>
+                <table style="font-size: 0.8em">
                     <thead>
                     <tr>
                         <th>Aspek : AVAILABILITY</th>
@@ -152,7 +156,7 @@ th, td {
                         $r=0;$y=0;
                     @endphp
                     @foreach ($asetklasifikasis as $no=>$data)
-                    @if ($data->klasifikasiRelation->domain == 1)
+                    @if ($data->klasifikasiRelation->domain == 3)
                     <tr>
                         <td>{{ $data->klasifikasiRelation->urut}}. {{ $data->klasifikasiRelation->tanya}}</td>
                         <td align="center">
