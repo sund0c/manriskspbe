@@ -37,7 +37,7 @@ Route::middleware('auth','html.purifier','no.cache','verified','role:admin')->gr
     Route::delete('user/hapus/{id}', [userController::class, 'hapus'])->name('user.hapus');
     Route::post('user/tambah', [userController::class, 'tambah'])->name('user.tambah');
     Route::put('user/update/{id}', [userController::class, 'update'])->name('user.update');
-    Route::put('user/pupdate/{id}', [userController::class, 'pupdate'])->name('userp.update');
+
     Route::get('opd', [OpdController::class, 'tampil'])->name('opd.tampil');
     Route::delete('opd/hapus/{id}', [OpdController::class, 'hapus'])->name('opd.hapus');
     Route::post('opd/tambah', [OpdController::class, 'tambah'])->name('opd.tambah');
@@ -90,7 +90,7 @@ Route::middleware('auth','html.purifier','verified','no.cache','role:admin|persa
     // Route::put('asetklasifikasi/update/{id}/{domain}', [AsetklasifikasiController::class, 'update'])->name('asetklasifikasi.update');
     Route::get('asetklasifikasi/pdf/{id}', [AsetklasifikasiController::class, 'pdf'])->name('asetklasifikasi.pdf');
 
-
+    Route::put('user/pupdate/{id}', [userController::class, 'pupdate'])->name('userp.update');
 
 
 
