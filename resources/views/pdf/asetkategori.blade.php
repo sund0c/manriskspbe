@@ -22,7 +22,7 @@ th, td {
 
     <h5 style="margin-top: 5px;margin-bottom: 5px;">{{ $idaset->first()->keterangan }}<BR>Layanan SPBE: {{ $idaset->first()->layananRelation->nama }} ({{ $idaset->first()->layananRelation->jenis }})<BR>
         Jenis: {{ $idaset->first()->jenis }}<BR>
-    Pemilik: {{ $idaset->first()->userRelation->opdRelation->singkatan }}<BR>
+    Pemilik: {{ $idaset->first()->opdRelation->singkatan }}<BR>
     Kategori: {{ $idaset->first()->kategorise }}</h5>
     <p style="margin-top: 5px;font-size: 0.8em">Cetak Tgl. @formattedDateTime</p>
 

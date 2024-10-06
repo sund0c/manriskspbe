@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user')->nullable();
             $table->unsignedBigInteger('layanan')->nullable();
             $table->foreign('layanan')->references('id')->on('layananspbes')->onDelete('restrict');
-            $table->foreign('user')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('user')->references('id')->on('opds')->onDelete('restrict');
             $table->timestamps();
             $table->unique(['nama','jenis', 'ip', 'url'], 'kunciunik');
         });

@@ -29,14 +29,14 @@ class KategoriseSeeder extends Seeder
         ]);
         Kategorise::create([
             'urut' => '3',
-            'tanya' => 'Memiliki kewajiban kepatuhan terhadap Peraturan atau Standard Tertentu',
+            'tanya' => 'Memiliki kewajiban kepatuhan terhadap Peraturan atau Standard Tertentu. Contoh jika menggunakan Data Pribadi maka harus patuh terhadap UU PDP.',
             'j1' => 'Peraturan atau Standard Nasional dan Internasional',
             'j2' => 'Peraturan atau Standard Nasional',
             'j3' => 'Tidak ada Peraturan Khusus'
         ]);
         Kategorise::create([
             'urut' => '4',
-            'tanya' => 'Menggunakan teknik kriptografi khusus untuk keamanan informasi dalam aplikasi. HASH dianggap sebagai enkripsi.',
+            'tanya' => 'Menggunakan teknik kriptografi khusus untuk keamanan informasi dalam aplikasi. HASH dianggap sebagai enkripsi. Contoh menggunakan modul TTE dari BSrE BSSN. Penggunaan SSL/HTTPS bukan termasuk dalam konteks ini.',
             'j1' => 'Teknik kriptografi khusus yang disertifikasi oleh Negara',
             'j2' => 'Teknik kriptografi sesuai standard industri, tersedia secara publik atau dikembangkan sendiri',
             'j3' => 'Tidak ada penggunaan teknik kriptografi'
@@ -65,9 +65,9 @@ class KategoriseSeeder extends Seeder
         Kategorise::create([
             'urut' => '8',
             'tanya' => 'Tingkat kekritisan proses yang ada dalam aplikasi, relatif terhadap ancaman upaya penyerangan atau penerobosan keamanan informasi. ',
-            'j1' => 'Proses yang berisiko mengganggu hajat hidup orang banyak dan memberi dampak langsung pada layanan publik',
+            'j1' => 'Proses yang berisiko mengganggu hajat hidup orang banyak dan memberi dampak langsung pada layanan publik (Publik adalah masyarakat penerima layanan)',
             'j2' => 'Proses yang beresiko mengganggu hajat hidup orang banyak dan memberi dampak tidak langsung',
-            'j3' => 'Proses yang berdampak pada bisnis perusahaan'
+            'j3' => 'Proses yang berdampak pada bisnis/layanan organisasi'
         ]);
         Kategorise::create([
             'urut' => '9',
@@ -80,8 +80,8 @@ class KategoriseSeeder extends Seeder
             'urut' => '10',
             'tanya' => 'Potensi kerugian atau dampak negatif dari insiden ditembusnya keamanan aplikasi (sabotase, terorisme)',
             'j1' => 'Menimbulkan korban jiwa',
-            'j2' => 'Terbatas pada kerugian finansial',
-            'j3' => 'Mengakibatkan ganggunan operasional sementara (tidak membahayakan dan mengakibatkan kurgian finansial)'
+            'j2' => 'Terbatas pada kerugian finansial organisasi',
+            'j3' => 'Mengakibatkan ganggunan operasional organisasi secara sementara (tidak membahayakan dan tidak mengakibatkan kerugian finansial)'
         ]);
     }
 }

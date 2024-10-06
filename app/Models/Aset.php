@@ -19,10 +19,17 @@ class Aset extends Model
         'layanan',
     ];
 
-    public function userRelation()
+    // public function userRelation()
+    // {
+    //     return $this->belongsTo(User::class, 'user', 'id');
+    // }
+
+    public function opdRelation()
     {
-        return $this->belongsTo(User::class, 'user', 'id');
+        return $this->belongsTo(Opd::class, 'user', 'id');
     }
+
+
     public function layananRelation()
     {
         return $this->belongsTo(Layananspbe::class, 'layanan', 'id');

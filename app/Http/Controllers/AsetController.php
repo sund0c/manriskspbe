@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Aset;
 use App\Models\Layananspbe;
+use App\Models\Opd;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -10,9 +11,10 @@ use Illuminate\Validation\ValidationException;
 class AsetController extends Controller
 {
     public function tampil(){
-        $aset = Aset::with(['layananRelation'])->get();
+        $aset = Aset::with(['layananRelation','opdRelation'])->get();
         $layananspbe = Layananspbe::orderBy('jenis', 'ASC')->orderBy('nama', 'ASC')->get();
-        $users = User::with(['roles', 'opdRelation'])->get();
+        // $users = User::with(['roles', 'opdRelation'])->get();
+        $users = Opd::all();
         return view('aset',compact('aset','users','layananspbe'));
     }
 

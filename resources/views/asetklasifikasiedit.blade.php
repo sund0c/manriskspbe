@@ -25,7 +25,7 @@
     @endphp
     <x-slot name="title">{{ $idaset->first()->nama }}
         <p style="font-size: 0.5em;">Jenis Aset: {{ $idaset->first()->jenis }} |
-            Pemilik Aset: {{ $idaset->first()->userRelation->opdRelation->singkatan }}
+            Pemilik Aset: {{ $idaset->first()->opdRelation->singkatan }}
             @if($idaset->first()->jenis=='APLIKASI')| <button class="btn btn-sm <?php echo $buttonClass; ?>">Klasifikasi SE: {{ $idaset->first()->klasifikasi }}</button>
             @endif
         </p>

@@ -20,7 +20,7 @@ th, td {
         <h3 style="margin-bottom: 5px;">Klasifikasi Informasi dalam Sistem Elektronik</h3>
         <h1 style="margin-top: 5px;margin-bottom: 5px;">{{ $idaset->first()->nama }}</h1>
     <h5 style="margin-top: 5px;margin-bottom: 5px;">Jenis: {{ $idaset->first()->jenis }}<BR>
-    Pemilik: {{ $idaset->first()->userRelation->opdRelation->singkatan }}<BR>
+    Pemilik: {{ $idaset->first()->opdRelation->singkatan }}<BR>
     Klasifikasi: {{ $idaset->first()->klasifikasi }}</h5>
     <p style="margin-top: 5px;font-size: 0.8em">Cetak Tgl. @formattedDateTime</p>
 

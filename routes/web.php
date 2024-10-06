@@ -24,19 +24,20 @@ Route::get('/', function () {
 
 
 Route::get('/dashboard', function () {
-    return view('dashboard');})->middleware(['auth', 'verified'])->name('dashboard');
+    return view('dashboard');})->middleware(['auth', 'verified','no.cache'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
-Route::middleware('auth','html.purifier','verified','role:admin')->group(function () {
+Route::middleware('auth','html.purifier','no.cache','verified','role:admin')->group(function () {
     Route::get('user', [UserController::class, 'tampil'])->name('user.tampil');
     Route::delete('user/hapus/{id}', [userController::class, 'hapus'])->name('user.hapus');
     Route::post('user/tambah', [userController::class, 'tambah'])->name('user.tambah');
     Route::put('user/update/{id}', [userController::class, 'update'])->name('user.update');
+    Route::put('user/pupdate/{id}', [userController::class, 'pupdate'])->name('userp.update');
     Route::get('opd', [OpdController::class, 'tampil'])->name('opd.tampil');
     Route::delete('opd/hapus/{id}', [OpdController::class, 'hapus'])->name('opd.hapus');
     Route::post('opd/tambah', [OpdController::class, 'tambah'])->name('opd.tambah');
@@ -71,7 +72,7 @@ Route::middleware('auth','html.purifier','verified','role:admin')->group(functio
 
 });
 
-Route::middleware('auth','html.purifier','verified','role:admin|opd')->group(function () {
+Route::middleware('auth','html.purifier','verified','no.cache','role:admin|persandian')->group(function () {
 
     Route::get('aset', [AsetController::class, 'tampil'])->name('aset.tampil');
     Route::delete('aset/hapus/{id}', [AsetController::class, 'hapus'])->name('aset.hapus');

@@ -97,7 +97,8 @@
                         {{ $data->nama }}
                     @endif
                 </td>
-                <td>{{ $data->userRelation->opdRelation->singkatan }}</td>
+                {{-- <td>{{ $data->userRelation->opdRelation->singkatan }}</td> --}}
+                <td>{{ $data->opdRelation->singkatan }}</td>
                 <td align="center">
                     <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modalFormEdit-{{ $data->id }}"><i class="fas fa-edit"></i></a>
                     <form class="d-inline" action="{{ route('aset.hapus', $data->id) }}" method="POST" id="delete-form-{{ $data->id }}">
@@ -126,11 +127,19 @@
             <form id="modalFormContent" action="{{ route('aset.tambah') }}" method="POST">
                 @csrf
                 <div class="form-row">
-                    <div class="form-group col-md-4">
+                    {{-- <div class="form-group col-md-4">
                         <label for="user">User PIC*</label>
                         <select name="user" id="user" class="form-control">
                             @foreach($users as $u)
                                 <option value="{{ $u->id }}">{{ $u->name }} - {{ $u->opdRelation->singkatan }}</option>
+                            @endforeach
+                        </select>
+                    </div> --}}
+                    <div class="form-group col-md-4">
+                        <label for="user">Pemilik Aset/OPD*</label>
+                        <select name="user" id="user" class="form-control">
+                            @foreach($users as $u)
+                                <option value="{{ $u->id }}">{{ $u->singkatan }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -208,11 +217,16 @@
                     <div class="form-group col-md-4">
                         <label for="user">User PIC*</label>
                         <select name="user" id="user" class="form-control">
-                            @foreach($users as $u)
+                            {{-- @foreach($users as $u)
                                 <option value="{{ $u->id }}" {{ $u->id == $dataAset->user ? 'selected' : '' }}>
                                     {{ $u->name }} - {{ $u->opdRelation->singkatan }}
                                 </option>
-                            @endforeach
+                            @endforeach --}}
+                            @foreach($users as $u)
+                            <option value="{{ $u->id }}" {{ $u->id == $dataAset->user ? 'selected' : '' }}>
+                                {{ $u->singkatan }}
+                            </option>
+                        @endforeach
                         </select>
                     </div>
                     <div class="form-group col-md-8">

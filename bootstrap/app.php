@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'html.purifier' => \App\Http\Middleware\HtmlPurifierMiddleware::class,
+            'no.cache' => \App\Http\Middleware\NoCache::class,
 
         ]);
     })

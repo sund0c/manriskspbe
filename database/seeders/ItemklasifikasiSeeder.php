@@ -24,7 +24,7 @@ class ItemklasifikasiSeeder extends Seeder
         ]);
         Itemklasifikasi::create([
             'urut' => '2',
-            'tanya' => 'Bagaimana dampak terhadap keamanan dan keselamatan pribadi jika informasi tidak tersedia saat dibutuhkan?',
+            'tanya' => 'Bagaimana dampak terhadap keamanan dan keselamatan pribadi jika informasi tidak tersedia saat dibutuhkan?.Contoh informasi tentang shelter perlindungan saat bencana.',
             'j1' => 'Tidak Berdampak',
             'j2' => 'Terbatas',
             'j3' => 'Serius',
@@ -61,7 +61,7 @@ class ItemklasifikasiSeeder extends Seeder
 //==
         Itemklasifikasi::create([
             'urut' => '1',
-            'tanya' => 'Apakah informasi ini termasuk atau mengandung Data/Informasi Pribadi?',
+            'tanya' => 'Apakah informasi ini termasuk atau mengandung Data/Informasi Pribadi?. Sesuaikan dengan UU PDP.',
             'j1' => 'Tidak',
             'j2' => 'Tidak',
             'j3' => 'Ya',
@@ -124,7 +124,7 @@ class ItemklasifikasiSeeder extends Seeder
         ]);
         Itemklasifikasi::create([
             'urut' => '8',
-            'tanya' => 'Apakah informasi ini (seperti transaksi finansial, penilian kinerja) diandalkan untuk membuat keputusan organisasi? Jika ya, bagaimana dampak dari modisikasi atau penghancuran yang tidak sah?',
+            'tanya' => 'Apakah informasi ini (seperti transaksi finansial, penilaian kinerja) diandalkan untuk membuat keputusan organisasi? Jika ya, bagaimana dampak dari modifikasi atau penghancuran yang tidak sah?',
             'j1' => 'Tidak Berdampak',
             'j2' => 'Terbatas',
             'j3' => 'Serius',
@@ -143,7 +143,7 @@ class ItemklasifikasiSeeder extends Seeder
         ]);
         Itemklasifikasi::create([
             'urut' => '2',
-            'tanya' => 'Apakah informasi ini termasuk atau mengandung Data/Informasi Pribadi',
+            'tanya' => 'Apakah informasi ini termasuk atau mengandung Data/Informasi Pribadi. Sesuaikan dengan UU PDP.',
             'j1' => 'Tidak',
             'j2' => 'Tidak',
             'j3' => 'Ya',
@@ -161,7 +161,7 @@ class ItemklasifikasiSeeder extends Seeder
         ]);
         Itemklasifikasi::create([
             'urut' => '4',
-            'tanya' => 'Bagaimana dampak kerugian dalam aspek keuangan dari pengungkapan nformasi yang tidak sah?',
+            'tanya' => 'Bagaimana dampak kerugian dalam aspek keuangan dari pengungkapan informasi yang tidak sah?',
             'j1' => 'Tidak Berdampak',
             'j2' => 'Terbatas',
             'j3' => 'Serius',

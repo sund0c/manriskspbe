@@ -46,7 +46,7 @@
 
             <li>Jenis Aset: {{ $idaset->first()->jenis }}</li>
             <li>LAYANAN SPBE: {{ $idaset->first()->layananRelation->nama }} ({{ $idaset->first()->layananRelation->jenis }})</li>
-            <li>Pemilik Aset: {{ $idaset->first()->userRelation->opdRelation->singkatan }}</li>
+            <li>Pemilik Aset: {{ $idaset->first()->opdRelation->singkatan }}</li>
         </ul>
 
     </x-slot>

@@ -54,6 +54,25 @@
         padding: 0; /* Menghapus padding default */
     }
 </style>
+<style>
+    #password-strength-status {
+        padding: 5px 10px;
+        border-radius: 4px;
+        margin-top: 5px;
+    }
+
+    .medium-password {
+        background-color: #fd0;
+    }
+
+    .weak-password {
+        background-color: #FBE1E1;
+    }
+
+    .strong-password {
+        background-color: #D5F9D5;
+    }
+    </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
@@ -105,9 +124,9 @@
             {{ Auth::user()->name }} ({{ Auth::user()->getRoleNames()->first() }})
         </a>
         <div class="dropdown-menu dropdown-menu-right">
-            <x-dropdown-link :href="route('profile.edit')">
+            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modalFormP">
                 {{ __('Profile') }}
-            </x-dropdown-link>
+            </a>
           <div class="dropdown-divider"></div>
 
 <!-- Authentication -->
@@ -226,6 +245,44 @@
 @endif
 
 
+<div class="modal fade" id="modalFormP" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Ganti Password</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+        <form id="modalFormContentEdit" action="{{ route('userp.update',Auth::user()->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="form-group">
+                <label for="oldpassword">Password Lama*</label>
+                <input type="text" class="form-control" name="oldpassword" id="oldpassword" placeholder="oldpassword" autocomplete="false" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="passwordNew">Password Baru*</label>
+                <input type="text" class="form-control" name="passwordNew" id="passwordNew" placeholder="passwordnew" autocomplete="false" autocomplete="off" onkeyup="checkPasswordStrengthP();">
+                <div id="password-strength-statusP"></div>
+            </div>
+              <div class="form-group">
+                <small id="namaHelp" class="form-text text-muted">*) harus diisi</small>
+              </div>
+        </div>
+        <div class="modal-footer">
+        <button type="reset" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+    </div>
+    </div>
+</div>
+
+
+
 
 <!-- Bootstrap 4 -->
 <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
@@ -242,7 +299,30 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('assets/js/adminlte.min.js')}}"></script>
 
-
+<script>
+    function checkPasswordStrengthP() {
+        var number = /([0-9])/;
+        var alphabets = /([a-zA-Z])/;
+        var special_characters = /([~,!,@,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
+        var password = $('#passwordNew').val().trim();
+        if (password.length < 8) {
+            $('#password-strength-statusP').removeClass();
+            $('#password-strength-statusP').addClass('weak-password');
+            $('#password-strength-statusP').html("Lemah (panjangnya minimal 8 karater)");
+        } else {
+            if (password.match(number) && password.match(alphabets) && password.match(special_characters)) {
+                $('#password-strength-statusP').removeClass();
+                $('#password-strength-statusP').addClass('strong-password');
+                $('#password-strength-statusP').html("Kuat, ini baru password yang baik");
+            }
+            else {
+                $('#password-strength-statusP').removeClass();
+                $('#password-strength-statusP').addClass('medium-password');
+                $('#password-strength-statusP').html("Medium (pastikan ada kombinasi huruf, angka, simbol)");
+            }
+        }
+    }
+    </script>
 
 
 </body>
