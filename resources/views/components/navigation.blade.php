@@ -51,6 +51,13 @@
                             <p>Annex A Controls</p>
                         </a>
                     </li>
+                    <hr>
+                    <li class="nav-item">
+                        <a href="{{ route('bup-db') }}" class="nav-link">
+                            <i class="fas fa-database nav-icon"></i>
+                            <p>BACKUP DB</p>
+                        </a>
+                    </li>
                 </ul>
         </li>
         @endif

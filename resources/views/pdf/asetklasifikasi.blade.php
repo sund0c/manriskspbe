@@ -19,6 +19,8 @@ th, td {
 
         <h3 style="margin-bottom: 5px;">Klasifikasi Informasi dalam Sistem Elektronik</h3>
         <h1 style="margin-top: 5px;margin-bottom: 5px;">{{ $idaset->first()->nama }}</h1>
+        <h6 style="margin-top: 5px;margin-bottom: 5px;">{{ $idaset->first()->keterangan }}</h6><hr>
+        <h5>Layanan SPBE: {{ $idaset->first()->layananRelation->nama }} ({{ $idaset->first()->layananRelation->jenis }})<BR>
     <h5 style="margin-top: 5px;margin-bottom: 5px;">Jenis: {{ $idaset->first()->jenis }}<BR>
     Pemilik: {{ $idaset->first()->opdRelation->singkatan }}<BR>
     Klasifikasi: {{ $idaset->first()->klasifikasi }}</h5>

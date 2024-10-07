@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\BackupdbController;
 use App\Http\Controllers\LayananspbeController;
 use App\Http\Controllers\AsetkategoriController;
 use App\Http\Controllers\AsetklasifikasiController;
@@ -14,6 +14,7 @@ use App\Http\Controllers\OpdController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AsetController;
 use Illuminate\Support\Facades\Route;
+
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -91,6 +92,9 @@ Route::middleware('auth','html.purifier','verified','no.cache','role:admin|persa
     Route::get('asetklasifikasi/pdf/{id}', [AsetklasifikasiController::class, 'pdf'])->name('asetklasifikasi.pdf');
 
     Route::put('user/pupdate/{id}', [userController::class, 'pupdate'])->name('userp.update');
+
+    Route::get('/bup-db', [BackupdbController::class, 'backup'])->name('bup-db');
+
 
 
 

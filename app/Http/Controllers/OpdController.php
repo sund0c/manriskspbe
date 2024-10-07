@@ -31,12 +31,11 @@ class OpdController extends Controller
         try {
             $validatedData = $request->validate(
                 [
-                'singkatan' => ['required', 'regex:/^[a-zA-Z]+$/','min:3'],
+                'singkatan' => ['required', 'min:3'],
                 'nama' => ['required','min:5'],
                 ],
                 [
                 'singkatan.required' => 'tidak boleh kosong',
-                'singkatan.regex' => 'hanya boleh berisi huruf',
                 'singkatan.min' => 'minimal 3 karakter',
                 'nama.required' => 'tidak boleh kosong',
                 'nama.min' => 'minimal 5 karakter',
@@ -71,12 +70,11 @@ class OpdController extends Controller
         try {
             $validatedData = $request->validate(
                 [
-                'singkatan' => ['required', 'regex:/^[a-zA-Z]+$/','min:3'],
+                'singkatan' => ['required','min:3'],
                 'nama' => ['required','min:5'],
                 ],
                 [
                 'singkatan.required' => 'tidak boleh kosong',
-                'singkatan.regex' => 'hanya boleh berisi huruf',
                 'singkatan.min' => 'minimal 3 karakter',
                 'nama.required' => 'tidak boleh kosong',
                 'nama.min' => 'minimal 5 karakter',
