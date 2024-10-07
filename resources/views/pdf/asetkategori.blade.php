@@ -15,7 +15,18 @@ th, td {
     border: 1px solid black; /* Garis tipis di semua cell */
     padding: 8px; /* Memberikan sedikit ruang dalam cell */
 }
+.footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: grey;
+        }
 </style>
+
+
 
         <h3 style="margin-bottom: 5px;">Kategori Sistem Elektronik</h3>
         <h1 style="margin-top: 5px;margin-bottom: 5px;">{{ $idaset->first()->nama }}</h1>
@@ -82,9 +93,6 @@ th, td {
             </li></ul>
         </p>
 
-        <footer>
-
-        </footer>
 
 </body>
 

@@ -92,6 +92,12 @@ class AsetklasifikasiController extends Controller
         $pdf = Pdf::loadView('pdf.asetklasifikasi', ['asetklasifikasis' => $asetklasifikasis,'idaset' => $idaset])
                  ->setPaper('a4', 'landscape');
 
+// Menggunakan Event untuk menambahkan nomor halaman pada footer
+$pdf->output();
+$dom_pdf = $pdf->getDomPDF();
+$canvas = $dom_pdf->getCanvas();
+$canvas->page_text(650, 550, "Hal {PAGE_NUM} dari {PAGE_COUNT} | TLP : AMBER+STRICT", null, 10, array(0,0,0));
+
         $namaFile = preg_replace('/[^A-Za-z0-9]/', '', strtolower($idaset->first()->nama));
         $namaFile = substr($namaFile, 0, 10); // Mengambil 10 karakter pertama dari nama yang sudah dibersihkan
         $tanggalSekarang = now()->format('dmyhms'); // Format tanggal: dd-mm-yyyy

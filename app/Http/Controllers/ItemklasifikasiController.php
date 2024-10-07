@@ -42,6 +42,7 @@ class ItemklasifikasiController extends Controller
                 'j1.required' => 'Indikator #1 : tidak boleh kosong',
                 'j2.required' => 'Indikator #2 : tidak boleh kosong',
                 'j3.required' => 'Indikator #3 : tidak boleh kosong',
+                'j4.required' => 'Indikator #4 : tidak boleh kosong',
                 'domain.required' => 'tidak boleh kosong',
                 ]
                 );
@@ -50,6 +51,7 @@ class ItemklasifikasiController extends Controller
             'j1' => $request->j1,
             'j2' => $request->j2,
             'j3' => $request->j3,
+            'j4' => $request->j4,
             'domain' => $request->domain,
         ]);
             $item->save();
@@ -78,13 +80,14 @@ class ItemklasifikasiController extends Controller
             try {
                 $validatedData = $request->validate(
                     [
-                    'kriteria' => ['required'],'j1' => ['required'],'j2' => ['required'],'j3' => ['required'],'domain' => ['required']
+                    'kriteria' => ['required'],'j1' => ['required'],'j2' => ['required'],'j3' => ['required'],'j4' => ['required'],'domain' => ['required']
                     ],
                     [
                     'kriteria.required' => 'Kriteria : tidak boleh kosong',
                     'j1.required' => 'Indikator #1 : tidak boleh kosong',
                     'j2.required' => 'Indikator #2 : tidak boleh kosong',
                     'j3.required' => 'Indikator #3 : tidak boleh kosong',
+                    'j4.required' => 'Indikator #4 : tidak boleh kosong',
                     'domain.required' => 'tidak boleh kosong',
                     ]
                     );
@@ -94,6 +97,7 @@ class ItemklasifikasiController extends Controller
                 $item->j1 = $request->j1;
                 $item->j2 = $request->j2;
                 $item->j3 = $request->j3;
+                $item->j4 = $request->j4;
                 $item->domain = $request->domain;
                 $item->update();
                 return redirect()->route('itemklasifikasi.tampil',$request->domain)->with('success', 'Data berhasil diperbarui!');
