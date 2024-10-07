@@ -17,6 +17,9 @@ class Aset extends Model
         'jenis',
         'user',
         'layanan',
+        'skorkategori',
+        'skorklasifikasi',
+        'skorrisiko',
     ];
 
     // public function userRelation()

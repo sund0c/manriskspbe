@@ -11,7 +11,12 @@ use Illuminate\Validation\ValidationException;
 class AsetController extends Controller
 {
     public function tampil(){
-        $aset = Aset::with(['layananRelation','opdRelation'])->get();
+//        $aset = Aset::with(['layananRelation','opdRelation'])->get();
+        $aset = Aset::with(['layananRelation', 'opdRelation'])
+            ->orderBy('skorkategori', 'DESC')
+            ->orderBy('user', 'ASC')
+            ->get();
+
         $layananspbe = Layananspbe::orderBy('jenis', 'ASC')->orderBy('nama', 'ASC')->get();
         // $users = User::with(['roles', 'opdRelation'])->get();
         $users = Opd::all();
@@ -54,10 +59,12 @@ class AsetController extends Controller
             if ($aset->jenis !== 'APLIKASI' && $aset->jenis !== 'INFRASTRUKTUR') {
                 $aset->url = ''; // Mengosongkan URL
                 $aset->ip = '';  // Mengosongkan IP
+                $aset->skorkategori = 0;
             } else {
                 // Jika jenisnya APLIKASI atau INFRASTRUKTUR, atur URL dan IP sesuai input atau default '-'
                 $aset->url = strtolower($request->url) ?: '-';
                 $aset->ip = $request->ip ?: '-';
+                $aset->skorkategori = 50;
             }
             $aset->user = $request->user;
             $aset->keterangan = $request->penjelasan;

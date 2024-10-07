@@ -1,4 +1,9 @@
 <x-layout>
+    <style>
+        .custom-btn {
+            min-width: 50px; /* Lebar minimum yang diinginkan */
+    }
+    </style>
     <x-slot name="breadcrumb">
         <li class="breadcrumb-item">
             <a href="{{ route('dashboard') }}">Dashboard</a>
@@ -15,7 +20,8 @@
             <thead>
             <tr>
                 <th width="30px">No</th>
-                <th width="120px" align="center">Status Aset</th>
+                <th width="60px" align="center">KAT</th>
+                <th width="60px" align="center">KLA</th>
                 <th width="100px">Jenis</th>
                 <th width="200px">Layanan SPBE</th>
                 <th>Nama</th>
@@ -27,46 +33,54 @@
             @foreach ($aset as $no=>$data)
             <tr>
                 <td align="right">{{ $no+1 }}</td>
-                <td align="right">
+                <td align="center">
                     @if ($data->jenis == 'APLIKASI')
                         @php
                         switch ($data->kategorise) {
                             case 'STRATEGIS':
                                 $buttonClass = 'btn-danger'; // Merah
+                                $na='S';
                                 break;
                             case 'TINGGI':
                                 $buttonClass = 'btn-warning'; // Kuning
+                                $na='T';
                                 break;
                             case 'RENDAH':
                                 $buttonClass = 'btn-success'; // Biru
+                                $na='R';
                                 break;
                             default:
                                 $buttonClass = 'btn-secondary'; // Kelas default jika kategori tidak dikenali
                                 break;
                         }
                     @endphp
-                    <a href="{{ route('asetkategori.tampil',$data->id) }}" class="btn btn-sm <?php echo $buttonClass; ?> fixed-size-button" title="Kategori SE">K</a>
+                    <a href="{{ route('asetkategori.tampil',$data->id) }}" class="btn btn-sm custom-btn <?php echo $buttonClass; ?> fixed-size-button" title="Kategori SE">{{ $data->skorkategori }}: {{ $na }}</a>
                     @endif
+                </td>
+                <td align="center">
                     @if ($data->jenis == 'APLIKASI')
                         @php
                         switch ($data->klasifikasi) {
                             case 'RAHASIA':
                                 $buttonClass = 'btn-danger'; // Merah
+                                $na='R';
                                 break;
                             case 'TERBATAS/INTERNAL':
                                 $buttonClass = 'btn-warning'; // Kuning
+                                $na='T';
                                 break;
                             case 'PUBLIK':
                                 $buttonClass = 'btn-success'; // Hijau
+                                $na='P';
                                 break;
                             default:
                                 $buttonClass = 'btn-secondary'; // Kelas default jika kategori tidak dikenali
                                 break;
                         }
                         @endphp
-                    <a href="{{ route('asetklasifikasi.tampil',$data->id) }}" class="btn btn-sm <?php echo $buttonClass; ?> fixed-size-button" title="Klasifikasi">L</a>
+                    <a href="{{ route('asetklasifikasi.tampil',$data->id) }}" class="btn btn-sm custom-btn <?php echo $buttonClass; ?> fixed-size-button" title="Klasifikasi">{{ $na }}</a>
                     @endif
-                    @php
+                    {{-- @php
                         switch ($data->risiko) {
                             case 'CRITICAL':
                                 $buttonClass = 'btn-danger'; // Merah
@@ -85,7 +99,7 @@
                                 break;
                         }
                     @endphp
-                    <a href="#" class="btn btn-sm <?php echo $buttonClass; ?> fixed-size-button" title="Kontrol Risiko">R</a>
+                    <a href="#" class="btn btn-sm <?php echo $buttonClass; ?> fixed-size-button" title="Kontrol Risiko">R</a> --}}
                 </td>
                 <td>{{ $data->jenis }}</td>
                 <td>{{ $data->layananRelation->jenis }}:<BR>{{ $data->layananRelation->nama }}</td>
@@ -289,10 +303,11 @@
             "paging": true,
             "lengthChange": true,
             "searching": true,
-            "ordering": true,
+            "ordering": false,
             "info": true,
             "autoWidth": false,
             "responsive": true,
+            "stateSave": true,
           });
            $('#modalForm').on('shown.bs.modal', function () {
                 $(this).find('form')[0].reset();

@@ -137,6 +137,7 @@ class AsetkategoriController extends Controller
                 }
                 $aset = Aset::findOrFail($item->aset);
                 $aset->kategorise = $kategori;
+                $aset->skorkategori = $sumJawab;
                 $aset->update();
                 return redirect()->route('asetkategori.tampil',$request->aset)->with('success', 'Data berhasil diperbarui!');
             } catch (ValidationException $e) {
