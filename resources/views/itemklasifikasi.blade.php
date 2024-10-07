@@ -42,48 +42,6 @@
         </table>
     </div>
 
-    <!-- Modal Tambah-->
-    <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Tambah Data</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-            {{-- <form id="modalFormContent" action="{{ route('itemklasifikasi.tambah') }}" method="POST">
-                @csrf
-                    <input type="hidden" id="domain" name="domain" value="{{ $idklasifikasi->first()->id }}">
-                <div class="form-group">
-                    <label for="nama">Kriteria*</label>
-                    <textarea class="form-control" id="kriteria" name="kriteria" autocomplete="false"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="nama">Indikator #1*</label>
-                    <textarea class="form-control" id="j1" name="j1" autocomplete="false"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="nama">Indikator #2*</label>
-                    <textarea class="form-control" id="j2" name="j2" autocomplete="false"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="nama">Indikator #3*</label>
-                    <textarea class="form-control" id="j3" name="j3" autocomplete="false"></textarea>
-                </div>
-                  <div class="form-group">
-                    <small id="namaHelp" class="form-text text-muted">*) harus diisi. Jika indikator hanya 2, isikan 0 pada indikator #2</small>
-                  </div>
-            </div>
-            <div class="modal-footer">
-            <button type="reset" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-            <button type="submit" class="btn btn-primary">Simpan</button>
-            </div>
-        </form> --}}
-        </div>
-        </div>
-    </div>
 
     <!-- Modal Edit-->
 

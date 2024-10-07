@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('itemklasifikasis', function (Blueprint $table) {
             $table->id();
             $table->integer('urut');
-            $table->string('tanya')->unique();
+            $table->text('tanya')->unique();
             $table->string('j1');
             $table->string('j2');
             $table->string('j3');
