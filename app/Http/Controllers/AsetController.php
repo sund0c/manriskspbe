@@ -125,8 +125,8 @@ class AsetController extends Controller
                 $aset->ip = '';  // Mengosongkan IP
             } else {
                 // Jika jenisnya APLIKASI atau INFRASTRUKTUR, atur URL dan IP sesuai input atau default '-'
-                $aset->url = strtolower($request->url) ?: '-';
-                $aset->ip = $request->ip ?: '-';
+                $aset->url = strtolower($request->url) ?: '';
+                $aset->ip = $request->ip ?: '';
             }
             $aset->keterangan = $request->penjelasan;
             $aset->layanan = $request->layanan;
