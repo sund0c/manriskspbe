@@ -21,14 +21,15 @@
         </li>
     </ul>
     <x-slot name="card_title">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modalForm"><i class="fas fa-plus"></i> Tambah</button>
-        <button class="btn btn-primary"><i class="far fa-file-pdf"></i> PDF</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modalForm"><i class="fas fa-plus"></i> Tambah Aset</button>
     </x-slot>
 
     <div class="tab-content" id="myTabContent">
         <!-- Tab A Content -->
         <div class="tab-pane fade show active" id="content-kategori" role="tabpanel" aria-labelledby="tab-kategori">
             <div class="card-body">
+                <a href="{{ route('aset.pdf', '1') }}" class="btn btn-primary"><i class="far fa-file-pdf"></i> PDF KATEGORI</a>
+                <p></p>
                 <table id="dt" class="table table-bordered table-hover">
                     <thead>
                     <tr>
@@ -98,6 +99,8 @@
 
         <div class="tab-pane fade" id="content-klasifikasi" role="tabpanel" aria-labelledby="tab-klasifikasi">
             <div class="card-body">
+                <a href="{{ route('aset.pdf', '2') }}" class="btn btn-primary"><i class="far fa-file-pdf"></i> PDF KLASIFIKASI</a>
+                <p></p>
                 <table id="dtk" class="table table-bordered table-hover">
                     <thead>
                     <tr>

@@ -79,6 +79,8 @@ Route::middleware('auth','html.purifier','verified','no.cache','role:admin|persa
     Route::delete('aset/hapus/{id}', [AsetController::class, 'hapus'])->name('aset.hapus');
     Route::post('aset/tambah', [AsetController::class, 'tambah'])->name('aset.tambah');
     Route::put('aset/update/{id}', [AsetController::class, 'update'])->name('aset.update');
+    Route::get('aset/pdf/{id}', [AsetController::class, 'pdf'])->name('aset.pdf');
+
 
     Route::get('asetkategori/{id}', [AsetkategoriController::class, 'tampil'])->name('asetkategori.tampil');
     Route::get('asetkategori/edit/{id}', [AsetkategoriController::class, 'edit'])->name('asetkategori.edit');

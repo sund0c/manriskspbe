@@ -7,6 +7,7 @@ use App\Models\Opd;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AsetController extends Controller
 {
@@ -26,6 +27,33 @@ class AsetController extends Controller
         // $users = User::with(['roles', 'opdRelation'])->get();
         $users = Opd::all();
         return view('aset',compact('aset','asetk','users','layananspbe'));
+    }
+
+    public function pdf($id){
+        //$idaset = Aset::where('id', $id)->with('layananRelation')->get();
+        if ($id == 1) {
+            $j='kategori';
+            $aset = Aset::with(['layananRelation', 'opdRelation'])
+            ->orderBy('skorkategori', 'DESC')
+            ->orderBy('user', 'ASC')
+            ->get();
+        } elseif ($id == 2) {
+            $j='klasifikasi';
+            $aset = Aset::with(['layananRelation', 'opdRelation'])
+            ->orderBy('skorklasifikasi', 'DESC')
+            ->orderBy('user', 'ASC')
+            ->get();
+        }
+        $pdf = Pdf::loadView('pdf.aset', ['aset' => $aset,'id'=>$id])
+                 ->setPaper('a4', 'landscape');
+   // Menggunakan Event untuk menambahkan nomor halaman pada footer
+   $pdf->output();
+   $dom_pdf = $pdf->getDomPDF();
+   $canvas = $dom_pdf->getCanvas();
+   $canvas->page_text(650, 550, "Hal {PAGE_NUM} dari {PAGE_COUNT} | TLP : AMBER", null, 10, array(0,0,0));
+        $tanggalSekarang = now()->format('dmyhms'); // Format tanggal: dd-mm-yyyy
+        $namaFilePDF = $j.'_'. $tanggalSekarang . '.pdf';
+        return $pdf->download($namaFilePDF);
     }
 
     public function hapus($id){
