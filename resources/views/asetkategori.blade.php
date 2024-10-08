@@ -40,7 +40,7 @@
     @endphp
     <x-slot name="title">{{ $idaset->first()->nama }}
         @if($idaset->first()->jenis=='APLIKASI')
-            <button class="btn btn-sm <?php echo $buttonClass; ?>">Kategori: {{ $idaset->first()->kategorise }}</button>
+            <button class="btn btn-sm <?php echo $buttonClass; ?>">Kategori : [{{ $idaset->first()->skorkategori }}] {{ $idaset->first()->kategorise }}</button>
         @endif
         <ul style="list-style-type: none; padding: 0; margin: 0; font-size: 0.5em;">
 

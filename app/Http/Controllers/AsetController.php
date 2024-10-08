@@ -68,8 +68,8 @@ class AsetController extends Controller
                 $aset->skorklasifikasi = 1;
             } else {
                 // Jika jenisnya APLIKASI atau INFRASTRUKTUR, atur URL dan IP sesuai input atau default '-'
-                $aset->url = strtolower($request->url) ?: '-';
-                $aset->ip = $request->ip ?: '-';
+                $aset->url = strtolower($request->url) ?: '';
+                $aset->ip = $request->ip ?: '';
                 $aset->skorkategori = 50;
                 $aset->skorklasifikasi = 5;
             }
