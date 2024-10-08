@@ -17,10 +17,15 @@ class AsetController extends Controller
             ->orderBy('user', 'ASC')
             ->get();
 
+        $asetk = Aset::with(['layananRelation', 'opdRelation'])
+            ->orderBy('skorklasifikasi', 'DESC')
+            ->orderBy('user', 'ASC')
+            ->get();
+
         $layananspbe = Layananspbe::orderBy('jenis', 'ASC')->orderBy('nama', 'ASC')->get();
         // $users = User::with(['roles', 'opdRelation'])->get();
         $users = Opd::all();
-        return view('aset',compact('aset','users','layananspbe'));
+        return view('aset',compact('aset','asetk','users','layananspbe'));
     }
 
     public function hapus($id){
@@ -60,11 +65,13 @@ class AsetController extends Controller
                 $aset->url = ''; // Mengosongkan URL
                 $aset->ip = '';  // Mengosongkan IP
                 $aset->skorkategori = 0;
+                $aset->skorklasifikasi = 1;
             } else {
                 // Jika jenisnya APLIKASI atau INFRASTRUKTUR, atur URL dan IP sesuai input atau default '-'
                 $aset->url = strtolower($request->url) ?: '-';
                 $aset->ip = $request->ip ?: '-';
                 $aset->skorkategori = 50;
+                $aset->skorklasifikasi = 5;
             }
             $aset->user = $request->user;
             $aset->keterangan = $request->penjelasan;

@@ -1,7 +1,7 @@
 <x-layout>
     <style>
         .custom-btn {
-            min-width: 50px; /* Lebar minimum yang diinginkan */
+            min-width: 160px; /* Lebar minimum yang diinginkan */
     }
     </style>
     <x-slot name="breadcrumb">
@@ -11,121 +11,162 @@
         <li class="breadcrumb-item active">Aset</li>
     </x-slot>
     <x-slot name="title">Aset SPBE Prov Bali</x-slot>
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="tab-kategori" data-toggle="tab" href="#content-kategori" role="tab" aria-controls="content-kategori" aria-selected="true">Kategori</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="tab-klasifikasi" data-toggle="tab" href="#content-klasifikasi" role="tab" aria-controls="content-klasifikasi" aria-selected="false">Klasifikasi</a>
+        </li>
+    </ul>
     <x-slot name="card_title">
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalForm"><i class="fas fa-plus"></i> Tambah</button>
         <button class="btn btn-primary"><i class="far fa-file-pdf"></i> PDF</button>
     </x-slot>
-    <div class="card-body">
-        <table id="dt" class="table table-bordered table-hover">
-            <thead>
-            <tr>
-                <th width="30px">No</th>
-                <th width="60px" align="center">KAT</th>
-                <th width="60px" align="center">KLA</th>
-                <th width="100px">Jenis</th>
-                <th width="200px">Layanan SPBE</th>
-                <th>Nama</th>
-                <th width="170px">OPD</th>
-                <th width="100px">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($aset as $no=>$data)
-            <tr>
-                <td align="right">{{ $no+1 }}</td>
-                <td align="center">
-                    @if ($data->jenis == 'APLIKASI')
-                        @php
-                        switch ($data->kategorise) {
-                            case 'STRATEGIS':
-                                $buttonClass = 'btn-danger'; // Merah
-                                $na='S';
-                                break;
-                            case 'TINGGI':
-                                $buttonClass = 'btn-warning'; // Kuning
-                                $na='T';
-                                break;
-                            case 'RENDAH':
-                                $buttonClass = 'btn-success'; // Biru
-                                $na='R';
-                                break;
-                            default:
-                                $buttonClass = 'btn-secondary'; // Kelas default jika kategori tidak dikenali
-                                break;
-                        }
-                    @endphp
-                    <a href="{{ route('asetkategori.tampil',$data->id) }}" class="btn btn-sm custom-btn <?php echo $buttonClass; ?> fixed-size-button" title="Kategori SE">{{ $data->skorkategori }}: {{ $na }}</a>
-                    @endif
-                </td>
-                <td align="center">
-                    @if ($data->jenis == 'APLIKASI')
-                        @php
-                        switch ($data->klasifikasi) {
-                            case 'RAHASIA':
-                                $buttonClass = 'btn-danger'; // Merah
-                                $na='R';
-                                break;
-                            case 'TERBATAS/INTERNAL':
-                                $buttonClass = 'btn-warning'; // Kuning
-                                $na='T';
-                                break;
-                            case 'PUBLIK':
-                                $buttonClass = 'btn-success'; // Hijau
-                                $na='P';
-                                break;
-                            default:
-                                $buttonClass = 'btn-secondary'; // Kelas default jika kategori tidak dikenali
-                                break;
-                        }
-                        @endphp
-                    <a href="{{ route('asetklasifikasi.tampil',$data->id) }}" class="btn btn-sm custom-btn <?php echo $buttonClass; ?> fixed-size-button" title="Klasifikasi">{{ $na }}</a>
-                    @endif
-                    {{-- @php
-                        switch ($data->risiko) {
-                            case 'CRITICAL':
-                                $buttonClass = 'btn-danger'; // Merah
-                                break;
-                            case 'HIGH':
-                                $buttonClass = 'btn-warning'; // Kuning
-                                break;
-                            case 'MEDIUM':
-                                $buttonClass = 'btn-info'; // Biru
-                                break;
-                            case 'LOW':
-                                $buttonClass = 'btn-success'; // Hijau
-                                break;
-                            default:
-                                $buttonClass = 'btn-secondary'; // Kelas default jika kategori tidak dikenali
-                                break;
-                        }
-                    @endphp
-                    <a href="#" class="btn btn-sm <?php echo $buttonClass; ?> fixed-size-button" title="Kontrol Risiko">R</a> --}}
-                </td>
-                <td>{{ $data->jenis }}</td>
-                <td>{{ $data->layananRelation->jenis }}:<BR>{{ $data->layananRelation->nama }}</td>
-                <td>
-                    @if ($data->jenis == 'APLIKASI' || $data->jenis == 'INFRASTRUKTUR')
-                        {{ $data->nama }}<br>
-                        <i>URL: {{ $data->url }} / IP: {{ $data->ip }}</i>
-                    @else
-                        {{ $data->nama }}
-                    @endif
-                </td>
-                {{-- <td>{{ $data->userRelation->opdRelation->singkatan }}</td> --}}
-                <td>{{ $data->opdRelation->singkatan }}</td>
-                <td align="center">
-                    <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modalFormEdit-{{ $data->id }}"><i class="fas fa-edit"></i></a>
-                    <form class="d-inline" action="{{ route('aset.hapus', $data->id) }}" method="POST" id="delete-form-{{ $data->id }}">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger hapus" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-        </table>
+
+    <div class="tab-content" id="myTabContent">
+        <!-- Tab A Content -->
+        <div class="tab-pane fade show active" id="content-kategori" role="tabpanel" aria-labelledby="tab-kategori">
+            <div class="card-body">
+                <table id="dt" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th width="30px">No</th>
+                        <th width="190px">SKOR:KATEGORI</th>
+                        <th width="100px">Jenis</th>
+                        <th width="200px">Layanan SPBE</th>
+                        <th>Nama</th>
+                        <th>OPD</th>
+                        <th width="130px">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($aset as $no=>$data)
+                    <tr>
+                        <td align="right">{{ $no+1 }}</td>
+                        <td align="center">
+                            @if ($data->jenis == 'APLIKASI')
+                                @php
+                                switch ($data->kategorise) {
+                                    case 'STRATEGIS':
+                                        $buttonClass = 'btn-danger'; // Merah
+                                        $na='S';
+                                        break;
+                                    case 'TINGGI':
+                                        $buttonClass = 'btn-warning'; // Kuning
+                                        $na='T';
+                                        break;
+                                    case 'RENDAH':
+                                        $buttonClass = 'btn-success'; // Biru
+                                        $na='R';
+                                        break;
+                                    default:
+                                        $buttonClass = 'btn-secondary'; // Kelas default jika kategori tidak dikenali
+                                        break;
+                                }
+                            @endphp
+                            <a href="{{ route('asetkategori.tampil',$data->id) }}" class="btn btn-sm custom-btn <?php echo $buttonClass; ?> fixed-size-button" title="Kategori SE">{{ $data->skorkategori }}: {{ $data->kategorise }}</a>
+                            @endif
+                        </td>
+                        <td>{{ $data->jenis }}</td>
+                        <td>{{ $data->layananRelation->jenis }}:<BR>{{ $data->layananRelation->nama }}</td>
+                        <td>
+                            @if ($data->jenis == 'APLIKASI' || $data->jenis == 'INFRASTRUKTUR')
+                                {{ $data->nama }}<br>
+                                <i>URL: {{ $data->url }} / IP: {{ $data->ip }}</i>
+                            @else
+                                {{ $data->nama }}
+                            @endif
+                        </td>
+                        {{-- <td>{{ $data->userRelation->opdRelation->singkatan }}</td> --}}
+                        <td>{{ $data->opdRelation->singkatan }}</td>
+                        <td align="center">
+                            <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modalFormEdit-{{ $data->id }}"><i class="fas fa-edit"></i></a>
+                            <form class="d-inline" action="{{ route('aset.hapus', $data->id) }}" method="POST" id="delete-form-{{ $data->id }}">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger hapus" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="content-klasifikasi" role="tabpanel" aria-labelledby="tab-klasifikasi">
+            <div class="card-body">
+                <table id="dtk" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th width="30px">No</th>
+                        <th width="190px">KLASIFIKASI</th>
+                        <th width="100px">Jenis</th>
+                        <th width="200px">Layanan SPBE</th>
+                        <th>Nama</th>
+                        <th>OPD</th>
+                        <th width="130px">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($asetk as $no=>$datak)
+                    <tr>
+                        <td align="right">{{ $no+1 }}</td>
+                        <td align="center">
+                            @if ($datak->jenis == 'APLIKASI')
+                                @php
+                                switch ($datak->klasifikasi) {
+                                    case 'RAHASIA':
+                                        $buttonClass = 'btn-danger'; // Merah
+                                        $na='R';
+                                        break;
+                                    case 'TERBATAS/INTERNAL':
+                                        $buttonClass = 'btn-warning'; // Kuning
+                                        $na='T';
+                                        break;
+                                    case 'PUBLIK':
+                                        $buttonClass = 'btn-success'; // Hijau
+                                        $na='P';
+                                        break;
+                                    default:
+                                        $buttonClass = 'btn-secondary'; // Kelas default jika kategori tidak dikenali
+                                        break;
+                                }
+                                @endphp
+                            <a href="{{ route('asetklasifikasi.tampil',$datak->id) }}" class="btn btn-sm custom-btn <?php echo $buttonClass; ?> fixed-size-button" title="Klasifikasi">{{ $datak->klasifikasi }}</a>
+                            @endif
+                        </td>
+                        <td>{{ $datak->jenis }}</td>
+                        <td>{{ $datak->layananRelation->jenis }}:<BR>{{ $datak->layananRelation->nama }}</td>
+                        <td>
+                            @if ($datak->jenis == 'APLIKASI' || $datak->jenis == 'INFRASTRUKTUR')
+                                {{ $datak->nama }}<br>
+                                <i>URL: {{ $datak->url }} / IP: {{ $datak->ip }}</i>
+                            @else
+                                {{ $datak->nama }}
+                            @endif
+                        </td>
+                        {{-- <td>{{ $data->userRelation->opdRelation->singkatan }}</td> --}}
+                        <td>{{ $datak->opdRelation->singkatan }}</td>
+                        <td align="center">
+                            <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modalFormEdit-{{ $datak->id }}"><i class="fas fa-edit"></i></a>
+                            <form class="d-inline" action="{{ route('aset.hapus', $datak->id) }}" method="POST" id="delete-form-{{ $datak->id }}">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger hapus" data-id="{{ $datak->id }}"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                </table>
+            </div>
+
+        </div>
     </div>
+
 
     <!-- Modal Tambah-->
     <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -300,6 +341,16 @@
     <script>
         $(function () {
           $('#dt').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "stateSave": true,
+          });
+          $('#dtk').DataTable({
             "paging": true,
             "lengthChange": true,
             "searching": true,

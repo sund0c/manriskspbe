@@ -138,13 +138,17 @@ $canvas->page_text(650, 550, "Hal {PAGE_NUM} dari {PAGE_COUNT} | TLP : AMBER+STR
 
                 if ($countR >0) {
                     $klasifikasi = 'RAHASIA';
+                    $sk=5;
                 } elseif ($countR <=0 && $countY >0) {
                     $klasifikasi = 'TERBATAS/INTERNAL';
+                    $sk=3;
                 } else {
                     $klasifikasi = 'PUBLIK';
+                    $sk=1;
                 }
                 $aset = Aset::findOrFail($item->aset);
                 $aset->klasifikasi = strip_tags($klasifikasi);
+                $aset->skorklasifikasi = strip_tags($sk);
                 $aset->update();
                 return redirect()->route('asetklasifikasi.tampil',$request->aset)->with('success', 'Data berhasil diperbarui!');
             } catch (ValidationException $e) {
