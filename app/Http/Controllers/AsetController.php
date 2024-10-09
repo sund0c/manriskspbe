@@ -8,6 +8,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\CustomExport;
+
 
 class AsetController extends Controller
 {
@@ -27,6 +30,40 @@ class AsetController extends Controller
         // $users = User::with(['roles', 'opdRelation'])->get();
         $users = Opd::all();
         return view('aset',compact('aset','asetk','users','layananspbe'));
+    }
+
+
+    public function csv($id){
+        if ($id == 1) { //kategori
+            $j='kategori';
+            $aset = Aset::with(['layananRelation', 'opdRelation'])
+            ->orderBy('skorkategori', 'DESC')
+            ->orderBy('user', 'ASC')
+            ->get();
+        } elseif ($id == 2) { //klasifikasi
+            $j='klasifikasi';
+            $aset = Aset::with(['layananRelation', 'opdRelation'])
+            ->orderBy('user', 'ASC')
+            ->orderBy('jenis', 'DESC')
+            ->get();
+        }else{
+                $aset = Aset::with(['layananRelation', 'opdRelation'])
+                ->select('jenis','nama','url','user')
+                ->orderBy('user', 'ASC')
+                ->orderBy('jenis', 'DESC')
+                ->get()
+                ->map(function($item) {
+                    return [
+                        'jenis' => $item->jenis,
+                        'nama' => $item->nama,
+                        'url' => $item->url,
+                        'singkatan' => $item->opdRelation ? $item->opdRelation->singkatan : '',
+                    ];
+                });
+
+        }
+        $headings = ['Jenis', 'Aset', 'URL', 'OPD'];
+        return Excel::download(new CustomExport($aset, $headings), 'aset.csv');
     }
 
     public function pdf($id){

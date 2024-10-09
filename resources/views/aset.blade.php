@@ -22,6 +22,7 @@
     </ul>
     <x-slot name="card_title">
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalForm"><i class="fas fa-plus"></i> Tambah Aset</button>
+        <a href="{{ route('aset.csv', '0') }}" class="btn btn-success"><i class="fas fa-file-csv"></i> Ekspor ke CSV</a>
     </x-slot>
 
     <div class="tab-content" id="myTabContent">
