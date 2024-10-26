@@ -142,12 +142,12 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Singkatan*</label>
-                    <input type="text" class="form-control" value="{{ old('singkatan',$dataOpd->name) }}" id="singkatan" name="singkatan" placeholder="Singkatan" autocomplete="false">
+                    <label for="exampleInputEmail1">Nama Lengkap*</label>
+                    <input type="text" class="form-control" value="{{ old('nama',$dataOpd->name) }}" id="nama" name="nama" placeholder="Nama Lengkap" autocomplete="false">
                   </div>
                   <div class="form-group">
-                    <label for="nama">Nama*</label>
-                    <input type="text" class="form-control" value="{{ old('singkatan',$dataOpd->email) }}" name="nama" id="nama" placeholder="nama" autocomplete="false">
+                    <label for="nama">Email*</label>
+                    <input type="text" class="form-control" value="{{ old('singkatan',$dataOpd->email) }}" name="email" id="email" placeholder="email" autocomplete="false">
 
                   </div>
                   <div class="form-group">
