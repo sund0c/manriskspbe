@@ -34,6 +34,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('dampakvital.tampil') }}" class="nav-link {{ \Route::is('dampakvital.*') ? 'active':'' }}">
+                            <i class="far fa-exclamation nav-icon"></i>
+                            <p>Vitalitas SE</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('layananspbe.tampil') }}" class="nav-link {{ \Route::is('layananspbe.*') ? 'active':'' }}">
                             <i class="fas fa-laptop-code nav-icon"></i>
                             <p>Layanan SPBE</p>
@@ -42,7 +48,7 @@
                     <li class="nav-item">
                         <a href="{{ route('klasifikasi.tampil') }}" class="nav-link {{ \Route::is('klasifikasi.*') ? 'active':'' }}">
                             <i class="fas fa-user-shield nav-icon"></i>
-                            <p>Klasifikasi</p>
+                            <p>Klasifikasi SE</p>
                         </a>
                     </li>
                     <li class="nav-item">

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('itemklasifikasis', function (Blueprint $table) {
+        Schema::create('itemdampakvitals', function (Blueprint $table) {
             $table->id();
             $table->integer('urut');
             $table->text('tanya')->unique();
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('j3');
             $table->text('j4');
             $table->unsignedBigInteger('domain')->nullable();
-            $table->foreign('domain')->references('id')->on('klasifikasis')->onDelete('restrict');
+            $table->foreign('domain')->references('id')->on('dampakvitals')->onDelete('restrict');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('itemklasifikasis');
+        Schema::dropIfExists('itemdampakvitals');
     }
 };

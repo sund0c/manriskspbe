@@ -5,6 +5,8 @@ use App\Http\Controllers\AsetkategoriController;
 use App\Http\Controllers\AsetklasifikasiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KlasifikasiController;
+use App\Http\Controllers\DampakvitalController;
+use App\Http\Controllers\ItemdampakvitalController;
 use App\Http\Controllers\ItemklasifikasiController;
 use App\Http\Controllers\KategoriseController;
 use App\Http\Controllers\KriteriaannexController;
@@ -67,6 +69,10 @@ Route::middleware('auth','html.purifier','no.cache','verified','role:admin')->gr
     Route::get('itemklasifikasi/{id}', [ItemklasifikasiController::class, 'tampil'])->name('itemklasifikasi.tampil');
     //Route::post('itemklasifikasi/tambah', [ItemklasifikasiController::class, 'tambah'])->name('itemklasifikasi.tambah');
     Route::put('itemklasifikasi/update/{id}/{domain}', [ItemklasifikasiController::class, 'update'])->name('itemklasifikasi.update');
+    Route::get('dampakvital', [DampakvitalController::class, 'tampil'])->name('dampakvital.tampil');
+    Route::put('dampakvital/update/{id}', [DampakvitalController::class, 'update'])->name('dampakvital.update');
+    Route::get('itemdampakvital/{id}', [ItemDampakvitalController::class, 'tampil'])->name('itemdampakvital.tampil');
+    Route::put('itemdampakvital/update/{id}/{domain}', [ItemDampakvitalController::class, 'update'])->name('itemdampakvital.update');
 
 
 

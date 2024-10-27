@@ -1,10 +1,10 @@
 <x-layout>
     <x-slot name="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-        <li class="breadcrumb-item active"><a href="{{ route('klasifikasi.tampil') }}">Domain</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('dampakvital.tampil') }}">Domain</a></li>
         <li class="breadcrumb-item">Item</li>
     </x-slot>
-    <x-slot name="title">Domain: {{ $idklasifikasi->first()->nama }}</x-slot>
+    <x-slot name="title">Domain: {{ $iddampakvital->first()->nama }}</x-slot>
     <x-slot name="card_title">
         {{-- <button class="btn btn-primary" data-toggle="modal" data-target="#modalForm"><i class="fas fa-plus"></i> Tambah</button> --}}
     </x-slot>
@@ -13,15 +13,15 @@
             <thead>
             <tr>
                 <th>Kriteria</th>
-                <th width="150px">Indikator #1</th>
-                <th width="150px">Indikator #2</th>
-                <th width="150px">Indikator #3</th>
-                <th width="150px">Indikator #4</th>
+                <th width="200px">Indikator #1</th>
+                <th width="200px">Indikator #2</th>
+                <th width="200px">Indikator #3</th>
+                <th width="200px">Indikator #4</th>
                 <th width="100px">Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($itemklasifikasis as $no=>$data)
+            @foreach ($itemdampakvitals as $no=>$data)
             <tr>
                 <td>{{ $data->urut }}. {{ $data->tanya }}</td>
                 <td>{{ $data->j1 }}</td>
@@ -30,7 +30,7 @@
                 <td>{{ $data->j4 }}</td>
                 <td align="center">
                     <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modalFormEdit-{{ $data->id }}"><i class="fas fa-edit"></i></a>
-                    {{-- <form class="d-inline" action="{{ route('itemklasifikasi.hapus',[$data->id, $data->domain]) }}" method="POST" id="delete-form-{{ $data->id }}">
+                    {{-- <form class="d-inline" action="{{ route('itemdampakvital.hapus',[$data->id, $data->domain]) }}" method="POST" id="delete-form-{{ $data->id }}">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger hapus" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></button>
@@ -45,8 +45,8 @@
 
     <!-- Modal Edit-->
 
-    @foreach ($itemklasifikasis as $dataItemklasifikasi)
-    <div class="modal fade" id="modalFormEdit-{{ $dataItemklasifikasi->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    @foreach ($itemdampakvitals as $dataItemdampakvital)
+    <div class="modal fade" id="modalFormEdit-{{ $dataItemdampakvital->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -57,31 +57,30 @@
             </button>
             </div>
             <div class="modal-body">
-            <form id="modalFormContentEdit" action="{{ route('itemklasifikasi.update',[$dataItemklasifikasi->id, $data->domain]) }}" method="POST">
+            <form id="modalFormContentEdit" action="{{ route('itemdampakvital.update',[$dataItemdampakvital->id, $data->domain]) }}" method="POST">
                 @csrf
-                <input type="hidden" id="domain" name="domain" value="{{ $idklasifikasi->first()->id }}">
+                <input type="hidden" id="domain" name="domain" value="{{ $iddampakvital->first()->id }}">
                 @method('PUT')
                 <div class="form-group">
                     <label for="nama">Kriteria*</label>
-                    <textarea class="form-control" id="kriteria" name="kriteria" autocomplete="false">{{ $dataItemklasifikasi->tanya }}</textarea>
+                    <textarea class="form-control" id="kriteria" name="kriteria" autocomplete="false">{{ $dataItemdampakvital->tanya }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="nama">Indikator #1*</label>
-                    <textarea class="form-control" id="j1" name="j1" autocomplete="false">{{ $dataItemklasifikasi->j1 }}</textarea>
+                    <textarea class="form-control" id="j1" name="j1" autocomplete="false">{{ $dataItemdampakvital->j1 }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="nama">Indikator #2*</label>
-                    <textarea class="form-control" id="j2" name="j2" autocomplete="false">{{ $dataItemklasifikasi->j2 }}</textarea>
+                    <textarea class="form-control" id="j2" name="j2" autocomplete="false">{{ $dataItemdampakvital->j2 }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="nama">Indikator #3*</label>
-                    <textarea class="form-control" id="j3" name="j3" autocomplete="false">{{ $dataItemklasifikasi->j3 }}</textarea>
+                    <textarea class="form-control" id="j3" name="j3" autocomplete="false">{{ $dataItemdampakvital->j3 }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="nama">Indikator #4*</label>
-                    <textarea class="form-control" id="j4" name="j4" autocomplete="false">{{ $dataItemklasifikasi->j4 }}</textarea>
+                    <textarea class="form-control" id="j4" name="j4" autocomplete="false">{{ $dataItemdampakvital->j4 }}</textarea>
                 </div>
-
                 <div class="form-group">
                     <small id="namaHelp" class="form-text text-muted">*) harus diisi</small>
                   </div>
