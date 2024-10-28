@@ -26,7 +26,11 @@ th, td {
         <h5>Layanan SPBE: {{ $idaset->first()->layananRelation->nama }} ({{ $idaset->first()->layananRelation->jenis }})<BR>
     <h5 style="margin-top: 5px;margin-bottom: 5px;">Jenis: {{ $idaset->first()->jenis }}<BR>
     Pemilik: {{ $idaset->first()->opdRelation->singkatan }}<BR>
-    Vitalitas: {{ $idaset->first()->dampakvital }}</h5>
+    Vitalitas:
+    @if($idaset->first()->dampakvital=='SERIUS') {{ 'Aset Infrastruktur Informasi Vital (IIV) !!' }}
+    @else {{ 'Non Infrastruktur Informasi Vital (Non IIV)' }}
+    @endif
+    </h5>
     <p style="margin-top: 5px;font-size: 0.8em">Cetak Tgl. @formattedDateTime</p>
 
 
