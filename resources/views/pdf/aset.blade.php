@@ -27,8 +27,9 @@ th, td {
 </style>
 
 
-@if ($id==1) {{ $judul = 'Kategori Sistem Elektronik'; }}
-@else {{ $judul = 'Klasifikasi Data/Informasi dalam Sistem Elektronik'; }}
+@if ($id==1) @php $judul = 'KATEGORI Sistem Elektronik';@endphp
+@elseif ($id==2) @php $judul = 'KLASIFIKASI Data/Informasi dalam Sistem Elektronik';@endphp
+@else @php $judul = 'VITALITAS Sistem Elektronik';@endphp
 @endif
 
         <h3 style="margin-bottom: 5px;">{{ $judul }}</h3>
@@ -45,7 +46,8 @@ th, td {
                 <th>SKOR</th>
                 <th>
                     @if ($id==1) {{ 'KATEGORI' }}
-                    @else {{ 'KLASIFIKASI' }}
+                    @elseif ($id==2) {{ 'KLASIFIKASI' }}
+                    @else {{ 'VITALITAS' }}
                     @endif
                 </th>
                 <th>LAYANAN SPBE</th>
@@ -93,7 +95,7 @@ th, td {
                             @endphp
                             {{ $datak->klasifikasi }}
                         @endif
-                    @else
+                    @elseif ($id==1)
                         @if ($datak->jenis == 'APLIKASI')
                             @php
                             switch ($datak->kategorise) {
@@ -115,6 +117,29 @@ th, td {
                             }
                             @endphp
                             {{ $datak->kategorise }}
+                            @endif
+                    @else
+                        @if ($datak->jenis == 'APLIKASI')
+                            @php
+                            switch ($datak->dampakvital) {
+                                case 'SIGNIFIKAN':
+                                        $buttonClass = 'btn-danger'; // Merah
+                                        $na='R';
+                                        break;
+                                    case 'TERBATAS':
+                                        $buttonClass = 'btn-warning'; // Kuning
+                                        $na='T';
+                                        break;
+                                    case 'MINOR':
+                                        $buttonClass = 'btn-success'; // Hijau
+                                        $na='P';
+                                        break;
+                                default:
+                                    $buttonClass = 'btn-secondary'; // Kelas default jika kategori tidak dikenali
+                                    break;
+                            }
+                            @endphp
+                            {{ $datak->dampakvital }}
                         @endif
                     @endif
                 </td>
@@ -147,6 +172,12 @@ th, td {
             </li><li><strong>RENDAH :</strong> SE yang beresiko terhadap operasional layanan yang bersifat sementara dan hanya mengganggu sebagai kecil pengguna layanan. Wajib menerapkan SNI ISO/IEC 27001 <strong>ATAU</strong> standar keamanan lain yang terkait dengan keamanan siber yang ditetapkan oleh BSSN.
             </li></ul>
         </p>
+        @elseif ($id==3)
+        <h5 style="margin-top: 5px;">Skor Vitalitas :<br>
+            10 s/d 15 : RENDAH<BR>
+            16 s/d 34 : TINGGI<BR>
+            35 s/d 50 : STRATEGIS
+        </h5>
         @else
         @endif
 

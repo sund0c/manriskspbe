@@ -19,6 +19,9 @@
         <li class="nav-item">
             <a class="nav-link" id="tab-klasifikasi" data-toggle="tab" href="#content-klasifikasi" role="tab" aria-controls="content-klasifikasi" aria-selected="false">Klasifikasi</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" id="tab-dampakvital" data-toggle="tab" href="#content-dampakvital" role="tab" aria-controls="content-dampakvital" aria-selected="false">Vitalitas</a>
+        </li>
     </ul>
     <x-slot name="card_title">
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalForm"><i class="fas fa-plus"></i> Tambah Aset</button>
@@ -169,6 +172,79 @@
             </div>
 
         </div>
+
+        <div class="tab-pane fade" id="content-dampakvital" role="tabpanel" aria-labelledby="tab-dampakvital">
+            <div class="card-body">
+                <a href="{{ route('aset.pdf', '3') }}" class="btn btn-primary"><i class="far fa-file-pdf"></i> PDF VITALITAS SE</a>
+                <p></p>
+                <table id="dtv" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th width="30px">No</th>
+                        <th width="190px">VITALITAS SE</th>
+                        <th width="100px">Jenis</th>
+                        <th width="200px">Layanan SPBE</th>
+                        <th>Nama</th>
+                        <th>OPD</th>
+                        <th width="130px">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($asetk as $no=>$datak)
+                    <tr>
+                        <td align="right">{{ $no+1 }}</td>
+                        <td align="center">
+                            @if ($datak->jenis == 'APLIKASI')
+                                @php
+                                switch ($datak->dampakvital) {
+                                    case 'SIGNIFIKAN':
+                                        $buttonClass = 'btn-danger'; // Merah
+                                        $na='R';
+                                        break;
+                                    case 'TERBATAS':
+                                        $buttonClass = 'btn-warning'; // Kuning
+                                        $na='T';
+                                        break;
+                                    case 'MINOR':
+                                        $buttonClass = 'btn-success'; // Hijau
+                                        $na='P';
+                                        break;
+                                    default:
+                                        $buttonClass = 'btn-secondary'; // Kelas default jika kategori tidak dikenali
+                                        break;
+                                }
+                                @endphp
+                            <a href="{{ route('asetdampakvital.tampil',$datak->id) }}" class="btn btn-sm custom-btn <?php echo $buttonClass; ?> fixed-size-button" title="Dampak Vitalitas">{{ $datak->dampakvital }}</a>
+                            @endif
+                        </td>
+                        <td>{{ $datak->jenis }}</td>
+                        <td>{{ $datak->layananRelation->jenis }}:<BR>{{ $datak->layananRelation->nama }}</td>
+                        <td>
+                            @if ($datak->jenis == 'APLIKASI' || $datak->jenis == 'INFRASTRUKTUR')
+                                {{ $datak->nama }}<br>
+                                <i>URL: {{ $datak->url }} / IP: {{ $datak->ip }}</i>
+                            @else
+                                {{ $datak->nama }}
+                            @endif
+                        </td>
+                        {{-- <td>{{ $data->userRelation->opdRelation->singkatan }}</td> --}}
+                        <td>{{ $datak->opdRelation->singkatan }}</td>
+                        <td align="center">
+                            <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modalFormEdit-{{ $datak->id }}"><i class="fas fa-edit"></i></a>
+                            <form class="d-inline" action="{{ route('aset.hapus', $datak->id) }}" method="POST" id="delete-form-{{ $datak->id }}">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger hapus" data-id="{{ $datak->id }}"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                </table>
+            </div>
+
+        </div>
+
     </div>
 
 
@@ -364,11 +440,39 @@
             "responsive": true,
             "stateSave": true,
           });
+          $('#dtv').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "stateSave": true,
+          });
            $('#modalForm').on('shown.bs.modal', function () {
                 $(this).find('form')[0].reset();
              });
 
         });
       </script>
+<script>
+    // On page load, check if there's a saved active tab in localStorage
+    $(document).ready(function () {
+        const activeTab = localStorage.getItem('activeTab');
+        if (activeTab) {
+            $('#myTab a[href="' + activeTab + '"]').tab('show');
+        } else {
+            // Set default tab if no saved tab is found
+            $('#myTab a:first').tab('show');
+        }
+    });
+
+    // Save the active tab to localStorage on tab change
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        const tabId = $(e.target).attr('href');
+        localStorage.setItem('activeTab', tabId);
+    });
+</script>
 
 </x-layout>

@@ -6,6 +6,7 @@ use App\Http\Controllers\AsetklasifikasiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KlasifikasiController;
 use App\Http\Controllers\DampakvitalController;
+use App\Http\Controllers\AsetdampakvitalController;
 use App\Http\Controllers\ItemdampakvitalController;
 use App\Http\Controllers\ItemklasifikasiController;
 use App\Http\Controllers\KategoriseController;
@@ -100,6 +101,13 @@ Route::middleware('auth','html.purifier','verified','no.cache','role:admin|persa
     Route::put('asetklasifikasi/update', [AsetklasifikasiController::class, 'update'])->name('asetklasifikasi.update');
     // Route::put('asetklasifikasi/update/{id}/{domain}', [AsetklasifikasiController::class, 'update'])->name('asetklasifikasi.update');
     Route::get('asetklasifikasi/pdf/{id}', [AsetklasifikasiController::class, 'pdf'])->name('asetklasifikasi.pdf');
+
+    Route::get('asetdampakvital/{id}', [AsetdampakvitalController::class, 'tampil'])->name('asetdampakvital.tampil');
+    Route::get('asetdampakvital/edit/{id}', [AsetdampakvitalController::class, 'edit'])->name('asetdampakvital.edit');
+    Route::put('asetdampakvital/update', [AsetdampakvitalController::class, 'update'])->name('asetdampakvital.update');
+    // Route::put('asetdampakvital/update/{id}/{domain}', [AsetdampakvitalController::class, 'update'])->name('asetdampakvital.update');
+    Route::get('asetdampakvital/pdf/{id}', [AsetdampakvitalController::class, 'pdf'])->name('asetdampakvital.pdf');
+
 
     Route::put('user/pupdate/{id}', [userController::class, 'pupdate'])->name('userp.update');
 

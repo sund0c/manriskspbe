@@ -80,6 +80,12 @@ class AsetController extends Controller
             ->orderBy('skorklasifikasi', 'DESC')
             ->orderBy('user', 'ASC')
             ->get();
+        } elseif ($id == 3) {
+            $j='dampakvital';
+            $aset = Aset::with(['layananRelation', 'opdRelation'])
+            ->orderBy('skorvital', 'DESC')
+            ->orderBy('user', 'ASC')
+            ->get();
         }
         $pdf = Pdf::loadView('pdf.aset', ['aset' => $aset,'id'=>$id])
                  ->setPaper('a4', 'landscape');

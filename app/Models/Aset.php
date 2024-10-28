@@ -19,6 +19,7 @@ class Aset extends Model
         'layanan',
         'skorkategori',
         'skorklasifikasi',
+        'skordampakvital',
         'skorrisiko',
     ];
 

@@ -20,12 +20,14 @@ return new class extends Migration
             $table->enum('klasifikasi', ['RAHASIA','TERBATAS/INTERNAL','PUBLIK'])->default('RAHASIA');
             $table->enum('kategorise', ['STRATEGIS', 'TINGGI', 'RENDAH'])->default('STRATEGIS');
             $table->enum('risiko', ['CRITICAL', 'HIGH', 'MEDIUM','LOW'])->default('CRITICAL');
+            $table->enum('dampakvital', ['SIGNIFIKAN', 'TERBATAS', 'TERBATAS','MINOR'])->default('SIGNIFIKAN');
             $table->enum('jenis', ['APLIKASI', 'INFRASTRUKTUR', 'SDM', 'DATA/INFORMASI'])->default('APLIKASI');
             $table->unsignedBigInteger('user')->nullable();
             $table->unsignedBigInteger('layanan')->nullable();
             $table->foreign('layanan')->references('id')->on('layananspbes')->onDelete('restrict');
             $table->foreign('user')->references('id')->on('opds')->onDelete('restrict');
             $table->timestamps();
+
             $table->unique(['nama','jenis', 'ip', 'url'], 'kunciunik');
         });
     }
