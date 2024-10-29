@@ -360,7 +360,7 @@ th, td {
                         $maxValues[$kategori] = max($values);
                     }
                     $overallMax = max($maxValues);     @endphp
-                    @if ($max==4) @php $k="** Infrastruktur Informasi Vital (IIV) **";@endphp
+                    @if ($overallMax==4) @php $k="** Infrastruktur Informasi Vital (IIV) **";@endphp
                     @else @php $k="Non IIV";@endphp
                     @endif
 
