@@ -27,7 +27,7 @@ th, td {
     <h5 style="margin-top: 5px;margin-bottom: 5px;">Jenis: {{ $idaset->first()->jenis }}<BR>
     Pemilik: {{ $idaset->first()->opdRelation->singkatan }}<BR>
     Vitalitas:
-    @if($idaset->first()->dampakvital=='SERIUS') {{ 'Aset Infrastruktur Informasi Vital (IIV) !!' }}
+    @if($idaset->first()->dampakvital=='SERIUS') {{ '** Infrastruktur Informasi Vital (IIV) **' }}
     @else {{ 'Non Infrastruktur Informasi Vital (Non IIV)' }}
     @endif
     </h5>
@@ -360,7 +360,7 @@ th, td {
                         $maxValues[$kategori] = max($values);
                     }
                     $overallMax = max($maxValues);     @endphp
-                    @if ($max==4) @php $k="INFRASTRUKTUR INFORMASI VITAL (IIV)";@endphp
+                    @if ($max==4) @php $k="** Infrastruktur Informasi Vital (IIV) **";@endphp
                     @else @php $k="Non IIV";@endphp
                     @endif
 
@@ -372,7 +372,7 @@ th, td {
                 @elseif ($overallMax==2) <strong>(TERBATAS)</strong>
                 @else <strong>(MINOR)</strong><BR>
                 @endif
-            <strong>Kesimpulan : aset termasuk {{ $k }}</strong>
+            <strong>Kesimpulan :  {{ $k }}</strong>
         </h5>
 
         <footer>

@@ -39,7 +39,11 @@
     <x-slot name="title">{{ $idaset->first()->nama }}
         <p style="font-size: 0.5em;">Jenis Aset: {{ $idaset->first()->jenis }} |
             Pemilik Aset: {{ $idaset->first()->opdRelation->singkatan }}
-            @if($idaset->first()->jenis=='APLIKASI')| <button class="btn btn-sm <?php echo $buttonClass; ?>">Vitalitas SE: {{ $idaset->first()->dampakvital }}</button>
+            @if($idaset->first()->jenis=='APLIKASI')| <button class="btn btn-sm <?php echo $buttonClass; ?>">
+                @if ($idaset->first()->dampakvital=='SERIUS') {{ '** Infrastruktur Informasi Vital (IIV) **' }}
+                @else {{ 'Non IIV' }}
+                @endif
+            </button>
             @endif
         </p>
     </x-slot>
