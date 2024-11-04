@@ -24,7 +24,7 @@
         <tbody>
             @foreach ($inherentrisiko as $no=>$data)
             <tr>
-                <td>{{ $data->kerawanan }}</td>
+                <td>{{ $data->kerawanan }} ({{$data->kritikal}})</td>
                 <td>{{ $data->ancaman }}</td>
                 <td>{{ $data->aspekrisiko }}</td>
                 <td>{{ $data->uraiandampak }}</td>
