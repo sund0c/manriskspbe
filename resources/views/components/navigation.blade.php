@@ -40,6 +40,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('inherentrisiko.tampil') }}" class="nav-link {{ \Route::is('inherentrisiko.*') ? 'active':'' }}">
+                            <i class="far fa-exclamation-circle nav-icon"></i>
+                            <p>Inherent Risk</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('layananspbe.tampil') }}" class="nav-link {{ \Route::is('layananspbe.*') ? 'active':'' }}">
                             <i class="fas fa-laptop-code nav-icon"></i>
                             <p>Layanan SPBE</p>

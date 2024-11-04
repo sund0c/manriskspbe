@@ -1,4 +1,6 @@
 <?php
+use App\Http\Controllers\InherentrisikoController;
+use App\Http\Controllers\IteminherentrisikoController;
 use App\Http\Controllers\BackupdbController;
 use App\Http\Controllers\LayananspbeController;
 use App\Http\Controllers\AsetkategoriController;
@@ -46,6 +48,14 @@ Route::middleware('auth','html.purifier','no.cache','verified','role:admin')->gr
     Route::delete('opd/hapus/{id}', [OpdController::class, 'hapus'])->name('opd.hapus');
     Route::post('opd/tambah', [OpdController::class, 'tambah'])->name('opd.tambah');
     Route::put('opd/update/{id}', [OpdController::class, 'update'])->name('opd.update');
+
+    Route::get('inherentrisiko', [InherentrisikoController::class, 'tampil'])->name('inherentrisiko.tampil');
+
+    Route::get('iteminherentrisiko/{id}', [IteminherentrisikoController::class, 'tampil'])->name('iteminherentrisiko.tampil');
+    Route::delete('iteminherentrisiko/hapus/{id}/{jenis}', [IteminherentrisikoController::class, 'hapus'])->name('iteminherentrisiko.hapus');
+    Route::post('iteminherentrisiko/tambah', [IteminherentrisikoController::class, 'tambah'])->name('iteminherentrisiko.tambah');
+    Route::put('iteminherentrisiko/update/{id}', [IteminherentrisikoController::class, 'update'])->name('iteminherentrisiko.update');
+
     Route::get('layananspbe', [LayananspbeController::class, 'tampil'])->name('layananspbe.tampil');
     Route::delete('layananspbe/hapus/{id}', [LayananspbeController::class, 'hapus'])->name('layananspbe.hapus');
     Route::post('layananspbe/tambah', [LayananspbeController::class, 'tambah'])->name('layananspbe.tambah');
@@ -64,6 +74,7 @@ Route::middleware('auth','html.purifier','no.cache','verified','role:admin')->gr
     //Route::post('kategorise/tambah', [KategoriseController::class, 'tambah'])->name('kategorise.tambah');
     Route::put('kategorise/update/{id}', [KategoriseController::class, 'update'])->name('kategorise.update');
     //Route::delete('kategorise/hapus/{id}', [KategoriseController::class, 'hapus'])->name('kategorise.hapus');
+
     Route::get('klasifikasi', [KlasifikasiController::class, 'tampil'])->name('klasifikasi.tampil');
     Route::put('klasifikasi/update/{id}', [KlasifikasiController::class, 'update'])->name('klasifikasi.update');
     //Route::delete('itemklasifikasi/hapus/{id}/{domain}', [ItemklasifikasiController::class, 'hapus'])->name('itemklasifikasi.hapus');
