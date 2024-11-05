@@ -24,7 +24,7 @@
         <tbody>
             @foreach ($inherentrisiko as $no=>$data)
             <tr>
-                <td>{{ $data->kerawanan }} ({{$data->kritikal}})</td>
+                <td>{{ $data->kerawanan }}</td>
                 <td>{{ $data->ancaman }}</td>
                 <td>{{ $data->aspekrisiko }}</td>
                 <td>{{ $data->uraiandampak }}</td>
@@ -108,15 +108,15 @@
                     <textarea class="form-control" id="kerawanan" name="kerawanan" autocomplete="false">{{ $datainherentrisiko->kerawanan }}</textarea>
                 </div>
                 <div class="form-group">
-                    <label for="nama">Pilihan Jawaban #1*</label>
+                    <label for="nama">Ancaman*</label>
                     <textarea class="form-control" id="ancaman" name="ancaman" autocomplete="false">{{ $datainherentrisiko->ancaman }}</textarea>
                 </div>
                 <div class="form-group">
-                    <label for="nama">Pilihan Jawaban #2*</label>
+                    <label for="nama">Aspek Risiko*</label>
                     <textarea class="form-control" id="aspekrisiko" name="aspekrisiko" autocomplete="false">{{ $datainherentrisiko->aspekrisiko }}</textarea>
                 </div>
                 <div class="form-group">
-                    <label for="nama">Pilihan Jawaban #3*</label>
+                    <label for="nama">Uraian Dampak*</label>
                     <textarea class="form-control" id="uraiandampak" name="uraiandampak" autocomplete="false">{{ $datainherentrisiko->uraiandampak }}</textarea>
                 </div>
                   <div class="form-group">
@@ -143,6 +143,7 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
+            "stateSave": true,
           });
 
            $('#modalForm').on('shown.bs.modal', function () {
