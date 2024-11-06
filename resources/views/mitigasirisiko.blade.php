@@ -17,6 +17,7 @@
         <table id="dt" class="table table-bordered table-hover">
             <thead>
             <tr>
+                <th>PoC</th>
                 <th>Mitigasi</th>
                 <th width="100px">Aksi</th>
             </tr>
@@ -24,6 +25,7 @@
         <tbody>
             @foreach ($mitigasirisiko as $no=>$data)
             <tr>
+                <td>{{ $data->poc }}</td>
                 <td>{{ $data->mitigasi }}</td>
                 <td align="center">
                     <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modalFormEdit-{{ $data->id }}"><i class="fas fa-edit"></i></a>
@@ -56,7 +58,11 @@
                 <input type="hidden" id="idinherent" name="idinherent" value="{{ $idinherent }}">
                 <input type="hidden" id="kerawanan" name="kerawanan" value="{{ $kerawanan }}">
                 <div class="form-group">
-                    <label for="nama">Mitigasi Risiko</label>
+                    <label for="nama">PoC Kerentanan</label>
+                    <textarea class="form-control" id="poc" name="poc" autocomplete="false"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="nama">Mitigasi</label>
                     <textarea class="form-control" id="mitigasi" name="mitigasi" autocomplete="false"></textarea>
                 </div>
                 <div class="form-group">
@@ -76,7 +82,7 @@
 
     @foreach ($mitigasirisiko as $datamitigasirisiko)
     <div class="modal fade" id="modalFormEdit-{{ $datamitigasirisiko->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">Edit Data</h5>
@@ -92,6 +98,10 @@
                 <input type="hidden" id="idaset" name="idaset" value="{{ $idaset }}">
                 <input type="hidden" id="idinherent" name="idinherent" value="{{ $idinherent }}">
                 <input type="hidden" id="kerawanan" name="kerawanan" value="{{ $kerawanan }}">
+                <div class="form-group">
+                    <label for="nama">PoC*</label>
+                    <textarea class="form-control" id="poc" name="poc" autocomplete="false">{{ $datamitigasirisiko->poc }}</textarea>
+                </div>
                 <div class="form-group">
                     <label for="nama">Mitigasi*</label>
                     <textarea class="form-control" id="mitigasi" name="mitigasi" autocomplete="false">{{ $datamitigasirisiko->mitigasi }}</textarea>

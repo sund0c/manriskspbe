@@ -86,15 +86,18 @@ class MitigasirisikoController extends Controller
                 'mitigasi' => ['required'],
                 'idinherent' => ['required'],
                 'idaset' => ['required'],
+                'poc' => ['required'],
                 ],
                 [
                 'mitigasi.required' => 'Mitigasi risiko : tidak boleh kosong',
                 'idinherent.required' => 'Id Inherit Risiko : tidak boleh kosong',
                 'idaset.required' => 'Id aset : tidak boleh kosong',
+                'poc.required' => 'PoC : tidak boleh kosong',
                 ]
                 );
                 $mitigasirisiko = new Mitigasirisiko();
                 $mitigasirisiko->mitigasi = $request->mitigasi;
+                $mitigasirisiko->poc = $request->poc;
                 $mitigasirisiko->inherentrisiko = $request->idinherent;
                 $mitigasirisiko->save();
                 return redirect()->route('mitigasirisiko.tampil',[$request->idinherent, $request->idaset, $request->kerawanan])->with('success', 'Data baru berhasil disimpan!');
@@ -125,15 +128,18 @@ class MitigasirisikoController extends Controller
                     'mitigasi' => ['required'],
                     'idinherent' => ['required'],
                     'idaset' => ['required'],
-                ],
-                [
+                    'poc' => ['required'],
+                    ],
+                    [
                     'mitigasi.required' => 'Mitigasi risiko : tidak boleh kosong',
                     'idinherent.required' => 'Id Inherit Risiko : tidak boleh kosong',
                     'idaset.required' => 'Id aset : tidak boleh kosong',
-                ]
+                    'poc.required' => 'PoC : tidak boleh kosong',
+                    ]
             );
             $mitigasirisiko = Mitigasirisiko::findOrFail($id);
             $mitigasirisiko->mitigasi = $request->mitigasi;
+            $mitigasirisiko->poc = $request->poc;
             $mitigasirisiko->update();
             return redirect()->route('mitigasirisiko.tampil',[$request->idinherent, $request->idaset, $request->kerawanan])->with('success', 'Data berhasil diperbarui!');
         } catch (ValidationException $e) {

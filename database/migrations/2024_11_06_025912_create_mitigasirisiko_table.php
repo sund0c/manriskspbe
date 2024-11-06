@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('mitigasirisikos', function (Blueprint $table) {
             $table->id();
             $table->text('mitigasi')->nullable();
+            $table->text('poc')->nullable();
             $table->unsignedBigInteger('inherentrisiko')->nullable();
             $table->foreign('inherentrisiko')->references('id')->on('inherentrisikos')->onDelete('restrict');
             $table->timestamps();

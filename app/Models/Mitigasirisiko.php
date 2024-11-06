@@ -9,7 +9,7 @@ class Mitigasirisiko extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'mitigasi',
+        'mitigasi','poc'
     ];
 
 }
