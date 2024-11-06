@@ -6,9 +6,9 @@
         <li class="breadcrumb-item"><a href="{{ route('inherentrisiko.tampil') }}">Jenis Aset</a></li>
         <li class="breadcrumb-item"><a href="{{ route('iteminherentrisiko.tampil',$idaset) }}">Inherent Risiko</a></li>
         {{-- 'jenisid','kerawanan')); --}}
-        <li class="breadcrumb-item active">{{ $kerawanan }}</li>
+        <li class="breadcrumb-item active">Mitigasi Risiko</li>
     </x-slot>
-    <x-slot name="title">Mitigasi Risiko</x-slot>
+    <x-slot name="title">{{ $kerawanan }}</x-slot>
     <x-slot name="card_title">
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalForm"><i class="fas fa-plus"></i> Tambah</button>
         {{-- <a href="{{ route('itemmitigasirisiko.csv', '1') }}" class="btn btn-success"><i class="fas fa-file-csv"></i> Ekspor ke CSV</a> --}}
