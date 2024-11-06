@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\MitigasirisikoController;
 use App\Http\Controllers\InherentrisikoController;
 use App\Http\Controllers\IteminherentrisikoController;
 use App\Http\Controllers\BackupdbController;
@@ -55,6 +56,12 @@ Route::middleware('auth','html.purifier','no.cache','verified','role:admin')->gr
     Route::delete('iteminherentrisiko/hapus/{id}/{jenis}', [IteminherentrisikoController::class, 'hapus'])->name('iteminherentrisiko.hapus');
     Route::post('iteminherentrisiko/tambah', [IteminherentrisikoController::class, 'tambah'])->name('iteminherentrisiko.tambah');
     Route::put('iteminherentrisiko/update/{id}', [IteminherentrisikoController::class, 'update'])->name('iteminherentrisiko.update');
+    Route::get('iteminherentrisiko/csv/{id}', [IteminherentrisikoController::class, 'csv'])->name('iteminherentrisiko.csv');
+
+    Route::delete('mitigasirisiko/hapus/{id}/{idinherent}/{idaset}/{kerawanan}', [MitigasirisikoController::class, 'hapus'])->name('mitigasirisiko.hapus');
+    Route::get('mitigasirisiko/{idinherent}/{idaset}/{kerawanan}', [MitigasirisikoController::class, 'tampil'])->name('mitigasirisiko.tampil');
+    Route::post('mitigasirisiko/tambah', [MitigasirisikoController::class, 'tambah'])->name('mitigasirisiko.tambah');
+    Route::put('mitigasirisiko/update/{id}', [MitigasirisikoController::class, 'update'])->name('mitigasirisiko.update');
 
     Route::get('layananspbe', [LayananspbeController::class, 'tampil'])->name('layananspbe.tampil');
     Route::delete('layananspbe/hapus/{id}', [LayananspbeController::class, 'hapus'])->name('layananspbe.hapus');

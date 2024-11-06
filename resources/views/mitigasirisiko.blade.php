@@ -4,43 +4,30 @@
             <a href="{{ route('dashboard') }}">Dashboard</a>
         </li>
         <li class="breadcrumb-item"><a href="{{ route('inherentrisiko.tampil') }}">Jenis Aset</a></li>
-        <li class="breadcrumb-item active">Inherent Risiko</li>
+        <li class="breadcrumb-item"><a href="{{ route('iteminherentrisiko.tampil',$idaset) }}">Inherent Risiko</a></li>
+        {{-- 'jenisid','kerawanan')); --}}
+        <li class="breadcrumb-item active">{{ $kerawanan }}</li>
     </x-slot>
-    <x-slot name="title">Inherent Risiko Aset SPBE: {{ $jenis }}</x-slot>
+    <x-slot name="title">Mitigasi Risiko</x-slot>
     <x-slot name="card_title">
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalForm"><i class="fas fa-plus"></i> Tambah</button>
-        <a href="{{ route('iteminherentrisiko.csv', '1') }}" class="btn btn-success"><i class="fas fa-file-csv"></i> Ekspor ke CSV</a>
+        {{-- <a href="{{ route('itemmitigasirisiko.csv', '1') }}" class="btn btn-success"><i class="fas fa-file-csv"></i> Ekspor ke CSV</a> --}}
     </x-slot>
     <div class="card-body">
         <table id="dt" class="table table-bordered table-hover">
             <thead>
             <tr>
-                <th>Kerawanan</th>
-                <th>Ancaman</th>
-                <th>Aspek Risiko</th>
-                <th>Uraian Dampak</th>
+                <th>Mitigasi</th>
                 <th width="100px">Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($inherentrisiko as $no=>$data)
-            @php $jenisMap = [
-                    1 => 'APLIKASI',
-                    2 => 'INFRASTRUKTUR',
-                    3 => 'SDM',
-                    4 => 'DATA/INFORMASI'
-                ];
-                $jenis = array_search($data->jenis, $jenisMap);
-                @endphp
-
+            @foreach ($mitigasirisiko as $no=>$data)
             <tr>
-                <td><a href="{{ route('mitigasirisiko.tampil',[$data->id, $jenis, $data->kerawanan]) }}" class="btn btn-primary">{{ $data->kerawanan }}</a></td>
-                <td>{{ $data->ancaman }}</td>
-                <td>{{ $data->aspekrisiko }}</td>
-                <td>{{ $data->uraiandampak }}</td>
+                <td>{{ $data->mitigasi }}</td>
                 <td align="center">
                     <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modalFormEdit-{{ $data->id }}"><i class="fas fa-edit"></i></a>
-                    <form class="d-inline" action="{{ route('iteminherentrisiko.hapus',[$data->id, $jenisid]) }}" method="POST" id="delete-form-{{ $data->id }}">
+                    <form class="d-inline" action="{{ route('mitigasirisiko.hapus',[$data->id,$idinherent,$idaset,$kerawanan]) }}" method="POST" id="delete-form-{{ $data->id }}">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger hapus" data-id="{{ $data->id }}"><i class="fas fa-trash"></i></button>
@@ -63,24 +50,14 @@
             </button>
             </div>
             <div class="modal-body">
-            <form id="modalFormContent" action="{{ route('iteminherentrisiko.tambah') }}" method="POST">
+            <form id="modalFormContent" action="{{ route('mitigasirisiko.tambah') }}" method="POST">
                 @csrf
-                <input type="hidden" id="jenisid" name="jenisid" value="{{ $jenisid }}">
+                <input type="hidden" id="idaset" name="idaset" value="{{ $idaset }}">
+                <input type="hidden" id="idinherent" name="idinherent" value="{{ $idinherent }}">
+                <input type="hidden" id="kerawanan" name="kerawanan" value="{{ $kerawanan }}">
                 <div class="form-group">
-                    <label for="nama">Kerawanan</label>
-                    <textarea class="form-control" id="kerawanan" name="kerawanan" autocomplete="false"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="nama">Ancaman</label>
-                    <textarea class="form-control" id="ancaman" name="ancaman" autocomplete="false"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="nama">Aspek Risiko</label>
-                    <textarea class="form-control" id="aspekrisiko" name="aspekrisiko" autocomplete="false"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="nama">Uraian Dampak</label>
-                    <textarea class="form-control" id="uraiandampak" name="uraiandampak" autocomplete="false"></textarea>
+                    <label for="nama">Mitigasi Risiko</label>
+                    <textarea class="form-control" id="mitigasi" name="mitigasi" autocomplete="false"></textarea>
                 </div>
                 <div class="form-group">
                     <small id="namaHelp" class="form-text text-muted">*) harus diisi</small>
@@ -97,8 +74,8 @@
 
     <!-- Modal Edit-->
 
-    @foreach ($inherentrisiko as $datainherentrisiko)
-    <div class="modal fade" id="modalFormEdit-{{ $datainherentrisiko->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    @foreach ($mitigasirisiko as $datamitigasirisiko)
+    <div class="modal fade" id="modalFormEdit-{{ $datamitigasirisiko->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -109,25 +86,15 @@
             </button>
             </div>
             <div class="modal-body">
-            <form id="modalFormContentEdit" action="{{ route('iteminherentrisiko.update',$datainherentrisiko->id) }}" method="POST">
+            <form id="modalFormContentEdit" action="{{ route('mitigasirisiko.update',$datamitigasirisiko->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <input type="hidden" id="jenisid" name="jenisid" value="{{ $jenisid }}">
+                <input type="hidden" id="idaset" name="idaset" value="{{ $idaset }}">
+                <input type="hidden" id="idinherent" name="idinherent" value="{{ $idinherent }}">
+                <input type="hidden" id="kerawanan" name="kerawanan" value="{{ $kerawanan }}">
                 <div class="form-group">
-                    <label for="nama">Kerawanan*</label>
-                    <textarea class="form-control" id="kerawanan" name="kerawanan" autocomplete="false">{{ $datainherentrisiko->kerawanan }}</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="nama">Ancaman*</label>
-                    <textarea class="form-control" id="ancaman" name="ancaman" autocomplete="false">{{ $datainherentrisiko->ancaman }}</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="nama">Aspek Risiko*</label>
-                    <textarea class="form-control" id="aspekrisiko" name="aspekrisiko" autocomplete="false">{{ $datainherentrisiko->aspekrisiko }}</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="nama">Uraian Dampak*</label>
-                    <textarea class="form-control" id="uraiandampak" name="uraiandampak" autocomplete="false">{{ $datainherentrisiko->uraiandampak }}</textarea>
+                    <label for="nama">Mitigasi*</label>
+                    <textarea class="form-control" id="mitigasi" name="mitigasi" autocomplete="false">{{ $datamitigasirisiko->mitigasi }}</textarea>
                 </div>
                   <div class="form-group">
                     <small id="namaHelp" class="form-text text-muted">*) harus diisi</small>

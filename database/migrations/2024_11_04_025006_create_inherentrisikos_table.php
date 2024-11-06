@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('inherentrisikos', function (Blueprint $table) {
             $table->id();
             $table->string('kritikal')->nullable();
-            $table->text('kerawanan')->nullable();
-            // $table->text('kerawanan')->nullable()->unique();
+            //$table->text('kerawanan')->nullable();
+            $table->text('kerawanan')->nullable()->unique();
             $table->text('ancaman')->nullable();
             $table->text('aspekrisiko')->nullable();
             $table->text('uraiandampak')->nullable();

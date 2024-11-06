@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Inherentrisiko;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\CustomExport;
 
 class IteminherentrisikoController extends Controller
 {
@@ -22,10 +24,47 @@ class IteminherentrisikoController extends Controller
             return redirect()->back()->with('error', 'Jenis tidak ditemukan.');
         }
         $inherentrisiko = Inherentrisiko::where('jenis', $jenis)->orderBy('kerawanan', 'ASC')->get();
-        return view('iteminherentrisiko', compact('inherentrisiko', 'jenis','jenisid'));
+        return view('iteminherentrisiko', compact('inherentrisiko', 'id','jenis','jenisid'));
     }
 
+    public function csv($id){
+        if ($id == 1) { //APLIKASI
+            $inherentrisiko = Inherentrisiko::where('jenis', 'APLIKASI')
+            ->orderBy('kerawanan', 'ASC')
+            ->select('kerawanan')
+            ->get()
+            ->toArray();
+        } elseif ($id == 2) { //INFRA
+            $inherentrisiko = Inherentrisiko::where('jenis', 'INFRASTRUKTUR')
+            ->orderBy('kerawanan', 'ASC')
+            ->select('kerawanan')
+            ->get()
+            ->toArray();
+        } elseif ($id == 3) { //SDM
+            $inherentrisiko = Inherentrisiko::where('jenis', 'SDM')
+            ->orderBy('kerawanan', 'ASC')
+            ->select('kerawanan')
+            ->get()
+            ->toArray();
+        } elseif ($id == 4) { //INFRA
+            $inherentrisiko = Inherentrisiko::where('jenis', 'DATA/INFORMASI')
+            ->orderBy('kerawanan', 'DATA/INFORMASI')
+            ->select('kerawanan')
+            ->get()
+            ->toArray();
+        } else {
+            $inherentrisiko = [];
+        }
 
+        // Tambahkan nomor urut
+        foreach ($inherentrisiko as $index => $item) {
+            $inherentrisiko[$index] = array_merge(['Nomor' => $index + 1], $item);
+        }
+
+        // Tambahkan heading "Nomor" di paling kiri
+        $headings = ['Nomor', 'Jenis Kerawanan'];
+        return Excel::download(new CustomExport($inherentrisiko, $headings), 'iteminherentrisiko.csv');
+    }
 
     public function hapus($id,$jenisid){
     try {
