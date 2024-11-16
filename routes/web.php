@@ -4,6 +4,8 @@ use App\Http\Controllers\InherentrisikoController;
 use App\Http\Controllers\IteminherentrisikoController;
 use App\Http\Controllers\BackupdbController;
 use App\Http\Controllers\LayananspbeController;
+use App\Http\Controllers\AreadampakController;
+use App\Http\Controllers\KriteriakemungkinanController;
 use App\Http\Controllers\AsetkategoriController;
 use App\Http\Controllers\AsetklasifikasiController;
 use App\Http\Controllers\ProfileController;
@@ -62,6 +64,13 @@ Route::middleware('auth','html.purifier','no.cache','verified','role:admin')->gr
     Route::get('mitigasirisiko/{idinherent}/{idaset}/{kerawanan}', [MitigasirisikoController::class, 'tampil'])->name('mitigasirisiko.tampil');
     Route::post('mitigasirisiko/tambah', [MitigasirisikoController::class, 'tambah'])->name('mitigasirisiko.tambah');
     Route::put('mitigasirisiko/update/{id}', [MitigasirisikoController::class, 'update'])->name('mitigasirisiko.update');
+
+    Route::get('areadampak', [AreadampakController::class, 'tampil'])->name('areadampak.tampil');
+    Route::put('areadampak/update/{id}', [AreadampakController::class, 'update'])->name('areadampak.update');
+    Route::get('areadampak/pdf', [AreadampakController::class, 'pdf'])->name('areadampak.pdf');
+    Route::get('kriteriakemungkinan', [KriteriakemungkinanController::class, 'tampil'])->name('kriteriakemungkinan.tampil');
+    Route::put('kriteriakemungkinan/update/{id}', [KriteriakemungkinanController::class, 'update'])->name('kriteriakemungkinan.update');
+    Route::get('kriteriakemungkinan/pdf', [KriteriakemungkinanController::class, 'pdf'])->name('kriteriakemungkinan.pdf');
 
     Route::get('layananspbe', [LayananspbeController::class, 'tampil'])->name('layananspbe.tampil');
     Route::delete('layananspbe/hapus/{id}', [LayananspbeController::class, 'hapus'])->name('layananspbe.hapus');

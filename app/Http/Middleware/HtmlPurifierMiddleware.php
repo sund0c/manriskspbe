@@ -32,7 +32,7 @@ class HtmlPurifierMiddleware
         }
 
                 // Field yang bukan array
-        $fieldsToPurifySingle = ['jenis', 'url', 'ip', 'nama', 'user','opd_id','singkatan','kriteria','penjelasan','tujuan','item','urut','j1','j2','j3','j4','domain','klasifikasi','kategori','kerawanan','ancaman','aspekrisiko','uraiandampak','mitigasi','poc'];
+        $fieldsToPurifySingle = ['jenis', 'url', 'ip', 'nama', 'user','opd_id','singkatan','kriteria','penjelasan','tujuan','item','urut','j1','j2','j3','j4','domain','klasifikasi','kategori','kerawanan','ancaman','aspekrisiko','uraiandampak','mitigasi','poc','uraian','area','low','medium','high','critical','rare','unlikely','possible','medium','likely','almost'];
 
         foreach ($fieldsToPurifySingle as $field) {
             if ($request->has($field)) {
