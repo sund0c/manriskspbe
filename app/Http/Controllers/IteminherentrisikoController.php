@@ -23,7 +23,7 @@ class IteminherentrisikoController extends Controller
         if (!$jenis) {
             return redirect()->back()->with('error', 'Jenis tidak ditemukan.');
         }
-        $inherentrisiko = Inherentrisiko::where('jenis', $jenis)->orderBy('kerawanan', 'ASC')->get();
+        $inherentrisiko = Inherentrisiko::where('jenis', $jenis)->orderBy('id', 'ASC')->get();
         return view('iteminherentrisiko', compact('inherentrisiko', 'id','jenis','jenisid'));
     }
 

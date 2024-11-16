@@ -17,7 +17,7 @@
         <table id="dt" class="table table-bordered table-hover">
             <thead>
             <tr>
-                <th>PoC</th>
+                <th width="500px">Proof of Concept</th>
                 <th>Mitigasi</th>
                 <th width="100px">Aksi</th>
             </tr>
