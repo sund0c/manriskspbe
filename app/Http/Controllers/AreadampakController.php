@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\areadampak;
+use App\Models\Areadampak;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Barryvdh\DomPDF\Facade\Pdf;
