@@ -96,7 +96,7 @@ th, td {
                     @endswitch
                     {{ $dam }}<BR>
                     @php
-                    $inherenImpacts = \App\Models\InherenImpact::where('inheren', $data->inheren) 
+                    $inherenImpacts = \App\Models\Inherenimpact::where('inheren', $data->inheren) 
                     ->with('impactRelation') 
                     ->get();
                     //dd($inherenImpacts);
