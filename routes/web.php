@@ -21,6 +21,8 @@ use App\Http\Controllers\AnnexController;
 use App\Http\Controllers\OpdController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AsetController;
+use App\Http\Controllers\AsetinherenController;
+use App\Http\Controllers\AsetrController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -116,12 +118,19 @@ Route::middleware('auth','html.purifier','verified','no.cache','role:admin|persa
     Route::get('aset/pdf/{id}', [AsetController::class, 'pdf'])->name('aset.pdf');
     Route::get('aset/csv/{id}', [AsetController::class, 'csv'])->name('aset.csv');
 
-
+    Route::get('asetr', [AsetrController::class, 'tampil'])->name('asetr.tampil');
 
     Route::get('asetkategori/{id}', [AsetkategoriController::class, 'tampil'])->name('asetkategori.tampil');
     Route::get('asetkategori/edit/{id}', [AsetkategoriController::class, 'edit'])->name('asetkategori.edit');
     Route::put('asetkategori/update', [AsetkategoriController::class, 'update'])->name('asetkategori.update');
     Route::get('asetkategori/pdf/{id}', [AsetkategoriController::class, 'pdf'])->name('asetkategori.pdf');
+
+    Route::get('asetinheren/{id}', [AsetinherenController::class, 'tampil'])->name('asetinheren.tampil');
+    Route::put('asetinheren/update/{id}', [AsetinherenController::class, 'update'])->name('asetinheren.update');
+    Route::get('impact-data/{id}', [AsetinherenController::class, 'getInherenImpactData'])->name('inherenimpact.data');
+    Route::put('asetinheren/updatedampak', [AsetinherenController::class, 'updatedampak'])->name('asetinheren.updatedampak');
+    Route::get('asetinheren/pdf/{id}', [AsetinherenController::class, 'pdf'])->name('asetinheren.pdf');
+
 
     Route::get('asetklasifikasi/{id}', [AsetklasifikasiController::class, 'tampil'])->name('asetklasifikasi.tampil');
     Route::get('asetklasifikasi/edit/{id}', [AsetklasifikasiController::class, 'edit'])->name('asetklasifikasi.edit');

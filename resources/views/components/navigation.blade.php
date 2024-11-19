@@ -100,6 +100,12 @@
                 <i class="fas fa-laptop-code nav-icon"></i><p>Aset SPBE</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('asetr.tampil') }}" class="nav-link {{ \Route::is('asetr.*') ? 'active':'' }}">
+                <i class="fas fa-laptop-code nav-icon"></i><p>Risiko Aset SPBE</p>
+            </a>
+        </li>
+
     </ul>
 </nav>
 <!-- /.sidebar-menu -->
